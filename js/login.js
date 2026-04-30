@@ -1,0 +1,21 @@
+const continer = document.querySelector(".continer");
+const btnSingIn = document.getElementById("btn-sing-in"); // Este es el del panel de bienvenida
+const btnSingUp = document.getElementById("btn-sing-up");
+const btnLoginSubmit = document.getElementById("btn-login-submit"); // El nuevo ID del botón del formulario
+
+btnSingIn.addEventListener("click", () => {
+  continer.classList.remove("toogle");
+});
+
+if (btnSingUp) {
+  btnSingUp.addEventListener("click", () => {
+    continer.classList.add("toogle");
+  });
+}
+
+// Evento para redireccionar al Sidebar
+btnLoginSubmit.addEventListener("click", (e) => {
+  // Evitamos que el formulario se envíe de forma tradicional si fuera necesario
+  e.preventDefault();
+  window.location.href = "sidebar.html";
+});
