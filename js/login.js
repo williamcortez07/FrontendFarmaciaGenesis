@@ -17,5 +17,5 @@ if (btnSingUp) {
 btnLoginSubmit.addEventListener("click", (e) => {
   // Evitamos que el formulario se envíe de forma tradicional si fuera necesario
   e.preventDefault();
-  window.location.href = "sidebar.html";
+  window.location.href = "pages/components/sidebar.html";
 });

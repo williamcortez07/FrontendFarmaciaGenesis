@@ -22,6 +22,25 @@ function loadComponent(viewName) {
     .then((response) => response.text())
     .then((html) => {
       container.innerHTML = html;
+      btnSingIn.addEventListener("click", () => {
+        continer.classList.remove("toogle");
+        const continer = document.querySelector(".continer");
+        const btnSingIn = document.getElementById("btn-sing-in");
+        const btnLoginSubmit = document.getElementById("btn-login-submit");
+
+        if (btnSingIn && continer) {
+          btnSingIn.addEventListener("click", () => {
+            continer.classList.remove("toogle");
+          });
+        }
+
+        if (btnLoginSubmit) {
+          btnLoginSubmit.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.location.href = "/pages/components/sidebar.html";
+          });
+        }
+      });
     })
     .catch((err) => console.error("Error al cargar la vista:", err));
 }
