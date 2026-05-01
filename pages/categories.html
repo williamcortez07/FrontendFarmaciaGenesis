@@ -1,71 +1,107 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catálogo de Categorías</title>
-  <link rel="stylesheet" href="../css/base/globals.css" />
-  <link rel="stylesheet" href="../css/layout/categories.css" />
-  <link rel="stylesheet" href="../css/components/sidebar.css" />
-  <link rel="stylesheet" href="../css/components/footer.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo de Categorías</title>
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/layout/categories.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
+
 <body>
-  
-  <div id="sidebar-container" aria-label="Navegación principal"></div>
+    <div id="sidebar-container"></div>
 
-  <main class="main-content">
-    <header class="page-header">
-      <button class="back-btn" aria-label="Regresar">
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-      <div>
-        <h1>Catálogo de Categorías</h1>
-        <p class="page-description">Gestiona las categorías de productos de la farmacia.</p>
-      </div>
-    </header>
+    <main class="main-content">
+        <header class="page-header">
+            <button class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver a Catálogos</button>
+            <div>
+                <h1>Catálogo de Categorías</h1>
+                <p class="page-description">Gestiona las categorías de productos de la farmacia.</p>
+            </div>
+        </header>
 
-    <section class="search-section" aria-labelledby="search-categories-title">
-      <h2 id="search-categories-title" class="sr-only">Buscar categorías</h2>
-      <form class="search-form">
-        <label for="category-search" class="sr-only">Busca categoría</label>
-        <input id="category-search" type="search" placeholder="Busca categoría" class="search-input" />
-      </form>
-    </section>
+        
+        <section class="search-section">
+            <input type="text" class="search-input" placeholder="Buscar categoría...">
+        </section>
 
-    <section class="create-section" aria-labelledby="create-category-title">
-      <h2 id="create-category-title">Crear nueva categoría</h2>
-      <form class="create-form">
-        <label for="category-name">Nombre</label>
-        <input id="category-name" type="text" name="nombre" placeholder="Nombre" required />
+        -->
+        <section class="create-trigger-section">
+            <button id="showFormBtn" class="btn-create"><i class="fa-solid fa-plus"></i> Crear nueva categoría</button>
 
-        <label for="category-description">Descripción</label>
-        <input id="category-description" type="text" name="descripcion" placeholder="Descripción" required />
+           
+            <div id="categoryFormContainer" class="category-form-container hidden">
+                <h3><i class="fa-solid fa-folder-open"></i> Crear Nueva Categoría</h3>
+                <div class="form-group">
+                    <label>Nombre de Categoría</label>
+                    <input type="text" id="newCatName" placeholder="Ej: Antibióticos">
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="newCatDesc" rows="2" placeholder="Descripción de la categoría"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button id="saveCategoryBtn" class="btn-save"><i class="fa-solid fa-save"></i> Guardar
+                        Categoría</button>
+                    <button id="cancelFormBtn" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </section>
 
-        <button type="submit" class="add-btn">Agregar Categoría</button>
-      </form>
-    </section>
 
-    <section class="list-section" aria-labelledby="category-list-title">
-      <h2 id="category-list-title">Listado de categorías</h2>
-      <div class="categories-list" role="list">
-        <article class="category-card" role="listitem">
-          <div class="category-card-content">
-            <strong>AQUI IRIA EL NOMBRE DE LA CATEGORIA</strong>
-            <p>AQUI IRIA UNA DESCRIPCION DE LA CATEGIORIA</p>
-          </div>
-          <button class="delete-btn" title="Eliminar categoría" type="button">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </article>
-      </div>
-    </section>
-  </main>
+        <section class="list-section">
+            <h2>Categorías</h2>
+            <div id="categoriesList" class="categories-list">
 
- 
-  <div id="footer-container"></div>
+                <div class="category-card">
+                    <div class="category-card-content">
+                        <strong>Antibióticos</strong>
+                        <p>Medicamentos para infecciones bacterianas</p>
+                        <div class="product-count">
+                            <i class="fa-solid fa-box"></i> 15 productos
+                        </div>
+                    </div>
+                    <button class="delete-btn" title="Eliminar categoría">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+                <div class="category-card">
+                    <div class="category-card-content">
+                        <strong>Antibióticos</strong>
+                        <p>Medicamentos para infecciones bacterianas</p>
+                        <div class="product-count">
+                            <i class="fa-solid fa-box"></i> 15 productos
+                        </div>
+                    </div>
+                    <button class="delete-btn" title="Eliminar categoría">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+                <div class="category-card">
+                    <div class="category-card-content">
+                        <strong>Antibióticos</strong>
+                        <p>Medicamentos para infecciones bacterianas</p>
+                        <div class="product-count">
+                            <i class="fa-solid fa-box"></i> 15 productos
+                        </div>
+                    </div>
+                    <button class="delete-btn" title="Eliminar categoría">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <script src="../js/main.js"></script>
+    <div id="footer-container"></div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/categories.js"></script>
 </body>
+
 </html>
