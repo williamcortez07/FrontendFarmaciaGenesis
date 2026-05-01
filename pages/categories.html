@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Categorías</title>
+  <link rel="stylesheet" href="../css/base/globals.css" />
+  <link rel="stylesheet" href="../css/layout/categories.css" />
+  <link rel="stylesheet" href="../css/components/sidebar.css" />
+  <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  
+  <div id="sidebar-container" aria-label="Navegación principal"></div>
+
+  <main class="main-content">
+    <header class="page-header">
+      <button class="back-btn" aria-label="Regresar">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <div>
+        <h1>Catálogo de Categorías</h1>
+        <p class="page-description">Gestiona las categorías de productos de la farmacia.</p>
+      </div>
+    </header>
+
+    <section class="search-section" aria-labelledby="search-categories-title">
+      <h2 id="search-categories-title" class="sr-only">Buscar categorías</h2>
+      <form class="search-form">
+        <label for="category-search" class="sr-only">Busca categoría</label>
+        <input id="category-search" type="search" placeholder="Busca categoría" class="search-input" />
+      </form>
+    </section>
+
+    <section class="create-section" aria-labelledby="create-category-title">
+      <h2 id="create-category-title">Crear nueva categoría</h2>
+      <form class="create-form">
+        <label for="category-name">Nombre</label>
+        <input id="category-name" type="text" name="nombre" placeholder="Nombre" required />
+
+        <label for="category-description">Descripción</label>
+        <input id="category-description" type="text" name="descripcion" placeholder="Descripción" required />
+
+        <button type="submit" class="add-btn">Agregar Categoría</button>
+      </form>
+    </section>
+
+    <section class="list-section" aria-labelledby="category-list-title">
+      <h2 id="category-list-title">Listado de categorías</h2>
+      <div class="categories-list" role="list">
+        <article class="category-card" role="listitem">
+          <div class="category-card-content">
+            <strong>Nombre de la categoría</strong>
+            <p>Descripción de la categoría</p>
+          </div>
+          <button class="delete-btn" title="Eliminar categoría" type="button">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </article>
+      </div>
+    </section>
+  </main>
+
+ 
+  <div id="footer-container"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
