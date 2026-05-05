@@ -32,66 +32,39 @@
 
         <section class="create-trigger-section">
             <button id="showFormBtn" class="btn-create"><i class="fa-solid fa-plus"></i> Crear nueva concentración</button>
-
-           
+        
             <div id="concentrationFormContainer" class="concentration-form-container hidden">
-                <h3><i class="fa-solid fa-folder-open"></i> Crear Nueva Concentración</h3>
-                <div class="form-group">
-                    <label>Nombre de Concentración</label>
-                    <input type="text" id="newConcentrationName" placeholder="Ej: Antibióticos">
-                </div>
-                <div class="form-group">
-                    <label>Descripción</label>
-                    <textarea id="newConcentrationDesc" rows="2" placeholder="Descripción de la concentración"></textarea>
-                </div>
-                
-                <div class="form-actions">
-                    <button id="saveConcentrationBtn" class="btn-save"><i class="fa-solid fa-save"></i> Guardar
-                        Concentración</button>
-                    <button id="cancelFormBtn" class="btn-cancel">Cancelar</button>
+                <h3>Crear Nueva Concentración</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="concentrationValue" placeholder="Valor">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="concentrationUnit" placeholder="Unidad (ml, mg, etc)">
+                    </div>
+                    <div class="form-group">
+                        <select id="concentrationCategory">
+                            <option value="" disabled selected>Categoría</option>
+                            <option value="antibioticos">Antibióticos</option>
+                            <option value="analgesicos">Analgésicos</option>
+                        </select>
+                    </div>
+                    <button id="saveConcentrationBtn" class="btn-add-presentation">Guardar Concentración</button>
+                    <button id="cancelFormBtn" class="btn-cancel-text">Cancelar</button>
                 </div>
             </div>
         </section>
-
+        
+        <!-- Lista con info real de concentraciones -->
         <section class="list-section">
-            <h2>Concentraciones</h2>
+            <h2>Concentraciones Registradas</h2>
             <div id="concentrationsList" class="concentrations-list">
-
                 <div class="concentration-card">
                     <div class="concentration-card-content">
-                        <strong>Antibióticos</strong>
-                        <p>Medicamentos para infecciones bacterianas</p>
-                        <div class="product-count">
-                            <i class="fa-solid fa-box"></i> 15 productos
-                        </div>
+                        <strong>500 mg</strong>
+                        <p>Categoría: Analgésicos</p>
                     </div>
-                    <button class="delete-btn" title="Eliminar concentración">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
-                <div class="concentration-card">
-                    <div class="concentration-card-content">
-                        <strong>Antibióticos</strong>
-                        <p>Medicamentos para infecciones bacterianas</p>
-                        <div class="product-count">
-                            <i class="fa-solid fa-box"></i> 15 productos
-                        </div>
-                    </div>
-                    <button class="delete-btn" title="Eliminar concentración">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
-                <div class="concentration-card">
-                    <div class="concentration-card-content">
-                        <strong>Antibióticos</strong>
-                        <p>Medicamentos para infecciones bacterianas</p>
-                        <div class="product-count">
-                            <i class="fa-solid fa-box"></i> 15 productos
-                        </div>
-                    </div>
-                    <button class="delete-btn" title="Eliminar concentración">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
+                    <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
                 </div>
             </div>
         </section>
@@ -102,5 +75,6 @@
     <div id="footer-container"></div>
 
     <script src="../js/main.js"></script>
+    <script src="../js/concentration.js"></script>
 </body>
 </html>
