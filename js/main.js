@@ -12,8 +12,9 @@ async function loadComponent(selector, url) {
 }
 
 function initPageComponents() {
-  loadComponent('#sidebar-container', '../pages/components/sidebar.html');
-  loadComponent('#footer-container', '../pages/components/footer.html');
+  // Rutas relativas a la página actual (ej. pages/catalogs.html → pages/components/…)
+  loadComponent('#sidebar-container', 'components/sidebar.html');
+  loadComponent('#footer-container', 'components/footer.html');
 }
 
 document.addEventListener('DOMContentLoaded', initPageComponents);
