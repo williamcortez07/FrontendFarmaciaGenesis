@@ -1,0 +1,13 @@
+#footer-container .footer {
+  margin-left: 260px;
+  padding: 16px 20px;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  color: #6c757d;
+  font-size: 14px;
+  text-align: center;
+}
+
+#footer-container .footer p {
+  margin: 0;
+}
