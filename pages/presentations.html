@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo de Presentaciones</title>
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/layout/presentations.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+
+<body>
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+        <header class="page-header">
+            <button class="back-btn" type="button">
+                <i class="fa-solid fa-arrow-left"></i>
+                <a class="back-link" href="catalogs.html">Volver a Catálogos</a>
+            </button>
+            <div>
+                <h1>Catálogo de Presentaciones</h1>
+                <p class="page-description">Gestiona las presentaciones de productos de la farmacia.</p>
+            </div>
+        </header>
+
+        <section class="search-section">
+            <input type="text" class="search-input" placeholder="Buscar presentación..." />
+        </section>
+
+        <section class="create-trigger-section">
+            <div class="category-form-container">
+                <h3>Crear Nueva Presentación</h3>
+                <form class="presentation-form-row">
+                    <input type="text" id="presentationName" name="nombre" placeholder="Nombre" />
+                    <input type="text" id="presentationAbbr" name="abreviacion" placeholder="Abreviación" />
+                    <select id="presentationCategory" name="categoria">
+                        <option value="">Categoria</option>
+                        <option value="1">Medicamentos</option>
+                        <option value="2">Cuidado personal</option>
+                    </select>
+                    <button type="button" id="addPresentationBtn">Agregar Presentación</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="list-section">
+            <h2>Presentaciones</h2>
+            <div id="presentationsList" class="categories-list">
+                <div class="category-card">
+                    <div class="category-card-content">
+                        <strong>Tabletas</strong>
+                        <p>Abreviación: TAB · Categoría: Medicamentos</p>
+                    </div>
+                    <button class="delete-btn" type="button" title="Eliminar presentación">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+                <div class="category-card">
+                    <div class="category-card-content">
+                        <strong>Jarabe</strong>
+                        <p>Abreviación: JAR · Categoría: Medicamentos</p>
+                    </div>
+                    <button class="delete-btn" type="button" title="Eliminar presentación">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
