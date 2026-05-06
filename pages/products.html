@@ -141,11 +141,88 @@
 
     <div id="footer-container"></div>
 
-    <script src="../js/main.js"></script>
-</body>
+    <div id="productModal" class="product-modal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle"
+        aria-hidden="true">
+        <div class="product-modal__backdrop" data-close-modal tabindex="-1"></div>
+        <div class="product-modal__panel">
+            <button type="button" class="product-modal__close" data-close-modal aria-label="Cerrar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <p id="productModalTitle" class="product-modal__intro">
+                Por favor complete todos los campos para registrar un nuevo producto
+            </p>
+            <form id="productForm" class="product-modal__form">
+                <div class="product-form__row product-form__row--3">
+                    <div class="product-field">
+                        <label for="fieldGenericName">Nombre Genérico</label>
+                        <input type="text" id="fieldGenericName" name="nombreGenerico" autocomplete="off" />
+                    </div>
+                    <div class="product-field">
+                        <label for="fieldTradeName">Nombre Comercial</label>
+                        <input type="text" id="fieldTradeName" name="nombreComercial" autocomplete="off" />
+                    </div>
+                    <div class="product-field">
+                        <label for="fieldProvider">Proveedor</label>
+                        <select id="fieldProvider" name="proveedor">
+                            <option value="andifar" selected>Andifar</option>
+                            <option value="bayer">Bayer</option>
+                            <option value="pfizer">Pfizer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="product-form__row product-form__row--2">
+                    <div class="product-field">
+                        <label for="fieldCategory">Categoria</label>
+                        <select id="fieldCategory" name="categoria">
+                            <option value="medicamentos" selected>Medicamentos</option>
+                            <option value="cuidado">Cuidado personal</option>
+                        </select>
+                    </div>
+                    <div class="product-field">
+                        <label for="fieldPresentation">Presentación</label>
+                        <select id="fieldPresentation" name="presentacion">
+                            <option value="ampolla" selected>Ampolla</option>
+                            <option value="tableta">Tableta</option>
+                            <option value="jarabe">Jarabe</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="product-form__row product-form__row--2">
+                    <div class="product-field">
+                        <label for="fieldConcentration">Concentración</label>
+                        <div class="product-field__concentration">
+                            <input type="text" id="fieldConcentration" name="concentracionValor" placeholder="Ej: 500"
+                                autocomplete="off" />
+                            <select id="fieldConcentrationUnit" name="concentracionUnidad" aria-label="Unidad">
+                                <option value="ml" selected>ml</option>
+                                <option value="mg">mg</option>
+                                <option value="g">g</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="product-field">
+                        <label for="fieldBrand">Marca</label>
+                        <select id="fieldBrand" name="marca">
+                            <option value="bpl" selected>BPL</option>
+                            <option value="bayer">Bayer</option>
+                            <option value="mk">MK</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="product-modal__actions">
+                    <button type="button" class="product-btn-cancel" id="btnCancelProduct" data-close-modal>
+                        <i class="fa-solid fa-xmark"></i> Cancelar
+                    </button>
+                    <button type="submit" class="product-btn-save" id="btnSaveProduct">
+                        <i class="fa-solid fa-circle-check"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-</html>
-ipt>
+    <script src="../js/main.js"></script>
+    <script src="../js/products.js"></script>
 </body>
 
 </html>
