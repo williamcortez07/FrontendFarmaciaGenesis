@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo de Productos</title>
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+
+<body>
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+        <header class="products-toolbar">
+            <a href="catalogs.html" class="products-back" title="Volver a catálogos" aria-label="Volver a catálogos">
+                <i class="fa-solid fa-chevron-left"></i>
+            </a>
+            <h1 class="products-title">Catalogo de Productos</h1>
+            <div class="products-search-wrap">
+                <label class="sr-only" for="productSearch">Buscar productos</label>
+                <i class="fa-solid fa-magnifying-glass products-search-icon" aria-hidden="true"></i>
+                <input type="search" id="productSearch" class="products-search-input" placeholder="Try typing 'new'" />
+            </div>
+            <button type="button" class="products-btn-add" id="btnAddProduct">Agregar Nuevo</button>
+        </header>
+
+        <div class="products-table-card">
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre comercial</th>
+                        <th scope="col">Nombre Generico</th>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Concentracion</th>
+                        <th scope="col">Presentación</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Acetamenofen 500mg</td>
+                        <td>Acetamenofen 500mg</td>
+                        <td>bAYER</td>
+                        <td>bAYER</td>
+                        <td>aNAGESICO</td>
+                        <td>500 mg</td>
+                        <td>Tableta</td>
+                        <td>
+                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Acetamenofen 500mg</td>
+                        <td>Acetamenofen 500mg</td>
+                        <td>bAYER</td>
+                        <td>bAYER</td>
+                        <td>aNAGESICO</td>
+                        <td>500 mg</td>
+                        <td>Tableta</td>
+                        <td>
+                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Acetamenofen 500mg</td>
+                        <td>Acetamenofen 500mg</td>
+                        <td>bAYER</td>
+                        <td>bAYER</td>
+                        <td>aNAGESICO</td>
+                        <td>500 mg</td>
+                        <td>Tableta</td>
+                        <td>
+                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Acetamenofen 500mg</td>
+                        <td>Acetamenofen 500mg</td>
+                        <td>bAYER</td>
+                        <td>bAYER</td>
+                        <td>aNAGESICO</td>
+                        <td>500 mg</td>
+                        <td>Tableta</td>
+                        <td>
+                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Acetamenofen 500mg</td>
+                        <td>Acetamenofen 500mg</td>
+                        <td>bAYER</td>
+                        <td>bAYER</td>
+                        <td>aNAGESICO</td>
+                        <td>500 mg</td>
+                        <td>Tableta</td>
+                        <td>
+                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Acetamenofen 500mg</td>
+                        <td>Acetamenofen 500mg</td>
+                        <td>bAYER</td>
+                        <td>bAYER</td>
+                        <td>aNAGESICO</td>
+                        <td>500 mg</td>
+                        <td>Tableta</td>
+                        <td>
+                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
