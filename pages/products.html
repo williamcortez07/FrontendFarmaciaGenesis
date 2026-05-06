@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo de Productos</title>
     <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/layout/products.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -15,18 +16,24 @@
     <div id="sidebar-container"></div>
 
     <main class="main-content">
-        <header class="products-toolbar">
-            <a href="catalogs.html" class="products-back" title="Volver a catálogos" aria-label="Volver a catálogos">
-                <i class="fa-solid fa-chevron-left"></i>
-            </a>
-            <h1 class="products-title">Catalogo de Productos</h1>
-            <div class="products-search-wrap">
-                <label class="sr-only" for="productSearch">Buscar productos</label>
-                <i class="fa-solid fa-magnifying-glass products-search-icon" aria-hidden="true"></i>
-                <input type="search" id="productSearch" class="products-search-input" placeholder="Try typing 'new'" />
+        <header class="page-header">
+            <button class="back-btn" type="button">
+                <i class="fa-solid fa-arrow-left"></i>
+                <a class="back-link" href="catalogs.html">Volver a Catálogos</a>
+            </button>
+            <div>
+                <h1>Catálogo de Productos</h1>
+                <p class="page-description">Consulta y administra los productos de la farmacia.</p>
             </div>
-            <button type="button" class="products-btn-add" id="btnAddProduct">Agregar Nuevo</button>
         </header>
+
+        <section class="search-section products-search-row">
+            <label class="sr-only" for="productSearch">Buscar productos</label>
+            <input type="search" id="productSearch" class="search-input" placeholder="Buscar producto..." />
+            <button type="button" class="btn-create" id="btnAddProduct">
+                <i class="fa-solid fa-plus"></i> Agregar Nuevo
+            </button>
+        </section>
 
         <div class="products-table-card">
             <table class="products-table">
@@ -135,6 +142,10 @@
     <div id="footer-container"></div>
 
     <script src="../js/main.js"></script>
+</body>
+
+</html>
+ipt>
 </body>
 
 </html>
