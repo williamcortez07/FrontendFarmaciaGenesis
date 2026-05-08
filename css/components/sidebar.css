@@ -1,9 +1,14 @@
 /* sidebar.css */
 
 .sidebar-wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--bg-sidebar);
   display: flex;
   flex-direction: column;
-  height: 100%;
   color: var(--text-on-dark);
   padding: var(--space-md) 0;
 }
