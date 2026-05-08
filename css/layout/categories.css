@@ -195,3 +195,118 @@
   color: white;
 }
 
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 80px;
+    max-width: calc(100% - 80px);
+    padding: 15px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  .category-form-container {
+    padding: 20px;
+  }
+
+  .category-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-left: 0;
+    max-width: 100%;
+    padding: 14px;
+    padding-bottom: 85px;
+  }
+
+  .page-header {
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+  }
+
+  .page-header h1 {
+    font-size: 22px;
+  }
+
+  .back-btn {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .search-input {
+    max-width: 100%;
+    padding: 10px 14px;
+  }
+
+  .btn-create {
+    width: 100%;
+    padding: 10px 16px;
+  }
+
+  .category-form-container {
+    padding: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-actions button {
+    width: 100%;
+    padding: 10px 16px;
+  }
+
+  .category-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .category-card-content strong {
+    font-size: 16px;
+  }
+
+  .delete-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
