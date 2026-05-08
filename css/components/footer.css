@@ -11,3 +11,16 @@
 #footer-container .footer p {
   margin: 0;
 }
+
+@media (max-width: 768px) {
+  #footer-container .footer {
+    margin-left: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  #footer-container .footer {
+    margin-left: 0;
+    padding-bottom: 85px;
+  }
+}
