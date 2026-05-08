@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/base/globals.css" />
     <link rel="stylesheet" href="../css/layout/catalogs.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css">
     <link rel="stylesheet" href="../css/components/footer.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
@@ -15,15 +16,15 @@
 <body>
     <div id="sidebar-container"></div>
 
+    <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
+    </div>
+
     <main class="main-content">
         <header class="page-top">
             <div>
                 <h1>Configuración de Catálogos</h1>
                 <p class="subtitle">Seleccione el catálogo que desea gestionar o modificar.</p>
-            </div>
-            <div class="top-icons">
-                <button type="button" title="Perfil" aria-label="Perfil"><i class="fa-regular fa-user"></i></button>
-                <button type="button" title="Notificaciones" aria-label="Notificaciones"><i class="fa-regular fa-bell"></i></button>
             </div>
         </header>
 
@@ -42,6 +43,7 @@
     <div id="footer-container"></div>
 
     <script src="../js/main.js"></script>
+    <script src="../js/topbar.js"></script>
 </body>
 
 </html>
