@@ -107,63 +107,46 @@
   font-weight: 700;
 }
 
-
-.form-row {
-  display: flex;
-  gap: 25px; 
-  align-items: center;
-  flex-wrap: wrap;
+.form-group {
+  margin-bottom: 20px;
 }
 
-.form-group {
-  flex: 1;
-  min-width: 180px;
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid #3b82f6; 
-  border-radius: 6px;
-  font-size: 15px;
-  outline: none;
-  background-color: #fff;
-  transition: box-shadow 0.2s ease;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-family: inherit;
 }
 
-.form-group input:focus {
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+.form-actions {
+  display: flex;
+  gap: 15px;
 }
 
-
-.btn-add-presentation {
-  background-color: #0046ad; 
+.btn-save {
+  background: #28a745;
+  color: white;
   border: none;
-  padding: 12px 30px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 700;
-  height: 48px; 
-  transition: background 0.3s ease;
 }
 
-.btn-add-presentation:hover {
-  background-color: #003585;
-}
-
-.btn-cancel-text {
-  background: none;
+.btn-cancel {
+  background: #6c757d;
+  color: white;
   border: none;
-  color: #888;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
-  text-decoration: underline;
-  font-weight: 500;
-  padding: 0 10px;
-}
-
-.btn-cancel-text:hover {
-  color: #333;
 }
 
 
@@ -175,7 +158,7 @@
 
 .concentrations-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: 1fr;
   gap: 20px;
 }
 
@@ -203,11 +186,14 @@
 }
 
 .concentration-card-content p {
-  margin: 0;
-  color: #7f8c8d;
-  font-size: 0.95rem;
+  margin: 0 0 6px;
+  color: #6c757d;
 }
 
+.product-count {
+  font-size: 13px;
+  color: #28a745;
+}
 
 .delete-btn {
   background: #fff5f5;
@@ -231,4 +217,138 @@
 }
 .hidden {
   display: none;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 80px;
+    max-width: calc(100% - 80px);
+    padding: 15px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+  }
+
+  .page-header h1 {
+    font-size: 22px;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+
+  .concentration-form-container {
+    padding: 20px;
+  }
+
+  .concentrations-list {
+    grid-template-columns: 1fr;
+  }
+
+  .concentration-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-left: 0;
+    max-width: 100%;
+    padding: 14px;
+    padding-bottom: 85px;
+  }
+
+  .page-header {
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+  }
+
+  .page-header h1 {
+    font-size: 20px;
+  }
+
+  .back-btn {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .search-input {
+    max-width: 100%;
+    padding: 10px 14px;
+  }
+
+  .btn-create {
+    width: 100%;
+    padding: 10px 16px;
+  }
+
+  .concentration-form-container {
+    padding: 16px;
+  }
+
+  .concentration-form-container h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-actions button {
+    width: 100%;
+    padding: 10px 16px;
+  }
+
+  .concentrations-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .concentration-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .concentration-card-content strong {
+    font-size: 1.1rem;
+  }
+
+  .delete-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

@@ -1,75 +1,108 @@
-<!--OE MAJE will VOY A USAR EL MISMO HTML QUE EL DE CATEGORIAS-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concentraciones</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo de Concentraciones</title>
     <link rel="stylesheet" href="../css/base/globals.css" />
     <link rel="stylesheet" href="../css/layout/concentrations.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
+
 <body>
     <div id="sidebar-container"></div>
 
-    
     <main class="main-content">
-
         <header class="page-header">
-            <button class="back-btn"><i class="fa-solid fa-arrow-left"></i><a class="back-link" href="catalogs.html">Volver a Catálogos</a> </button>
+            <button class="back-btn"><i class="fa-solid fa-arrow-left"></i> <a class="back-link" href="catalogs.html">Volver a Catálogos</a></button>
             <div>
                 <h1>Catálogo de Concentraciones</h1>
-                <p class="page-description">Gestiona las concentraciones de productos 
-                    de la farmacia.</p>
+                <p class="page-description">Gestiona las concentraciones de productos de la farmacia.</p>
             </div>
         </header>
 
+        
         <section class="search-section">
             <input type="text" class="search-input" placeholder="Buscar concentración...">
         </section>
 
+        
         <section class="create-trigger-section">
             <button id="showFormBtn" class="btn-create"><i class="fa-solid fa-plus"></i> Crear nueva concentración</button>
-        
+
+           
             <div id="concentrationFormContainer" class="concentration-form-container hidden">
-                <h3>Crear Nueva Concentración</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="text" id="concentrationValue" placeholder="Valor">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="concentrationUnit" placeholder="Unidad (ml, mg, etc)">
-                    </div>
-                    <div class="form-group">
-                        <select id="concentrationCategory">
-                            <option value="" disabled selected>Categoría</option>
-                            <option value="antibioticos">Antibióticos</option>
-                            <option value="analgesicos">Analgésicos</option>
-                        </select>
-                    </div>
-                    <button id="saveConcentrationBtn" class="btn-add-presentation">Guardar Concentración</button>
-                    <button id="cancelFormBtn" class="btn-cancel-text">Cancelar</button>
+                <h3><i class="fa-solid fa-capsules"></i> Crear Nueva Concentración</h3>
+                <div class="form-group">
+                    <label>Valor</label>
+                    <input type="text" id="concentrationValue" placeholder="Ej: 500 mg">
+                </div>
+                <div class="form-group">
+                    <label>Unidad</label>
+                    <input type="text" id="concentrationUnit" placeholder="Ej: mg, ml, g">
+                </div>
+                <div class="form-group">
+                    <label>Categoría</label>
+                    <select id="concentrationCategory">
+                        <option value="" disabled selected>Selecciona una categoría</option>
+                        <option value="antibioticos">Antibióticos</option>
+                        <option value="analgesicos">Analgésicos</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button id="saveConcentrationBtn" class="btn-save"><i class="fa-solid fa-save"></i> Guardar Concentración</button>
+                    <button id="cancelFormBtn" class="btn-cancel">Cancelar</button>
                 </div>
             </div>
         </section>
-        
-        <!-- Lista con info real de concentraciones -->
+
+
         <section class="list-section">
-            <h2>Concentraciones Registradas</h2>
+            <h2>Concentraciones</h2>
             <div id="concentrationsList" class="concentrations-list">
+
                 <div class="concentration-card">
                     <div class="concentration-card-content">
                         <strong>500 mg</strong>
-                        <p>Categoría: Analgésicos</p>
+                        <p>Unidad: mg</p>
+                        <div class="product-count">
+                            <i class="fa-solid fa-box"></i> 8 productos
+                        </div>
                     </div>
-                    <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                    <button class="delete-btn" title="Eliminar concentración">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+                <div class="concentration-card">
+                    <div class="concentration-card-content">
+                        <strong>250 mg</strong>
+                        <p>Unidad: mg</p>
+                        <div class="product-count">
+                            <i class="fa-solid fa-box"></i> 5 productos
+                        </div>
+                    </div>
+                    <button class="delete-btn" title="Eliminar concentración">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+                <div class="concentration-card">
+                    <div class="concentration-card-content">
+                        <strong>100 ml</strong>
+                        <p>Unidad: ml</p>
+                        <div class="product-count">
+                            <i class="fa-solid fa-box"></i> 3 productos
+                        </div>
+                    </div>
+                    <button class="delete-btn" title="Eliminar concentración">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </div>
             </div>
         </section>
-
-
     </main>
 
     <div id="footer-container"></div>
@@ -77,4 +110,5 @@
     <script src="../js/main.js"></script>
     <script src="../js/concentration.js"></script>
 </body>
+
 </html>
