@@ -100,4 +100,64 @@
   color: #db2777;
 }
 
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 80px;
+    max-width: calc(100% - 80px);
+    padding: 15px;
+  }
+
+  .page-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .page-top h1 {
+    font-size: 24px;
+  }
+
+  .tiles {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .tile {
+    min-height: 120px;
+    padding: 15px;
+  }
+
+  .tile i {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-left: 0;
+    max-width: 100%;
+    padding: 14px;
+    padding-bottom: 85px;
+  }
+
+  .page-top h1 {
+    font-size: 22px;
+  }
+
+  .tiles {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .tile {
+    min-height: 100px;
+    padding: 12px;
+  }
+
+  .tile i {
+    font-size: 1.5rem;
+  }
+}
+
 
