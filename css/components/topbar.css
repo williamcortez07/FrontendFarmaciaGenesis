@@ -1,0 +1,120 @@
+/* topbar.css */
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  width: 100%;
+  min-height: var(--header-height);
+  padding: 0 var(--space-md);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 1 1 100%;
+  max-width: 520px;
+  min-width: 0;
+  padding: 0.65rem 0.9rem;
+  background-color: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-main);
+}
+
+.search-container input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-main);
+  font-size: 1.1rem;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--warning);
+}
+
+.topbar-divider {
+  width: 1px;
+  height: 1.5rem;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.topbar-user-mini {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.avatar-mini {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary-color);
+  color: var(--text-on-dark);
+  font-weight: 700;
+}
+
+.menu-toggle {
+  display: none; /* Oculto en Desktop */
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  padding: var(--space-xs);
+  transition: color var(--trans-fast);
+}
+
+.menu-toggle:hover {
+  color: var(--secondary-color);
+}
+
+/* Responsividad */
+@media (max-width: 992px) {
+  .menu-toggle {
+    display: block; /* Aparece en tablets y móviles */
+  }
+
+  .search-container {
+    width: 100%; /* El buscador se expande en móvil */
+    max-width: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .user-name-mini {
+    display: none; /* Ocultamos el nombre en móviles muy pequeños */
+  }
+}

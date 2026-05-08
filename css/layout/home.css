@@ -1,0 +1,139 @@
+/* home.css - El "Esqueleto" */
+
+.app-layout {
+  display: grid;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main"
+    "sidebar footer";
+  grid-template-columns: minmax(0, var(--sidebar-width)) 1fr;
+  grid-template-rows: var(--header-height) 1fr auto;
+  min-height: 100vh;
+  transition: grid-template-columns var(--trans-base);
+}
+
+.main-sidebar {
+  grid-area: sidebar;
+  background-color: var(--bg-sidebar);
+  color: var(--text-on-dark);
+  z-index: var(--z-sidebar);
+  position: sticky;
+  top: 0;
+  align-self: start;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.main-header {
+  grid-area: header;
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-main);
+  z-index: var(--z-header);
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-md);
+  min-height: var(--header-height);
+  width: 100%;
+}
+
+.main-content {
+  grid-area: main;
+  padding: var(--space-md);
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.footer {
+  grid-area: footer;
+  min-height: 50px;
+}
+
+.dashboard-wrapper {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.stats-grid,
+.action-grid {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.kpi-card,
+.action-card,
+.alerts-sidebar {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-main);
+}
+
+.alerts-sidebar {
+  min-width: 0;
+}
+
+.sidebar-placeholder,
+.header-placeholder,
+.content-placeholder,
+.footer-placeholder {
+  width: 100%;
+  min-height: 48px;
+  border-radius: var(--radius-md);
+}
+
+.content-placeholder {
+  min-height: 280px;
+}
+
+/* ==========================================================================
+   MOBILE FIRST & RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .app-layout {
+    grid-template-columns: var(--sidebar-collapsed) 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .app-layout {
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--header-height) 1fr auto;
+  }
+
+  .main-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    display: block;
+    transition: left var(--trans-base);
+  }
+
+  .app-layout.sidebar-mobile-open .main-sidebar {
+    left: 0;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (max-width: 576px) {
+  .app-layout.sidebar-mobile-open::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: calc(var(--z-sidebar) - 1);
+    backdrop-filter: blur(2px);
+  }
+}

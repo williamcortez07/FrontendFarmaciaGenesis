@@ -1,132 +1,131 @@
-/* contenedor principal  */
-.sidebar {
-  width: 260px;
-  height: 100vh;
-  background-color: #2c3e50;
-  color: #ffffff;
+/* sidebar.css */
+
+.sidebar-wrapper {
   display: flex;
   flex-direction: column;
-  position: fixed;
-  left: 0;
-  top: 0;
-  transition: all 0.3s ease;
-  z-index: 1000;
+  height: 100%;
+  color: var(--text-on-dark);
+  padding: var(--space-md) 0;
 }
 
-/* Header y el Logo */
-.sidebar-header {
-  padding: 25px 20px;
+/* Brand / Logo */
+.sidebar-brand {
   display: flex;
   align-items: center;
-  gap: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0 var(--space-md) var(--space-lg);
+  gap: var(--space-sm);
 }
 
-.logo-container {
-  background-color: white;
-  width: 42px;
-  height: 42px;
-  border-radius: 6px;
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
+  font-size: 1.2rem;
 }
 
-.logo-icon {
-  color: #2c3e50;
-  font-size: 22px;
-}
-
-.logo-text {
+.brand-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.1;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  line-height: 1.2;
 }
 
 .brand-name {
-  font-size: 13px;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  letter-spacing: 1px;
 }
 .brand-subname {
-  font-size: 17px;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
-/* navegacion a otras vistas */
-.nav-links {
+/* Lista de Navegación */
+.nav-list {
   list-style: none;
-  margin-top: 20px;
+  flex-grow: 1; /* Empuja el perfil de usuario al fondo */
 }
 
-.nav-item {
-  padding: 18px 25px;
+.nav-link {
   display: flex;
   align-items: center;
-  cursor: pointer;
-  transition: background 0.2s;
+  padding: 0.8rem var(--space-md);
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: all var(--trans-fast);
+  border-left: 4px solid transparent;
+  gap: var(--space-md);
 }
 
-.nav-item i {
-  font-size: 20px;
+.nav-link i {
+  font-size: 1.2rem;
+  width: 25px;
+  text-align: center;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-left-color: var(--secondary-color);
+}
+
+/* User Profile Section */
+.sidebar-user {
+  margin-top: auto;
+  padding: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background-color: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
   width: 35px;
-  text-align: left;
-  opacity: 0.9;
+  height: 35px;
+  background: var(--secondary-color);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 
-.nav-item .link-name {
-  font-size: 17px;
-  font-weight: 400;
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.user-role {
+  font-size: 0.75rem;
+  opacity: 0.6;
 }
 
-.nav-item:hover {
-  background-color: #3e5871;
+.logout-btn {
+  margin-left: auto;
+  color: var(--warning);
+  font-size: 1.1rem;
+  opacity: 0.7;
 }
 
-/* Responsividad */
-
-/* tablets Modo Compacto */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 80px;
-  }
-  .logo-text,
-  .link-name {
-    display: none;
-  }
-  .sidebar-header,
-  .nav-item {
-    justify-content: center;
-    padding: 20px 0;
-  }
-  .nav-item i {
-    width: auto;
-    margin: 0;
-  }
+.logout-btn:hover {
+  opacity: 1;
 }
 
-/* Móvil - Barra Inferior */
-@media (max-width: 480px) {
-  .sidebar {
-    width: 100%;
-    height: 65px;
-    top: auto;
-    bottom: 0;
-    flex-direction: row;
+@media (max-width: 576px) {
+  .main-sidebar {
+    position: fixed;
+    left: -100%; /* Oculto por defecto */
+    transition: left var(--trans-base);
+    width: 280px !important;
   }
-  .sidebar-header {
-    display: none;
-  }
-  .nav-links {
-    display: flex;
-    width: 100%;
-    margin: 0;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .nav-item {
-    padding: 0;
-    flex-direction: column;
-    justify-content: center;
+
+  .app-layout.sidebar-mobile-open .main-sidebar {
+    left: 0;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
   }
 }

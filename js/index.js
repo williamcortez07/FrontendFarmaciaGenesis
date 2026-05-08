@@ -10,13 +10,13 @@ function init() {
     loadComponent("login");
   }
 }
-
 window.addEventListener("DOMContentLoaded", init);
 function loadComponent(viewName) {
   console.log(`Cargando vista: ${viewName}`);
 
   const container = document.getElementById("main-content");
 
+  /*
   // 2. Lógica para fetch del contenido de la vista
   fetch(`./pages/components/${viewName}.html`)
     .then((response) => response.text())
@@ -37,10 +37,17 @@ function loadComponent(viewName) {
         if (btnLoginSubmit) {
           btnLoginSubmit.addEventListener("click", (e) => {
             e.preventDefault();
-            window.location.href = "/pages/components/sidebar.html";
+            window.location.href = "/pages/home.html";
           });
         }
       });
+      */
+
+  fetch(`./pages/components/${viewName}.html`)
+    .then((response) => response.text())
+    .then((html) => {
+      container.innerHTML = html;
     })
+
     .catch((err) => console.error("Error al cargar la vista:", err));
 }

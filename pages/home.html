@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FarmaDi - Dashboard</title>
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/layout/home.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
+        <div class="sidebar-placeholder skeleton-loader"></div>
+      </aside>
+
+      <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
+      </div>
+
+      <main
+        id="content-target"
+        class="main-content"
+        aria-label="Contenido principal hola "
+      >
+        <div class="dashboard-grid">
+          <!-- Sección de KPIs y Accesos Directos -->
+          <section class="main-stats">
+            <!-- Tarjetas de Resumen (KPIs) -->
+            <div class="kpi-container">
+              <div class="kpi-card">
+                <span>ventas del día:</span>
+                <strong>$ 1200</strong>
+              </div>
+              <div class="kpi-card">
+                <span>Transacciones</span>
+                <strong>50</strong>
+              </div>
+              <div class="kpi-card">
+                <span>stock Bajo:</span>
+                <strong class="text-warning">20</strong>
+              </div>
+              <div class="kpi-card">
+                <span>Próximo a Vencer:</span>
+                <strong class="text-danger">5</strong>
+              </div>
+            </div>
+
+            <div class="action-grid">
+              <div
+                class="action-card"
+                onclick="location.href='/pages/sales.html'"
+              >
+                <i class="fa-solid fa-cart-plus icon-green"></i>
+                <h3>Nueva venta</h3>
+              </div>
+              <div
+                class="action-card"
+                onclick="location.href='/pages/inventory.html'"
+              >
+                <i class="fa-solid fa-square-plus icon-blue"></i>
+                <h3>Ingresar Inventario</h3>
+              </div>
+              <div
+                class="action-card"
+                onclick="location.href='/pages/reports.html'"
+              >
+                <i class="fa-solid fa-file-lines icon-purple"></i>
+                <h3>Generar Reportes</h3>
+              </div>
+              <div
+                class="action-card"
+                onclick="location.href='/pages/users.html'"
+              >
+                <i class="fa-solid fa-user-plus icon-navy"></i>
+                <h3>Agregar Usuarios</h3>
+              </div>
+            </div>
+          </section>
+
+          <aside class="alerts-panel">
+            <div class="alerts-header">
+              <div class="status-indicators">
+                <span class="bar bar-red">1</span>
+                <span class="bar bar-orange"></span>
+                <span class="bar bar-yellow"></span>
+              </div>
+              <h2><i class="fa-regular fa-bell"></i> Alertas</h2>
+            </div>
+
+            <div class="alerts-list">
+              <div class="alert-item alert-danger">
+                <div class="indicator red"></div>
+                <div class="alert-info">
+                  <p class="prod-name">paracetamol 500mg</p>
+                  <p class="prod-desc">vence mañana: Lote #GR30000</p>
+                </div>
+              </div>
+              <div class="alert-item alert-warning">
+                <div class="indicator yellow"></div>
+                <div class="alert-info">
+                  <p class="prod-name">Alka-Seltzer</p>
+                  <p class="prod-desc">Pocas unidades: 9</p>
+                </div>
+              </div>
+              <div class="alert-item alert-warning">
+                <div class="indicator yellow"></div>
+                <div class="alert-info">
+                  <p class="prod-name">Zepol Resfríos</p>
+                  <p class="prod-desc">Pocas unidades: 5</p>
+                </div>
+              </div>
+              <div class="alert-item alert-danger">
+                <div class="indicator red"></div>
+                <div class="alert-info">
+                  <p class="prod-name">Omeprazol 20mg</p>
+                  <p class="prod-desc">vence dentro de 3 días: Lote #GI20000</p>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <div id="footer-target" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+    </div>
+
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/topbar.js" defer></script>
+    <script src="../js/footer.js" defer></script>
+  </body>
+</html>

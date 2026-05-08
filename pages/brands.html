@@ -3,94 +3,196 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestión de Marcas | Admin Panel</title>
+    <title>Gestión de Marcas</title>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+<link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-
     <link rel="stylesheet" href="/css/layout/brands.css" />
   </head>
   <body>
-    <main class="container">
-      <header class="page-header">
-        <div class="header-content">
-          <h1>Gestión de Marcas</h1>
-          <p>Administra y organiza los proveedores y marcas del sistema.</p>
-        </div>
-        <button id="btnOpenModal" class="btn btn-primary">
-          <i class="fas fa-plus"></i> Nueva Marca
-        </button>
-      </header>
 
-      <!-- Filtros y Búsqueda (Opcional pero profesional) -->
-      <section class="table-tools">
-        <div class="search-box">
-          <i class="fas fa-search"></i>
-          <input type="text" placeholder="Buscar marca..." />
-        </div>
-      </section>
 
-      <!-- Tabla de Datos -->
-      <div class="table-container">
-        <table class="styled-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Descripción</th>
-              <th>Estado</th>
-              <th class="text-center">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Ejemplo de fila cargada -->
-            <tr>
-              <td>#101</td>
-              <td><strong>Apple</strong></td>
-              <td>Dispositivos electrónicos y software.</td>
-              <td><span class="badge status-active">Activo</span></td>
-              <td class="text-center">
-                <button class="btn-icon edit" title="Editar">
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn-icon delete" title="Eliminar">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+     <div class="app-layout">
+      <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
+        <div class="sidebar-placeholder skeleton-loader"></div>
+      </aside>
+
+      <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
       </div>
 
-      <!-- Paginación -->
-      <nav class="pagination-container">
-        <div class="pagination-info">Mostrando 1 a 10 de 50 marcas</div>
-        <ul class="pagination">
-          <li>
-            <button class="page-link" disabled>
-              <i class="fas fa-chevron-left"></i>
-            </button>
-          </li>
-          <li><button class="page-link active">1</button></li>
-          <li><button class="page-link">2</button></li>
-          <li><button class="page-link">3</button></li>
-          <li>
-            <button class="page-link">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </main>
+    <div class="main-container">
+      <main class="content">
+        <header class="page-header">
+          <div class="header-title">
+            <h1>Gestión de Marcas</h1>
+          </div>
+          <button id="btnOpenModal" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nueva Marca
+          </button>
+        </header>
 
-    <!-- Modal para Registro -->
+        <div class="table-container">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#101</td>
+                <td><strong>Bayer</strong></td>
+                <td>Distintos productos Medicinales</td>
+                <td><span class="badge status-active">Activo</span></td>
+                <td class="text-center">
+                  <button class="btn-icon edit" title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#102</td>
+                <td><strong>Pfizer</strong></td>
+                <td>Productos farmacéuticos y vacunas</td>
+                <td><span class="badge status-active">Activo</span></td>
+                <td class="text-center">
+                  <button class="btn-icon edit" title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#103</td>
+                <td><strong>Johnson & Johnson</strong></td>
+                <td>Dispositivos médicos y productos de consumo</td>
+                <td><span class="badge status-active">Activo</span></td>
+                <td class="text-center">
+                  <button class="btn-icon edit" title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#104</td>
+                <td><strong>Roche</strong></td>
+                <td>Productos de diagnóstico y oncología</td>
+                <td><span class="badge status-active">Activo</span></td>
+                <td class="text-center">
+                  <button class="btn-icon edit" title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#105</td>
+                <td><strong>Novartis</strong></td>
+                <td>Medicamentos genéricos y especializados</td>
+                <td><span class="badge status-active">Activo</span></td>
+                <td class="text-center">
+                  <button class="btn-icon edit" title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#106</td>
+                <td><strong>AstraZeneca</strong></td>
+                <td>Productos biofarmacéuticos</td>
+                <td><span class="badge status-active">Activo</span></td>
+                <td class="text-center">
+                  <button class="btn-icon edit" title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#107</td>
+                <td><strong>Sanofi</strong></td>
+                <td>Vacunas y productos de salud</td>
+                <td><span class="badge status-active">Activo</span></td>
+                <td class="text-center">
+                  <button class="btn-icon edit" title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#108</td>
+                <td><strong>GlaxoSmithKline</strong></td>
+                <td>Productos de consumo y medicamentos</td>
+                <td><span class="badge status-active">Activo</span></td>
+                <td class="text-center">
+                  <button class="btn-icon edit" title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#109</td>
+                <td><strong>Abbott</strong></td>
+                <td>Dispositivos médicos y nutrición</td>
+                <td><span class="badge status-active">Activo</span></td>
+                <td class="text-center">
+                  <button class="btn-icon edit" title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>#110</td>
+                <td><strong>Merck</strong></td>
+                <td>Productos químicos y farmacéuticos</td>
+                <td><span class="badge status-inactive">Inactivo</span></td>
+                <td class="text-center">
+                  <button class="btn-icon edit" title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <nav class="pagination-container">
+          <div class="pagination-info">Mostrando 1 a 10 de 50 marcas</div>
+          <ul class="pagination">
+            <li>
+              <button class="page-link" disabled>
+                <i class="fas fa-chevron-left"></i>
+              </button>
+            </li>
+            <li><button class="page-link active">1</button></li>
+            <li><button class="page-link">2</button></li>
+            <li><button class="page-link">3</button></li>
+            <li>
+              <button class="page-link">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </main>
+        <div id="footer-target" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+    </div>
+
+    <!-- Modal -->
     <div id="brandModal" class="modal-overlay">
       <div class="modal-content">
         <header class="modal-header">
@@ -118,11 +220,7 @@
             ></textarea>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              onclick="closeModal()"
-            >
+            <button id="btnCancelModal" type="button" class="btn btn-secondary">
               Cancelar
             </button>
             <button type="submit" class="btn btn-primary">Guardar Marca</button>
@@ -131,21 +229,9 @@
       </div>
     </div>
 
-    <script>
-      // Lógica básica para el Modal
-      const modal = document.getElementById("brandModal");
-      const btnOpen = document.getElementById("btnOpenModal");
-      const btnClose = document.getElementById("btnCloseModal");
-
-      btnOpen.onclick = () => modal.classList.add("active");
-      btnClose.onclick = () => modal.classList.remove("active");
-
-      // Cerrar modal si se hace click fuera del contenido
-      window.onclick = (event) => {
-        if (event.target == modal) {
-          modal.classList.remove("active");
-        }
-      };
-    </script>
+<script src="/js/brands.js"></script>
+      <script src="../js/sidebar.js" defer></script>
+    <script src="../js/topbar.js" defer></script>
+    <script src="../js/footer.js" defer></script>
   </body>
 </html>
