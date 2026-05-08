@@ -8,31 +8,51 @@
       <span class="brand-subname">GÉNESIS</span>
     </div>
   </div>
-
-  <ul class="nav-links">
-    <li class="nav-item" onclick="loadComponent('home')">
-      <i class="fa-solid fa-house"></i>
-      <span class="link-name">Inicio</span>
-    </li>
-    <li class="nav-item" onclick="loadComponent('sales')">
-      <i class="fa-solid fa-cart-shopping"></i>
-      <span class="link-name">Ventas</span>
-    </li>
-    <li class="nav-item" onclick="loadComponent('inventory')">
-      <i class="fa-solid fa-table-cells-large"></i>
-      <span class="link-name">Inventario</span>
-    </li>
-    <li class="nav-item" onclick="loadComponent('reports')">
-      <i class="fa-solid fa-chart-column"></i>
-      <span class="link-name">Reportes</span>
-    </li>
-    <li class="nav-item" onclick="loadComponent('catalog')">
-      <i class="fa-solid fa-cubes"></i>
-      <span class="link-name">Catálogos</span>
-    </li>
-    <li class="nav-item" onclick="loadComponent('settings')">
-      <i class="fa-solid fa-gear"></i>
-      <span class="link-name">Ajustes</span>
-    </li>
-  </ul>
+  <nav class="sidebar-nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="/pages/home.html" class="nav-link active" data-view="home"
+          ><i class="fa-solid fa-house"></i
+          ><span class="link-text">Inicio</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/pages/sales.html" class="nav-link" data-view="ventas"
+          ><i class="fa-solid fa-cart-shopping"></i
+          ><span class="link-text">Ventas</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/pages/inventory.html" class="nav-link" data-view="inventario"
+          ><i class="fa-solid fa-box"></i
+          ><span class="link-text">Inventario</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/pages/reports.html" class="nav-link" data-view="reportes"
+          ><i class="fa-solid fa-file-lines"></i
+          ><span class="link-text">Reportes</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/pages/catalogs.html" class="nav-link" data-view="catalogos"
+          ><i class="fa-solid fa-list"></i
+          ><span class="link-text">Catálogos</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/pages/users.html" class="nav-link" data-view="usuarios"
+          ><i class="fa-solid fa-users"></i
+          ><span class="link-text">Usuarios</span></a
+        >
+      </li>
+    </ul>
+  </nav>
+  <div class="sidebar-user">
+    <div class="user-avatar">WC</div>
+    <div class="user-info">
+      <p class="user-name">William Cortez</p>
+      <p class="user-role">Administrador</p>
+    </div>
+  </div>
 </nav>
