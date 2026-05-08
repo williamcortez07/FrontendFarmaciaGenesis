@@ -1,6 +1,7 @@
 
 .main-content {
   margin-left: 260px;
+  margin-top: var(--header-height);
   padding: 30px;
   min-height: 100vh;
   background-color: #f8f9fa;
