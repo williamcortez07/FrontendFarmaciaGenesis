@@ -1,0 +1,231 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f3;
+}
+
+#main-content {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f4f3;
+}
+.continer {
+  width: 60%;
+  height: 60vh;
+  display: flex;
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+}
+
+.continer-form {
+  width: 100%;
+  overflow: hidden;
+}
+
+.continer-form form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s ease-in;
+}
+.continer-form h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.social-networks {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+.social-networks ion-icon {
+  border: 1px solid #c9ccbc;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+}
+.continer-form span {
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+.continer-input {
+  width: 80%;
+  height: 40px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 0 15px;
+  background-color: #eeeeee;
+}
+
+.continer-input input {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+}
+
+.continer-form a {
+  color: black;
+  font-size: 14px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+.button {
+  width: 80%;
+  height: 40px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  background-color: #2c3e50;
+  color: white;
+}
+/*Animacion de los formularios*/
+
+.sing-up {
+  transform: translateX(-100%);
+}
+
+.continer.toogle .sing-in {
+  transform: translateX(100%);
+}
+.continer.toogle .sing-up {
+  transform: translateX(0);
+}
+
+/*Welcome*/
+.continer-welcome {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(100%);
+  background-color: #2c3e50;
+  transition: transform 0.5s ease-in-out, border-radius 0.5s ease-in-out;
+  overflow: hidden;
+  border-radius: 50% 0 0 50%;
+}
+
+.continer.toogle .continer-welcome {
+  transform: translateX(0%);
+  border-radius: 0 50% 50% 0;
+  background-color: #2c3e50;
+}
+
+.continer-welcome .welcome {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+  color: white;
+  transition: transform 0.5s ease-in-out;
+}
+.welcome-sing-in {
+  transform: translateX(100%);
+}
+.continer-welcome h3 {
+  font-size: 30px;
+}
+.continer-welcome p {
+  font-size: 14px;
+  text-align: center;
+}
+.continer-welcome .button {
+  border: 2px solid white;
+  background-color: transparent;
+}
+.continer.toogle .welcome-sing-in {
+  transform: translateX(0);
+}
+.continer.toogle .welcome-sing-up {
+  transform: translateX(-100%);
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2e3e50;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .continer {
+    width: 90%;
+    height: auto;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .continer-welcome {
+    display: none !important;
+  }
+
+  .continer-form:nth-child(2) {
+    display: none;
+  }
+
+  .continer-form:nth-child(1) {
+    width: 100%;
+  }
+
+  .continer-form h2 {
+    font-size: 26px;
+  }
+
+  .continer-input {
+    width: 90%;
+  }
+
+  .button {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .continer {
+    width: 95%;
+    box-shadow: none;
+    border-radius: 10px;
+  }
+
+  .footer {
+    font-size: 13px;
+    height: 40px;
+  }
+}
