@@ -1,6 +1,11 @@
 /* sidebar.css */
 
+<<<<<<< HEAD
 .sidebar {
+=======
+.sidebar,
+.sidebar-wrapper {
+>>>>>>> a07db78 (responsividad de y mejoras de presentacio y sidebar)
   position: fixed;
   left: 0;
   top: 0;
@@ -16,10 +21,13 @@
 }
 
 .sidebar-wrapper {
+<<<<<<< HEAD
   display: flex;
   flex-direction: column;
   height: 100%;
   color: var(--text-on-dark);
+=======
+>>>>>>> a07db78 (responsividad de y mejoras de presentacio y sidebar)
   padding: var(--space-md) 0;
 }
 
@@ -154,7 +162,12 @@
 
 /* Tablets - Modo Compacto */
 @media (max-width: 768px) {
+<<<<<<< HEAD
   .sidebar {
+=======
+  .sidebar,
+  .sidebar-wrapper {
+>>>>>>> a07db78 (responsividad de y mejoras de presentacio y sidebar)
     width: 80px;
   }
 
@@ -180,7 +193,12 @@
 
 /* Móvil - Barra Inferior */
 @media (max-width: 480px) {
+<<<<<<< HEAD
   .sidebar {
+=======
+  .sidebar,
+  .sidebar-wrapper {
+>>>>>>> a07db78 (responsividad de y mejoras de presentacio y sidebar)
     position: fixed;
     width: 100%;
     height: 65px;
@@ -193,6 +211,52 @@
 
   .sidebar-header {
     display: none;
+<<<<<<< HEAD
+  }
+
+  .sidebar-nav {
+    flex-grow: 1;
+    overflow-y: visible;
+  }
+
+  .nav-list {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .nav-item {
+    flex: 1;
+  }
+
+  .nav-link {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    border-left: none;
+    border-bottom-color: var(--secondary-color);
+  }
+
+  .link-text {
+    display: block;
+    font-size: 0.7rem;
+    margin-top: 4px;
+  }
+
+  .sidebar-user {
+    display: none;
+=======
+>>>>>>> a07db78 (responsividad de y mejoras de presentacio y sidebar)
   }
 
   .sidebar-nav {
