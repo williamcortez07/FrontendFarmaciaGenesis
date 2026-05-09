@@ -32,18 +32,32 @@
         </section>
 
         <section class="create-trigger-section">
-            <div class="category-form-container">
-                <h3>Crear Nueva Presentación</h3>
-                <form class="presentation-form-row">
-                    <input type="text" id="presentationName" name="nombre" placeholder="Nombre" />
-                    <input type="text" id="presentationAbbr" name="abreviacion" placeholder="Abreviación" />
-                    <select id="presentationCategory" name="categoria">
-                        <option value="">Categoria</option>
+            <button id="showFormBtn" class="btn-create"><i class="fa-solid fa-plus"></i> Crear nueva presentación</button>
+
+           
+            <div id="presentationFormContainer" class="category-form-container hidden">
+                <h3><i class="fa-solid fa-capsules"></i> Crear Nueva Presentación</h3>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" id="presentationName" placeholder="Ej: Tabletas">
+                </div>
+                <div class="form-group">
+                    <label>Abreviación</label>
+                    <input type="text" id="presentationAbbr" placeholder="Ej: TAB">
+                </div>
+                <div class="form-group">
+                    <label>Categoría</label>
+                    <select id="presentationCategory">
+                        <option value="" disabled selected>Selecciona una categoría</option>
                         <option value="1">Medicamentos</option>
                         <option value="2">Cuidado personal</option>
                     </select>
-                    <button type="button" id="addPresentationBtn">Agregar Presentación</button>
-                </form>
+                </div>
+                
+                <div class="form-actions">
+                    <button id="savePresentationBtn" class="btn-save"><i class="fa-solid fa-save"></i> Guardar Presentación</button>
+                    <button id="cancelFormBtn" class="btn-cancel">Cancelar</button>
+                </div>
             </div>
         </section>
 
@@ -75,6 +89,7 @@
     <div id="footer-container"></div>
 
     <script src="../js/main.js"></script>
+    <script src="../js/presentations.js"></script>
 </body>
 
 </html>
