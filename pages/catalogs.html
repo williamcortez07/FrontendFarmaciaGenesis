@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>catálogos</title>
+    <title>Configuración de Catálogos</title>
     <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/layout/catalogs.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
-    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="/css/components/topbar.css">
     <link rel="stylesheet" href="../css/components/footer.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <link rel="stylesheet" href="../css/layout/catalogs.css" />
   </head>
+
   <body>
-    <div class="app-layout">
+<div class="app-layout">
       <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
         <div class="sidebar-placeholder skeleton-loader"></div>
       </aside>
@@ -23,28 +24,56 @@
       <div id="header-target" class="main-header" aria-label="Barra superior">
         <div class="header-placeholder skeleton-loader"></div>
       </div>
-      <main
-        id="content-target"
-        class="main-content"
-        aria-label="Contenido principal hola "
-      >
-        <div class="main-container">
-          <h1 class="text-princip">Hola esto es la sección de catalogos</h1>
-          <div class="nav-container">
-            <a href="/pages/brands.html" class="link-nav"
-              >Click aqui para ver marcas</a
-            >
-          </div>
+
+    <main class="main-content">
+      <header class="page-top">
+        <div>
+          <h1>Configuración de Catálogos</h1>
+          <p class="subtitle">
+            Seleccione el catálogo que desea gestionar o modificar.
+          </p>
         </div>
-      </main>
+      </header>
 
-      <div id="footer-target" aria-label="Pie de página">
-        <div class="footer-placeholder skeleton-loader"></div>
+      <div class="tiles">
+        <a href="products.html" class="tile"
+          ><i class="fa-solid fa-box-open c-blue"></i><span>Productos</span></a
+        >
+        <a href="brands.html" class="tile"
+          ><i class="fa-solid fa-tag c-blue2"></i><span>Marcas</span></a
+        >
+        <a href="suppliers.html" class="tile"
+          ><i class="fa-solid fa-truck c-green"></i><span>Proveedores</span></a
+        >
+        <a href="categories.html" class="tile"
+          ><i class="fa-solid fa-layer-group c-purple"></i
+          ><span>Categorias</span></a
+        >
+        <a href="presentations.html" class="tile"
+          ><i class="fa-solid fa-cubes c-yellow"></i
+          ><span>Presentaciones</span></a
+        >
+        <a href="paymentMethods.html" class="tile"
+          ><i class="fa-solid fa-credit-card c-navy"></i
+          ><span>Metodos de pago</span></a
+        >
+        <a href="concentrations.html" class="tile"
+          ><i class="fa-solid fa-flask c-pink"></i
+          ><span>Concentraciones</span></a
+        >
+        <a href="users.html" class="tile"
+          ><i class="fa-solid fa-user-plus c-blue"></i><span>Usuarios</span></a
+        >
       </div>
-    </div>
+    </main>
 
-    <script src="../js/sidebar.js" defer></script>
+        <div id="footer-target" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+       <script src="../js/sidebar.js" defer></script>
     <script src="../js/topbar.js" defer></script>
     <script src="../js/footer.js" defer></script>
+
+
+    <script src="../js/main.js"></script>
   </body>
 </html>

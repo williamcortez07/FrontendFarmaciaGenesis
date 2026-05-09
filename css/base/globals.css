@@ -136,7 +136,7 @@ button {
   background-color: var(--bg-body);
 }
 
-/* El Grid que diseñamos para el Dashboard */
+/* El Grid que diseñamos para el Dashboard
 .app-layout {
   display: grid;
   grid-template-areas:
@@ -145,4 +145,56 @@ button {
   grid-template-columns: var(--sidebar-width) 1fr;
   grid-template-rows: var(--header-height) 1fr;
   min-height: 100vh;
+}
+
+*/
+
+.app-layout {
+  display: grid;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main"
+    "sidebar footer";
+  grid-template-columns: minmax(0, var(--sidebar-width)) 1fr;
+  grid-template-rows: var(--header-height) 1fr auto;
+  min-height: 100vh;
+  transition: grid-template-columns var(--trans-base);
+}
+
+.main-sidebar {
+  grid-area: sidebar;
+  background-color: var(--bg-sidebar);
+  color: var(--text-on-dark);
+  z-index: var(--z-sidebar);
+  position: sticky;
+  top: 0;
+  align-self: start;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.main-header {
+  grid-area: header;
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-main);
+  z-index: var(--z-header);
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-md);
+  min-height: var(--header-height);
+  width: 100%;
+}
+
+.main-content {
+  grid-area: main;
+  padding: var(--space-md);
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.footer {
+  grid-area: footer;
+  min-height: 50px;
 }
