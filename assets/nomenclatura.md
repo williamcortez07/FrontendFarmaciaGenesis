@@ -1,0 +1,1 @@
+Las nomenclaruta en commits de Git ayudan a mantener un historial ordenado y fácil de entender
