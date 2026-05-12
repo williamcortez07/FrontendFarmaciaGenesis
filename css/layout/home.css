@@ -1,5 +1,14 @@
 /* home.css - El "Esqueleto" */
 
+:root {
+  --bg-color: #f4f7f9;
+  --navy: #243345;
+  --text-dark: #333;
+  --white: #ffffff;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+}
+
 .app-layout {
   display: grid;
   grid-template-areas:
@@ -136,4 +145,172 @@
     z-index: calc(var(--z-sidebar) - 1);
     backdrop-filter: blur(2px);
   }
+}
+
+.main-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 260px;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+}
+
+/* KPIs */
+.kpi-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.kpi-card {
+  background: var(--white);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-card span {
+  font-size: 14px;
+  color: #666;
+}
+.kpi-card strong {
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+/* Botones de Acción */
+.action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.action-card {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.action-card:hover {
+  transform: translateY(-5px);
+}
+.action-card i {
+  font-size: 60px;
+  margin-bottom: 15px;
+}
+.action-card h3 {
+  margin: 0;
+  color: var(--navy);
+}
+
+/* Colores de Iconos */
+.icon-green {
+  color: #5cb85c;
+}
+.icon-blue {
+  color: #0275d8;
+}
+.icon-purple {
+  color: #8e44ad;
+}
+.icon-navy {
+  color: #34495e;
+}
+
+/* Panel de Alertas */
+.alerts-panel {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.status-indicators {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.bar {
+  height: 12px;
+  width: 40px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 10px;
+  color: white;
+  line-height: 12px;
+}
+
+.bar-red {
+  background: #e74c3c;
+}
+.bar-orange {
+  background: #f39c12;
+}
+.bar-yellow {
+  background: #f1c40f;
+}
+
+.alert-item {
+  display: flex;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.indicator {
+  width: 10px;
+}
+.indicator.red {
+  background: #e74c3c;
+}
+.indicator.yellow {
+  background: #f1c40f;
+}
+
+.alert-danger {
+  background: #fff5f5;
+}
+.alert-warning {
+  background: #fffdf0;
+}
+
+.alert-info {
+  padding: 8px;
+}
+.prod-name {
+  font-weight: bold;
+  margin: 0;
+}
+.prod-desc {
+  margin: 2px 0 0;
+  color: #e74c3c;
+}
+
+.text-danger {
+  color: #e74c3c;
+}
+.text-warning {
+  color: #f1c40f;
 }

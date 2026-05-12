@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/topbar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/layout/suppliers.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -29,7 +30,72 @@
       <div id="header-target" class="main-header" aria-label="Barra superior">
         <div class="header-placeholder skeleton-loader"></div>
       </div>
-    <main><h1>Gestion de Proveedores</h1></main>
+    <main>
+      <div class="main-content">
+
+    <div class="header">
+      <button class="btn-back" onclick="goBack()">⬅</button>
+      <h2>PROVEEDORES</h2>
+    </div>
+
+    <button class="btn-agregar" onclick="abrirModal()">Agregar proveedor</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Proveedor</th>
+          <th>Contacto</th>
+          <th>Descripción</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaProveedores"></tbody>
+    </table>
+
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+
+      <h3>Nuevo Proveedor</h3>
+
+      <div class="form-group">
+        <label>Proveedor</label>
+        <input id="nombre">
+      </div>
+
+      <div class="form-group">
+        <label>Contacto</label>
+        <input id="contacto">
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input id="telefono">
+      </div>
+
+      <div class="form-group">
+        <label>Correo</label>
+        <input id="correo">
+      </div>
+
+      <div class="form-group">
+        <label>Ubicación</label>
+        <input id="ubicacion">
+      </div>
+
+      <div class="acciones">
+        <button onclick="guardar()">Guardar</button>
+        <button onclick="cerrarModal()">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/suppliers.js"></script>
+    </main>
 
         <div id="footer-target" aria-label="Pie de página">
         <div class="footer-placeholder skeleton-loader"></div>

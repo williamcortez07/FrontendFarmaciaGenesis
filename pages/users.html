@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/topbar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/layout/users.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -29,7 +30,128 @@
         <div class="header-placeholder skeleton-loader"></div>
       </div>
     <main>
-      <h1>Gestión de usuarios</h1>
+<div class="main-content-wrapper">
+
+
+            <section class="content-body">
+                <button class="back-btn" type="button">
+                <i class="fa-solid fa-arrow-left"></i>
+                <a class="back-link" href="catalogs.html">Volver a Catálogos</a>
+            </button>
+                <div class="title-action-bar">
+
+                    <div class="title-desc">
+                        <h2>Gestión de Usuarios</h2>
+                        <p>Administra los accesos y roles del personal de la farmacia.</p>
+                    </div>
+                    <button class="btn-primary" id="openUserModal">
+                        <ion-icon name="person-add-outline"></ion-icon>
+                        Agregar Usuario
+                    </button>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre Completo</th>
+                                <th>Correo Electrónico</th>
+                                <th>Rol de Sistema</th>
+                                <th>Teléfono</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Ángel David González Morales</strong></td>
+                                <td>angel.gonzalez@est.unan.edu.ni</td>
+                                <td><span class="badge badge-admin">Administrador</span></td>
+                                <td>+505 8888-8888</td>
+                                <td class="action-cell">
+                                    <button class="btn-edit" title="Editar"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn-delete" title="Eliminar"><i
+                                            class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Modal -->
+
+            <div class="modal-overlay" id="modalOverlay">
+                <div class="modal-box">
+                    <div class="modal-header">
+                        <h3><ion-icon name="person-add-outline"></ion-icon></i> Registrar Nuevo Usuario</h3>
+                        <span class="close-btn" id="closeModalBtn">&times;</span>
+                    </div>
+                    <form id="newUserForm">
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <label>Nombre Completo</label>
+                                <input type="text" name="userName" placeholder="Nombre y Apellido" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Correo Electrónico</label>
+                                <input type="email" name="userEmail" placeholder="correo@farmaciagenesis.com" required>
+                            </div>
+                            <div class="row-inputs">
+                                <div class="input-group">
+                                    <label>Rol</label>
+                                    <select name="userRole" required>
+                                        <option value="" disabled selected>Seleccione...</option>
+                                        <option value="Administrador">Administrador</option>
+                                        <option value="Vendedor">Vendedor</option>
+                                        <option value="Inventario">Encargado de Inventario</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>Teléfono</label>
+                                    <input type="tel" name="userPhone" placeholder="+505 0000-0000" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-cancel" id="cancelBtn">Cancelar</button>
+                            <button type="submit" class="btn-save">Guardar Registro</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="module" src=" https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js "> </script>
+        < script nomodule src=" https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js ">
+        </script>
+            <script>
+
+                const modal = document.getElementById('modalOverlay');
+                const openBtn = document.getElementById('openUserModal');
+                const closeBtn = document.getElementById('closeModalBtn');
+                const cancelBtn = document.getElementById('cancelBtn');
+
+                // Abrir modal
+                openBtn.onclick = () => modal.style.display = 'flex';
+
+                // Cerrar modal
+                const closeModal = () => modal.style.display = 'none';
+
+                closeBtn.onclick = closeModal;
+                cancelBtn.onclick = closeModal;
+
+                // Cerrar al clickear fuera
+                window.onclick = (e) => {
+                    if (e.target == modal) closeModal();
+                }
+
+                // Manejo de envío
+                document.getElementById('newUserForm').onsubmit = (e) => {
+                    e.preventDefault();
+                    alert('Usuario registrado exitosamente.');
+                    closeModal();
+                }
+            </script>
     </main>
 
         <div id="footer-target" aria-label="Pie de página">
