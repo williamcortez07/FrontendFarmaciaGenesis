@@ -1,5 +1,3 @@
-// js/router.js
-
 const appRoot = document.getElementById("app-root");
 const pageStyle = document.getElementById("page-style");
 
@@ -44,7 +42,7 @@ const state = {
   currentView: "login",
 };
 
-/**
+/*
  * 2. NAVEGADOR PRINCIPAL
  */
 async function initApp() {
@@ -56,8 +54,9 @@ async function initApp() {
 }
 
 /**
- * 3. VISTA: LOGIN
- */
+  3. VISTA: LOGIN
+
+  */
 async function loadLogin() {
   loadLoginStyles();
   appRoot.className = "auth-mode";
@@ -65,7 +64,7 @@ async function loadLogin() {
   const response = await fetch("/pages/components/login.html");
   appRoot.innerHTML = await response.text();
 
-  // Vinculamos el evento del formulario inyectado
+  /* // Vinculamos el evento del formulario inyectado
   const form = document.getElementById("login-form");
   if (form) {
     form.addEventListener("submit", (e) => {
@@ -75,6 +74,47 @@ async function loadLogin() {
       initApp(); // Recargamos la vista hacia el dashboard
     });
   }
+
+  */
+
+  const btnLogin = document.getElementById("btn-login-submit");
+
+  btnLogin.addEventListener("click", async (event) => {
+    event.preventDefault();
+    const userName = document.getElementById("login-name").value;
+    const password = document.getElementById("login-pass").value;
+    if (!userName || !password) {
+      alert("Por favor, ingresa tu usuario y contraseña.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://localhost:7204/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: userName,
+          password: password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("tokenFarmacia", data.token);
+        //William aqui le vas a poner que te rediriga al home
+        window.location.href = "/pages/home.html";
+      } else {
+        alert("Nombre de usuario o contraseña incorrectos.");
+      }
+    } catch (error) {
+      console.error("Error de conexión:", error);
+      alert(
+        "No se pudo conectar con el servidor. Revisa si la API está corriendo.",
+      );
+    }
+  });
 }
 
 /**

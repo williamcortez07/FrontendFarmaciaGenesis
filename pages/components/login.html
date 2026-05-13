@@ -2,10 +2,10 @@
   <div class="container-form">
     <form class="sign-in" id="login-form">
       <h2>Iniciar sesión</h2>
-      <span>Use su correo y contraseña</span>
+      <span>Use su usuario y contraseña</span>
       <div class="container-input">
         <i class="fa-solid fa-envelope"></i>
-        <input type="email" id="login-email" placeholder="Correo" required />
+        <input type="text" id="login-name" placeholder="name" required />
       </div>
       <div class="container-input">
         <i class="fa-solid fa-lock"></i>
@@ -16,7 +16,9 @@
           required
         />
       </div>
-      <button type="submit" class="button">Iniciar sesión</button>
+      <button type="submit" class="button" id="btn-login-submit">
+        Iniciar sesión
+      </button>
     </form>
   </div>
 

@@ -1,0 +1,70 @@
+/* ==========================================================================
+   brands.css — Gestión de Marcas
+   Depende de: globals.css → design-tokens.css → catalog-ui.css
+   ========================================================================== */
+
+/* Los estilos de .app-layout, .main-sidebar, .main-header y .main-content
+   viven en globals.css. Los botones, tabla, badge, modal y paginación
+   viven en catalog-ui.css. Aquí SÓLO los ajustes de layout de la página principal . */
+
+.presentation-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.data-table.presentations-table {
+  min-width: 520px;
+}
+
+.presentations-table .col-desc {
+  max-width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 992px) {
+  .app-layout {
+    grid-template-columns: var(--sidebar-collapsed) 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .app-layout {
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--header-height) 1fr auto;
+  }
+
+  .main-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    display: block;
+    transition: left var(--trans-base);
+  }
+
+  .app-layout.sidebar-mobile-open .main-sidebar {
+    left: 0;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .app-layout.sidebar-mobile-open::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: calc(var(--z-sidebar) - 1);
+    backdrop-filter: blur(2px);
+  }
+
+  .presentations-table .col-desc {
+    display: none;
+  }
+}

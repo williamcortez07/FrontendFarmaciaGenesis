@@ -1,241 +1,390 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Productos</title>
-     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
+    <meta
+      name="description"
+      content="Consulta y administra el catálogo completo de productos de la Farmacia Génesis."
     />
-<link rel="stylesheet" href="../css/base/globals.css" />
+    <title>Catálogo de Productos — Farmacia Génesis</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/base/design-tokens.css" />
+    <link rel="stylesheet" href="../css/components/catalog-ui.css" />
+
+    <!-- Layout y Componentes -->
+    <link rel="stylesheet" href="../css/layout/products.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/topbar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
-    <link rel="stylesheet" href="../css/layout/products.css" />
+
+    <!-- Iconografía -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
   <body>
-   <div class="app-layout">
-      <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
         <div class="sidebar-placeholder skeleton-loader"></div>
       </aside>
 
+      <!-- Topbar -->
       <div id="header-target" class="main-header" aria-label="Barra superior">
         <div class="header-placeholder skeleton-loader"></div>
       </div>
 
-    <main class="main-content">
-       <button class="back-btn" type="button">
-                <i class="fa-solid fa-arrow-left"></i>
-                <a class="back-link" href="catalogs.html">Volver a Catálogos</a>
+      <!-- Contenido principal -->
+      <main class="main-content" id="main-content">
+        <div class="products-page">
+          <!-- Botón de retroceso -->
+          <div>
+            <button
+              type="button"
+              class="back-btn"
+              id="btnBack"
+              onclick="history.back()"
+            >
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              <span class="back-link">Volver a Catálogos</span>
             </button>
-        <header class="page-header">
+          </div>
 
-            <div>
-                <h1>Catálogo de Productos</h1>
-                <p class="page-description">Consulta y administra los productos de la farmacia.</p>
+          <!-- Cabecera de página -->
+          <header class="page-header">
+            <div class="page-header__title">
+              <h1>Catálogo de Productos</h1>
+              <p>Consulta y administra los productos de la farmacia.</p>
             </div>
-        </header>
+          </header>
 
-        <section class="search-section products-search-row">
-
+          <!-- Toolbar: búsqueda + acción principal -->
+          <div class="products-search-row" role="search">
+            <input
+              type="search"
+              class="search-input"
+              id="productSearch"
+              placeholder="Buscar producto..."
+              aria-label="Buscar producto"
+              autocomplete="off"
+            />
             <button type="button" class="btn-create" id="btnAddProduct">
-                <i class="fa-solid fa-plus"></i> Agregar Nuevo
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              Agregar Nuevo
             </button>
-        </section>
+          </div>
 
-        <div class="products-table-card">
-            <table class="products-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre comercial</th>
-                        <th scope="col">Nombre Generico</th>
-                        <th scope="col">Proveedor</th>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Concentracion</th>
-                        <th scope="col">Presentación</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Acetamenofen 500mg</td>
-                        <td>Acetamenofen 500mg</td>
-                        <td>bAYER</td>
-                        <td>bAYER</td>
-                        <td>aNAGESICO</td>
-                        <td>500 mg</td>
-                        <td>Tableta</td>
-                        <td>
-                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Acetamenofen 500mg</td>
-                        <td>Acetamenofen 500mg</td>
-                        <td>bAYER</td>
-                        <td>bAYER</td>
-                        <td>aNAGESICO</td>
-                        <td>500 mg</td>
-                        <td>Tableta</td>
-                        <td>
-                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Acetamenofen 500mg</td>
-                        <td>Acetamenofen 500mg</td>
-                        <td>bAYER</td>
-                        <td>bAYER</td>
-                        <td>aNAGESICO</td>
-                        <td>500 mg</td>
-                        <td>Tableta</td>
-                        <td>
-                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Acetamenofen 500mg</td>
-                        <td>Acetamenofen 500mg</td>
-                        <td>bAYER</td>
-                        <td>bAYER</td>
-                        <td>aNAGESICO</td>
-                        <td>500 mg</td>
-                        <td>Tableta</td>
-                        <td>
-                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Acetamenofen 500mg</td>
-                        <td>Acetamenofen 500mg</td>
-                        <td>bAYER</td>
-                        <td>bAYER</td>
-                        <td>aNAGESICO</td>
-                        <td>500 mg</td>
-                        <td>Tableta</td>
-                        <td>
-                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Acetamenofen 500mg</td>
-                        <td>Acetamenofen 500mg</td>
-                        <td>bAYER</td>
-                        <td>bAYER</td>
-                        <td>aNAGESICO</td>
-                        <td>500 mg</td>
-                        <td>Tableta</td>
-                        <td>
-                            <button type="button" class="products-btn-edit" title="Editar" aria-label="Editar producto">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
+          <!-- Tabla de productos -->
+          <div
+            class="products-table-card"
+            role="region"
+            aria-label="Listado de productos"
+          >
+            <table class="products-table" aria-label="Tabla de productos">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre Comercial</th>
+                  <th scope="col">Nombre Genérico</th>
+                  <th scope="col">Proveedor</th>
+                  <th scope="col">Marca</th>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Concentración</th>
+                  <th scope="col">Presentación</th>
+                  <th scope="col" class="col-actions">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Acetaminofén 500mg</td>
+                  <td>Acetaminofén</td>
+                  <td>Bayer</td>
+                  <td>Bayer</td>
+                  <td>Analgésico</td>
+                  <td>500 mg</td>
+                  <td>Tableta</td>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="products-btn-edit"
+                      title="Editar"
+                      aria-label="Editar producto Acetaminofén 500mg"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ibuprofeno 400mg</td>
+                  <td>Ibuprofeno</td>
+                  <td>Pfizer</td>
+                  <td>Pfizer</td>
+                  <td>Antiinflamatorio</td>
+                  <td>400 mg</td>
+                  <td>Cápsula</td>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="products-btn-edit"
+                      title="Editar"
+                      aria-label="Editar producto Ibuprofeno 400mg"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Amoxicilina 500mg</td>
+                  <td>Amoxicilina</td>
+                  <td>Andifar</td>
+                  <td>MK</td>
+                  <td>Antibiótico</td>
+                  <td>500 mg</td>
+                  <td>Cápsula</td>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="products-btn-edit"
+                      title="Editar"
+                      aria-label="Editar producto Amoxicilina 500mg"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Omeprazol 20mg</td>
+                  <td>Omeprazol</td>
+                  <td>Novartis</td>
+                  <td>Novartis</td>
+                  <td>Gastroprotector</td>
+                  <td>20 mg</td>
+                  <td>Cápsula</td>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="products-btn-edit"
+                      title="Editar"
+                      aria-label="Editar producto Omeprazol 20mg"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Metformina 850mg</td>
+                  <td>Metformina</td>
+                  <td>Roche</td>
+                  <td>Roche</td>
+                  <td>Antidiabético</td>
+                  <td>850 mg</td>
+                  <td>Tableta</td>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="products-btn-edit"
+                      title="Editar"
+                      aria-label="Editar producto Metformina 850mg"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Salbutamol 100mcg</td>
+                  <td>Salbutamol</td>
+                  <td>GSK</td>
+                  <td>GSK</td>
+                  <td>Broncodilatador</td>
+                  <td>100 mcg</td>
+                  <td>Inhalador</td>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="products-btn-edit"
+                      title="Editar"
+                      aria-label="Editar producto Salbutamol 100mcg"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
             </table>
+          </div>
         </div>
-         <div id="footer-target" aria-label="Pie de página">
-        <div class="footer-placeholder skeleton-loader"></div>
-    </main>
+      </main>
 
-    <div id="productModal" class="product-modal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle"
-        aria-hidden="true">
-        <div class="product-modal__backdrop" data-close-modal tabindex="-1"></div>
-        <div class="product-modal__panel">
-            <button type="button" class="product-modal__close" data-close-modal aria-label="Cerrar">
-                <i class="fa-solid fa-xmark"></i>
+      <!-- Footer -->
+      <div id="footer-target" class="footer" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+    </div>
+    <!-- /.app-layout -->
+
+    <!-- Modal: Agregar / Editar Producto -->
+    <div
+      id="productModal"
+      class="product-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="productModalTitle"
+      aria-hidden="true"
+    >
+      <div class="product-modal__backdrop" data-close-modal tabindex="-1"></div>
+      <div class="product-modal__panel">
+        <button
+          type="button"
+          class="product-modal__close"
+          data-close-modal
+          aria-label="Cerrar modal"
+        >
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <p id="productModalTitle" class="product-modal__intro">
+          Complete todos los campos para registrar o actualizar un producto.
+        </p>
+
+        <form id="productForm" class="product-modal__form" novalidate>
+          <!-- Fila 1: Nombre Genérico, Nombre Comercial, Proveedor -->
+          <div class="product-form__row product-form__row--3">
+            <div class="product-field">
+              <label for="fieldGenericName">Nombre Genérico</label>
+              <input
+                type="text"
+                id="fieldGenericName"
+                name="nombreGenerico"
+                autocomplete="off"
+                placeholder="Ej: Ibuprofeno"
+              />
+            </div>
+            <div class="product-field">
+              <label for="fieldTradeName">Nombre Comercial</label>
+              <input
+                type="text"
+                id="fieldTradeName"
+                name="nombreComercial"
+                autocomplete="off"
+                placeholder="Ej: Advil"
+              />
+            </div>
+            <div class="product-field">
+              <label for="fieldProvider">Proveedor</label>
+              <select id="fieldProvider" name="proveedor">
+                <option value="" disabled selected>Seleccionar...</option>
+                <option value="andifar">Andifar</option>
+                <option value="bayer">Bayer</option>
+                <option value="pfizer">Pfizer</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Fila 2: Categoría, Presentación -->
+          <div class="product-form__row product-form__row--2">
+            <div class="product-field">
+              <label for="fieldCategory">Categoría</label>
+              <select id="fieldCategory" name="categoria">
+                <option value="" disabled selected>Seleccionar...</option>
+                <option value="medicamentos">Medicamentos</option>
+                <option value="cuidado">Cuidado personal</option>
+              </select>
+            </div>
+            <div class="product-field">
+              <label for="fieldPresentation">Presentación</label>
+              <select id="fieldPresentation" name="presentacion">
+                <option value="" disabled selected>Seleccionar...</option>
+                <option value="ampolla">Ampolla</option>
+                <option value="tableta">Tableta</option>
+                <option value="jarabe">Jarabe</option>
+                <option value="capsula">Cápsula</option>
+                <option value="inhalador">Inhalador</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Fila 3: Concentración, Marca -->
+          <div class="product-form__row product-form__row--2">
+            <div class="product-field">
+              <label for="fieldConcentration">Concentración</label>
+              <div class="product-field__concentration">
+                <input
+                  type="text"
+                  id="fieldConcentration"
+                  name="concentracionValor"
+                  placeholder="Ej: 500"
+                  autocomplete="off"
+                />
+                <select
+                  id="fieldConcentrationUnit"
+                  name="concentracionUnidad"
+                  aria-label="Unidad de concentración"
+                >
+                  <option value="ml">ml</option>
+                  <option value="mg" selected>mg</option>
+                  <option value="g">g</option>
+                  <option value="mcg">mcg</option>
+                </select>
+              </div>
+            </div>
+            <div class="product-field">
+              <label for="fieldBrand">Marca</label>
+              <select id="fieldBrand" name="marca">
+                <option value="" disabled selected>Seleccionar...</option>
+                <option value="bpl">BPL</option>
+                <option value="bayer">Bayer</option>
+                <option value="mk">MK</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Acciones del modal -->
+          <div class="product-modal__actions">
+            <button
+              type="button"
+              class="product-btn-cancel"
+              id="btnCancelProduct"
+              data-close-modal
+            >
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+              Cancelar
             </button>
-            <p id="productModalTitle" class="product-modal__intro">
-                Por favor complete todos los campos para registrar un nuevo producto
-            </p>
-            <form id="productForm" class="product-modal__form">
-                <div class="product-form__row product-form__row--3">
-                    <div class="product-field">
-                        <label for="fieldGenericName">Nombre Genérico</label>
-                        <input type="text" id="fieldGenericName" name="nombreGenerico" autocomplete="off" />
-                    </div>
-                    <div class="product-field">
-                        <label for="fieldTradeName">Nombre Comercial</label>
-                        <input type="text" id="fieldTradeName" name="nombreComercial" autocomplete="off" />
-                    </div>
-                    <div class="product-field">
-                        <label for="fieldProvider">Proveedor</label>
-                        <select id="fieldProvider" name="proveedor">
-                            <option value="andifar" selected>Andifar</option>
-                            <option value="bayer">Bayer</option>
-                            <option value="pfizer">Pfizer</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="product-form__row product-form__row--2">
-                    <div class="product-field">
-                        <label for="fieldCategory">Categoria</label>
-                        <select id="fieldCategory" name="categoria">
-                            <option value="medicamentos" selected>Medicamentos</option>
-                            <option value="cuidado">Cuidado personal</option>
-                        </select>
-                    </div>
-                    <div class="product-field">
-                        <label for="fieldPresentation">Presentación</label>
-                        <select id="fieldPresentation" name="presentacion">
-                            <option value="ampolla" selected>Ampolla</option>
-                            <option value="tableta">Tableta</option>
-                            <option value="jarabe">Jarabe</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="product-form__row product-form__row--2">
-                    <div class="product-field">
-                        <label for="fieldConcentration">Concentración</label>
-                        <div class="product-field__concentration">
-                            <input type="text" id="fieldConcentration" name="concentracionValor" placeholder="Ej: 500"
-                                autocomplete="off" />
-                            <select id="fieldConcentrationUnit" name="concentracionUnidad" aria-label="Unidad">
-                                <option value="ml" selected>ml</option>
-                                <option value="mg">mg</option>
-                                <option value="g">g</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="product-field">
-                        <label for="fieldBrand">Marca</label>
-                        <select id="fieldBrand" name="marca">
-                            <option value="bpl" selected>BPL</option>
-                            <option value="bayer">Bayer</option>
-                            <option value="mk">MK</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="product-modal__actions">
-                    <button type="button" class="product-btn-cancel" id="btnCancelProduct" data-close-modal>
-                        <i class="fa-solid fa-xmark"></i> Cancelar
-                    </button>
-                    <button type="submit" class="product-btn-save" id="btnSaveProduct">
-                        <i class="fa-solid fa-circle-check"></i> Guardar
-                    </button>
-                </div>
-            </form>
-        </div>
+            <button type="submit" class="product-btn-save" id="btnSaveProduct">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              Guardar Producto
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
-<script src="/js/products.js">  </script>
-      <script src="../js/sidebar.js" defer></script>
+    <script src="/js/products.js"></script>
+    <script src="../js/sidebar.js" defer></script>
     <script src="../js/topbar.js" defer></script>
     <script src="../js/footer.js" defer></script>
   </body>
