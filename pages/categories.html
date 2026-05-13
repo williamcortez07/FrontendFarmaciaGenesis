@@ -1,44 +1,414 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>categorias</title>
-      <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
+    <meta
+      name="description"
+      content="Consulta, registra y gestiona las Categorias farmacéuticas disponibles en Farmacia Génesis."
     />
-<link rel="stylesheet" href="../css/base/globals.css" />
+    <title>Gestión de Categorias — Farmacia Génesis</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/base/design-tokens.css" />
+    <link rel="stylesheet" href="../css/components/catalog-ui.css" />
+
+    <!-- Layout y Componentes -->
+    <link rel="stylesheet" href="../css/layout/categories.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/topbar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
+
+    <!-- Iconografía -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-
   </head>
   <body>
     <div class="app-layout">
-      <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
         <div class="sidebar-placeholder skeleton-loader"></div>
       </aside>
 
+      <!-- Topbar -->
       <div id="header-target" class="main-header" aria-label="Barra superior">
         <div class="header-placeholder skeleton-loader"></div>
       </div>
 
+      <!-- Contenido principal -->
+      <main class="main-content" id="main-content">
+        <div class="categories-page">
+          <!-- Botón de retroceso -->
+          <div>
+            <button
+              type="button"
+              class="btn-back"
+              onclick="history.back()"
+              id="btnBack"
+            >
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              Volver a Catálogos
+            </button>
+          </div>
 
+          <!-- Cabecera de página -->
+          <header class="page-header">
+            <div class="page-header__title">
+              <h1>Gestión de Categorias</h1>
+              <p>
+                Consulta, registra y administra las Categorias farmacéuticas.
+              </p>
+            </div>
+            <div class="page-header__actions">
+              <button id="btnOpenModal" class="btn btn-primary" type="button">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+                Nueva Categoria
+              </button>
+            </div>
+          </header>
 
+          <!-- Toolbar: búsqueda -->
+          <div class="toolbar" role="search">
+            <div class="toolbar__search">
+              <i
+                class="fa-solid fa-magnifying-glass toolbar__search-icon"
+                aria-hidden="true"
+              ></i>
+              <input
+                type="search"
+                id="categoriesSearch"
+                placeholder="Buscar Categoria..."
+                aria-label="Buscar Categoria"
+                autocomplete="off"
+              />
+            </div>
+          </div>
 
-<main>
-<h1>Gestión de categorias</h1>
+          <!-- Tabla de Categorias -->
+          <div
+            class="table-wrapper"
+            role="region"
+            aria-label="Listado de Categorias"
+          >
+            <div class="table-scroll">
+              <table
+                class="data-table categories-table"
+                aria-label="Tabla de Categorias"
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col" class="col-desc">Descripción</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col" class="col-actions">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>#101</td>
+                    <td><span class="cell-main">Analgésicos</span></td>
+                    <td class="col-desc">
+                      Medicamentos para aliviar el dolor leve a moderado y
+                      reducir fiebre
+                    </td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Analgésicos"
+                        aria-label="Editar Categoria Analgésicos"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#102</td>
+                    <td><span class="cell-main">Antibióticos</span></td>
+                    <td class="col-desc">
+                      Fármacos para tratar infecciones bacterianas bajo
+                      prescripción médica
+                    </td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Antibióticos"
+                        aria-label="Editar Categoria Antibióticos"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#103</td>
+                    <td>
+                      <span class="cell-main">Antiinflamatorios</span>
+                    </td>
+                    <td class="col-desc">
+                      Medicamentos que reducen inflamación, dolor y fiebre
+                    </td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Antiinflamatorios"
+                        aria-label="Editar Categoria Antiinflamatorios"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#104</td>
+                    <td><span class="cell-main">Antihistamínicos</span></td>
+                    <td class="col-desc">
+                      Para tratar alergias, rinitis, urticaria y picaduras de
+                      insectos
+                    </td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Antihistamínicos"
+                        aria-label="Editar Categoria Antihistamínicos"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#105</td>
+                    <td><span class="cell-main">Antidiarreicos</span></td>
+                    <td class="col-desc">
+                      Productos para controlar y tratar la diarrea aguda o
+                      crónica
+                    </td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Antidiarreicos"
+                        aria-label="Editar Categoria Antidiarreicos"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#106</td>
+                    <td><span class="cell-main">Laxantes</span></td>
+                    <td class="col-desc">
+                      Medicamentos para aliviar el estreñimiento ocasional
+                    </td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Laxantes"
+                        aria-label="Editar Categoria Laxantes"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#107</td>
+                    <td><span class="cell-main">Antiácidos</span></td>
+                    <td class="col-desc">
+                      Para neutralizar el exceso de ácido estomacal y aliviar la
+                      acidez
+                    </td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Antiácidos"
+                        aria-label="Editar Categoria Antiácidos"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#108</td>
+                    <td>
+                      <span class="cell-main">Vitaminas y Suplementos</span>
+                    </td>
+                    <td class="col-desc">
+                      Complementos vitamínicos, minerales y nutricionales
+                    </td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar VYS"
+                        aria-label="Editar Categoria Vitaminas y Suplementos"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#109</td>
+                    <td><span class="cell-main">Dermatológicos</span></td>
+                    <td class="col-desc">
+                      Cremas, pomadas y tratamientos para afecciones de la piel
+                    </td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Dermatológicos"
+                        aria-label="Editar Categoria Dermatológicos"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#110</td>
+                    <td><span class="cell-main">Salud Respiratoria</span></td>
+                    <td class="col-desc">
+                      Jarabe para la tos, expectorantes, descongestionantes
+                      nasales
+                    </td>
+                    <td><span class="badge status-inactive">Inactivo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Salud Respiratoria"
+                        aria-label="Editar Categoria Salud Respiratoria"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-</main>
+            <!-- Paginación -->
+            <nav class="pagination-bar" aria-label="Paginación de Categorias">
+              <p class="pagination-bar__info">
+                Mostrando 1 a 10 de 50 Categorias
+              </p>
+              <ul class="pagination" role="list">
+                <li>
+                  <button
+                    class="page-link"
+                    disabled
+                    aria-label="Página anterior"
+                  >
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="page-link is-active"
+                    aria-current="page"
+                    aria-label="Página 1"
+                  >
+                    1
+                  </button>
+                </li>
+                <li>
+                  <button class="page-link" aria-label="Página 2">2</button>
+                </li>
+                <li>
+                  <button class="page-link" aria-label="Página 3">3</button>
+                </li>
+                <li>
+                  <button class="page-link" aria-label="Página siguiente">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </main>
 
-    <div id="footer-target" aria-label="Pie de página">
+      <!-- Footer -->
+      <div id="footer-target" class="footer" aria-label="Pie de página">
         <div class="footer-placeholder skeleton-loader"></div>
-        <script src="../js/sidebar.js" defer></script>
+      </div>
+    </div>
+    <!-- /.app-layout -->
+
+    <!-- Modal: Registrar / Editar Categoria -->
+    <div
+      id="categoryModal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="categoryModalTitle"
+    >
+      <div class="modal">
+        <header class="modal__header">
+          <h2 class="modal__title" id="categoryModalTitle">
+            Registrar Nueva Categoria
+          </h2>
+          <button
+            id="btnCloseModal"
+            class="modal__close"
+            aria-label="Cerrar modal"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+
+        <form id="categoryForm" class="modal__body" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="categoryName"
+                >Nombre de la Categoria</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                id="categoryName"
+                name="categoryName"
+                placeholder="Ej: Higiene Personal"
+                required
+                autocomplete="off"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="categoryDesc">Descripción</label>
+              <textarea
+                class="form-control"
+                id="categoryDesc"
+                name="categoryDesc"
+                rows="3"
+                placeholder="Breve descripción de la Categoria..."
+              ></textarea>
+            </div>
+          </div>
+        </form>
+
+        <footer class="modal__footer">
+          <button id="btnCancelModal" type="button" class="btn btn-secondary">
+            Cancelar
+          </button>
+          <button type="submit" form="categoryForm" class="btn btn-success">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            Guardar Categoria
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <script src="/js/category.js"></script>
+    <script src="../js/sidebar.js" defer></script>
     <script src="../js/topbar.js" defer></script>
     <script src="../js/footer.js" defer></script>
   </body>

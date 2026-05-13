@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-<link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/base/globals.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/topbar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
@@ -18,89 +18,331 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-
   </head>
   <body>
-
-     <div class="app-layout">
-      <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
         <div class="sidebar-placeholder skeleton-loader"></div>
       </aside>
 
+      <!-- Topbar -->
       <div id="header-target" class="main-header" aria-label="Barra superior">
         <div class="header-placeholder skeleton-loader"></div>
       </div>
-    <main>
-      <div class="main-content">
 
-    <div class="header">
-      <button class="btn-back" onclick="goBack()">⬅</button>
-      <h2>PROVEEDORES</h2>
-    </div>
+      <!-- Contenido principal -->
+      <main class="main-content" id="main-content">
+        <div class="suppliers-page">
+          <!-- Botón de retroceso -->
+          <div>
+            <button
+              type="button"
+              class="back-btn"
+              id="btnBack"
+              onclick="history.back()"
+            >
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              <span class="back-link">Volver a Catálogos</span>
+            </button>
+          </div>
 
-    <button class="btn-agregar" onclick="abrirModal()">Agregar proveedor</button>
+          <!-- Cabecera de página -->
+          <header class="page-header">
+            <div class="page-header__title">
+              <h1>Catálogo de Proveedores</h1>
+              <p>Consulta y administra los proveedores de la farmacia.</p>
+            </div>
+          </header>
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Proveedor</th>
-          <th>Contacto</th>
-          <th>Descripción</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody id="tablaProveedores"></tbody>
-    </table>
+          <!-- Toolbar: búsqueda + acción principal -->
+          <div class="suppliers-search-row" role="search">
+            <input
+              type="search"
+              class="search-input"
+              id="suppliersearch"
+              placeholder="Buscar proveedor..."
+              aria-label="Buscar proveedor"
+              autocomplete="off"
+            />
+            <button type="button" class="btn-create" id="btnAddSupp">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              Agregar Nuevo
+            </button>
+          </div>
 
-  </div>
+          <!-- Tabla de Proveedores -->
+          <div
+            class="suppliers-table-card"
+            role="region"
+            aria-label="Listado de proveedores"
+          >
+            <table class="suppliers-table" aria-label="Tabla de proveedores">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre Proveedor</th>
+                  <th scope="col">RNC</th>
+                  <th scope="col">Mail</th>
+                  <th scope="col">Teléfono</th>
+                  <th scope="col">Dirección</th>
+                  <th scope="col">Activo</th>
+                  <th scope="col" class="col-actions">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Laboratorios Stein</td>
+                  <td>1234567890123</td>
+                  <td>ventas@steinlab.com.ni</td>
+                  <td>505-2278-1234</td>
+                  <td>Km 6 Carretera Norte, Managua</td>
+                  <td><span class="badge status-active">Activo</span></td>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="suppliers-btn-edit"
+                      title="Editar"
+                      aria-label="Editar proveedor Laboratorios Stein "
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Farmex Distribuidores</td>
+                  <td>2345678901234</td>
+                  <td>info@farmexni.com</td>
+                  <td>505-2265-5678</td>
+                  <td>Barrio Central, Managua</td>
+                  <td><span class="badge status-active">Activo</span></td>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="suppliers-btn-edit"
+                      title="Editar"
+                      aria-label="Editar proveedor Farmex Distribuidores"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>PharmaGlobal Nicaragua</td>
+                  <td>3456789012345</td>
+                  <td>contacto@pharmaglobal.ni</td>
+                  <td>505-2289-4567</td>
+                  <td>Reparto San Juan, Managua</td>
+                  <td><span class="badge status-active">Activo</span></td>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="suppliers-btn-edit"
+                      title="Editar"
+                      aria-label="Editar proveedor PharmaGlobal Nicaragua"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Medilab Supplies</td>
+                  <td>4567890123456</td>
+                  <td>suministros@medilab.com.ni</td>
+                  <td>505-2277-8901</td>
+                  <td>Carretera a Masaya Km 12, Managua</td>
+                  <td><span class="badge status-active">Activo</span></td>
 
-  <div id="modal" class="modal">
-    <div class="modal-content">
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="suppliers-btn-edit"
+                      title="Editar"
+                      aria-label="Editar proveedor Medilab Supplies"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Biofarma Import</td>
+                  <td>5678901234567</td>
+                  <td>biofarma@importni.com</td>
+                  <td>505-2290-2345</td>
+                  <td>Colonia Los Robles, Managua</td>
+                  <td><span class="badge status-active">Activo</span></td>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="suppliers-btn-edit"
+                      title="Editar"
+                      aria-label="Editar proveedor Biofarma Import"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>DistriFarma Centroamérica</td>
+                  <td>6789012345678</td>
+                  <td>ventas@distripharma.ni</td>
+                  <td>505-2264-7890</td>
+                  <td>Bolonia, Managua</td>
+                  <td><span class="badge status-active">Activo</span></td>
 
-      <h3>Nuevo Proveedor</h3>
+                  <td class="col-actions">
+                    <button
+                      type="button"
+                      class="suppliers-btn-edit"
+                      title="Editar"
+                      aria-label="Editar proveedor DistriFarma Centroamérica"
+                    >
+                      <i
+                        class="fa-solid fa-pen-to-square"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
 
-      <div class="form-group">
-        <label>Proveedor</label>
-        <input id="nombre">
-      </div>
-
-      <div class="form-group">
-        <label>Contacto</label>
-        <input id="contacto">
-      </div>
-
-      <div class="form-group">
-        <label>Teléfono</label>
-        <input id="telefono">
-      </div>
-
-      <div class="form-group">
-        <label>Correo</label>
-        <input id="correo">
-      </div>
-
-      <div class="form-group">
-        <label>Ubicación</label>
-        <input id="ubicacion">
-      </div>
-
-      <div class="acciones">
-        <button onclick="guardar()">Guardar</button>
-        <button onclick="cerrarModal()">Cancelar</button>
-      </div>
-
-    </div>
-  </div>
-
-  <script src="../js/suppliers.js"></script>
-    </main>
-
-        <div id="footer-target" aria-label="Pie de página">
+      <div id="footer-target" class="footer" aria-label="Pie de página">
         <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+
+      <div
+        id="supplier-Modal"
+        class="supplier-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="supplierModalTitle"
+        aria-hidden="true"
+      >
+        <div
+          class="supplier-modal__backdrop"
+          data-close-modal
+          tabindex="-1"
+        ></div>
+        <div class="supplier-modal__panel">
+          <button
+            type="button"
+            class="supplier-modal__close"
+            data-close-modal
+            aria-label="Cerrar modal"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+
+          <p id="supplierModalTitle" class="supplier-modal__intro">
+            Complete todos los campos para registrar o actualizar un proveedor.
+          </p>
+
+          <form id="supplierForm" class="supplier-modal__form" novalidate>
+            <div class="supplier-form__row supplier-form__row--3">
+              <div class="supplier-field">
+                <label for="fieldName">Nombre</label>
+                <input
+                  type="text"
+                  id="fieldName"
+                  name="nombre"
+                  autocomplete="off"
+                  placeholder="Ej: BioFarma"
+                />
+              </div>
+              <div class="supplier-field">
+                <label for="fieldRCN">RNC</label>
+                <input
+                  type="text"
+                  id="fieldrcn"
+                  name="rcn"
+                  autocomplete="off"
+                  placeholder="Ej: 90993039300"
+                />
+              </div>
+              <div class="supplier-field">
+                <label for="fieldMail">Correo</label>
+                <input
+                  type="text"
+                  id="fieldMail"
+                  name="Mail"
+                  autocomplete="off"
+                  placeholder="Ej: BioFarma@gmail.com"
+                />
+              </div>
+            </div>
+
+            <div class="supplier-form__row supplier-form__row--2">
+              <div class="supplier-field">
+                <label for="fieldPhone">Teléfono</label>
+                <input
+                  type="text"
+                  id="fieldPhone"
+                  name="Phone"
+                  autocomplete="off"
+                  placeholder="Ej: 7878-3393"
+                />
+              </div>
+              <div class="supplier-field">
+                <label for="fieldAddress">Dirección</label>
+                <input
+                  type="text"
+                  id="fieldAddress"
+                  name="Address"
+                  autocomplete="off"
+                  placeholder="Ej: Carretera a Masaya Km 12, Managua"
+                />
+              </div>
+            </div>
+
+            <!-- Acciones del modal -->
+            <div class="supplier-modal__actions">
+              <button
+                type="button"
+                class="supplier-btn-cancel"
+                id="btnCancelsupplier"
+                data-close-modal
+              >
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                class="supplier-btn-save"
+                id="btnSavesupplier"
+              >
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Guardar proveedor
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
-   <script src="../js/sidebar.js" defer></script>
-    <script src="../js/topbar.js" defer></script>
-    <script src="../js/footer.js" defer></script>
+  <script src="/js/suppliers.js" defer></script>
+  <script src="../js/sidebar.js" defer></script>
+  <script src="../js/topbar.js" defer></script>
+  <script src="../js/footer.js" defer></script>
 </html>
