@@ -1,27 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ventas</title>
-   <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-<link rel="stylesheet" href="../css/base/globals.css" />
+    <title>Ventas | Farmacia Génesis</title>
+    <link rel="stylesheet" href="../css/base/globals.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/topbar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/layout/sales.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-
   </head>
   <body>
-
-
-     <div class="app-layout">
+    <div class="app-layout">
       <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
         <div class="sidebar-placeholder skeleton-loader"></div>
       </aside>
@@ -30,23 +24,192 @@
         <div class="header-placeholder skeleton-loader"></div>
       </div>
 
+      <main class="main-content" aria-label="Panel de ventas">
+        <section class="page-top">
+          <div>
+            <h1 class="page-title"> Gestion de Ventas</h1>
+            <p class="page-description">
+              Controla las transacciones y visualiza el detalle de cada venta.
+            </p>
+          </div>
+          <button class="btn btn-primary btn-new-sale" type="button">
+            <i class="fa-solid fa-cart-plus"></i>
+            Nueva Venta
+          </button>
+        </section>
 
-<main>
+        <section class="sales-grid">
+          <article class="sales-card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Ventas</h2>
+                <p class="card-subtitle">Últimas transacciones</p>
+              </div>
+            </div>
 
+            <div class="table-wrapper">
+              <table class="sales-table">
+                <thead>
+                  <tr>
+                    <th>Usuario</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th class="text-center">Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>William Cortez</td>
+                    <td>20 abril</td>
+                    <td>$ 10</td>
+                    <td class="action-cell">
+                      <button class="btn-icon" type="button" aria-label="Ver detalles de venta">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>William Cortez</td>
+                    <td>20 abril</td>
+                    <td>$ 140</td>
+                    <td class="action-cell">
+                      <button class="btn-icon" type="button" aria-label="Ver detalles de venta">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>William Cortez</td>
+                    <td>20 abril</td>
+                    <td>$ 10</td>
+                    <td class="action-cell">
+                      <button class="btn-icon" type="button" aria-label="Ver detalles de venta">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>William Cortez</td>
+                    <td>21 abril</td>
+                    <td>$ 40</td>
+                    <td class="action-cell">
+                      <button class="btn-icon" type="button" aria-label="Ver detalles de venta">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Roberto Mendieta</td>
+                    <td>21 abril</td>
+                    <td>$ 50</td>
+                    <td class="action-cell">
+                      <button class="btn-icon" type="button" aria-label="Ver detalles de venta">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Roberto Mendieta</td>
+                    <td>21 abril</td>
+                    <td>$ 52</td>
+                    <td class="action-cell">
+                      <button class="btn-icon" type="button" aria-label="Ver detalles de venta">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Roberto Mendieta</td>
+                    <td>21 abril</td>
+                    <td>$ 53</td>
+                    <td class="action-cell">
+                      <button class="btn-icon" type="button" aria-label="Ver detalles de venta">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Roberto Mendieta</td>
+                    <td>21 abril</td>
+                    <td>$ 55</td>
+                    <td class="action-cell">
+                      <button class="btn-icon" type="button" aria-label="Ver detalles de venta">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
 
-<h1 class="text">Gestion de ventas</h1>
+          <article class="details-card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Detalles venta</h2>
+                <p class="card-subtitle">Default 1</p>
+              </div>
+            </div>
 
-</main>
+            <div class="table-wrapper">
+              <table class="details-table">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>P.Unitario</th>
+                    <th>Cantidad</th>
+                    <th>SubTotal</th>
+                    <th>M.Pago</th>
+                    <th>Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Acetaminofén</td>
+                    <td>$ 10</td>
+                    <td>1</td>
+                    <td>$ 10</td>
+                    <td>Efectivo</td>
+                    <td>20-04-2026 23:21:10</td>
+                  </tr>
+                  <tr>
+                    <td>Dextrometorfano</td>
+                    <td>$ 40</td>
+                    <td>2</td>
+                    <td>$ 80</td>
+                    <td>Efectivo</td>
+                    <td>20-04-2026 23:21:10</td>
+                  </tr>
+                  <tr>
+                    <td>Levodropropizina</td>
+                    <td>$ 30</td>
+                    <td>1</td>
+                    <td>$ 30</td>
+                    <td>Efectivo</td>
+                    <td>20-04-2026 23:21:10</td>
+                  </tr>
+                  <tr>
+                    <td>Cloperastina</td>
+                    <td>$ 10</td>
+                    <td>1</td>
+                    <td>$ 10</td>
+                    <td>Efectivo</td>
+                    <td>20-04-2026 23:21:10</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      </main>
 
-
-    <div id="footer-target" aria-label="Pie de página">
+      <div id="footer-target" aria-label="Pie de página">
         <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+    </div>
 
-      <script src="../js/sidebar.js" defer></script>
+    <script src="../js/sidebar.js" defer></script>
     <script src="../js/topbar.js" defer></script>
     <script src="../js/footer.js" defer></script>
-
-
-
   </body>
 </html>
