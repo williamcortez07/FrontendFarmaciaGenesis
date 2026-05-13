@@ -1,291 +1,70 @@
-/* Variables de Paleta: Azul fuerte, Blanco y Gris */
-:root {
-  --primary-blue: #003366;
-  --bg-color: #f4f7f6;
-  --white: #ffffff;
-  --gray-light: #dcdde1;
-  --text-dark: #2f3640;
-  --text-muted: #7f8c8d;
-  --success: #27ae60;
-  --danger: #c0392b;
-}
+/* ==========================================================================
+   users.css — Gestión de Marcas
+   Depende de: globals.css → design-tokens.css → catalog-ui.css
+   ========================================================================== */
 
-.main-content-wrapper {
-  flex: 1;
-  background-color: var(--bg-color);
+/* Los estilos de .app-layout, .main-sidebar, .main-header y .main-content
+   viven en globals.css. Los botones, tabla, badge, modal y paginación
+   viven en catalog-ui.css. Aquí SÓLO los ajustes de layout de la página principal . */
+
+.users-page {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  font-family: "Segoe UI", Tahoma, sans-serif;
+  gap: var(--space-5);
 }
 
-/* --- Header --- */
-.main-header {
-  background: var(--white);
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+.data-table.users-table {
+  min-width: 520px;
 }
 
-.search-box {
-  position: relative;
-  width: 50%;
+.users-table .col-desc {
+  max-width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.search-box input {
-  width: 100%;
-  padding: 10px 45px;
-  border-radius: 25px;
-  border: 1px solid var(--gray-light);
-  background: #f9f9f9;
-  outline: none;
-}
-
-.search-box i {
-  position: absolute;
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-muted);
-}
-
-.top-nav-icons {
-  display: flex;
-  gap: 25px;
-  font-size: 1.4rem;
-  color: var(--primary-blue);
-}
-
-/* --- Cuerpo --- */
-.content-body {
-  padding: 35px 40px;
-}
-
-.title-action-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.title-desc h2 {
-  color: var(--primary-blue);
-  font-size: 1.8rem;
-}
-
-.title-desc p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-}
-
-.btn-primary {
-  background: var(--primary-blue);
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: 0.3s;
-}
-
-.btn-primary ionic-icon {
-  font-size: 1.2rem;
-  color: white;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: scale(1.02);
-}
-
-.back-btn {
-  background: #2c3e50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 16px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.back-btn:hover {
-  background: #34495e;
-}
-
-.back-link {
-  text-decoration: none;
-  color: white;
-}
-
-/* --- Tabla --- */
-.data-table-container {
-  background: var(--white);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-
-.user-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.user-table th {
-  text-align: left;
-  padding: 15px;
-  border-bottom: 2px solid var(--bg-color);
-  color: var(--text-muted);
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-}
-
-.user-table td {
-  padding: 18px 15px;
-  border-bottom: 1px solid var(--bg-color);
-  font-size: 0.95rem;
-  color: var(--text-dark);
-}
-
-.badge {
-  padding: 5px 12px;
-  border-radius: 15px;
-  font-size: 0.75rem;
-  font-weight: bold;
-}
-
-.badge-admin {
-  background: #e3f2fd;
-  color: #1976d2;
-}
-
-.action-cell {
-  display: flex;
-  gap: 10px;
-}
-
-.action-cell button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-}
-
-.btn-edit {
-  color: var(--primary-blue);
-}
-
-.btn-delete {
-  color: var(--danger);
-}
-
-/* --- Modal --- */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 51, 102, 0.4);
-  display: none;
-  /* Controlado por JS */
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
-
-.modal-box {
-  background: var(--white);
-  width: 500px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-30px);
-    opacity: 0;
+@media (max-width: 992px) {
+  .app-layout {
+    grid-template-columns: var(--sidebar-collapsed) 1fr;
   }
 }
 
-.modal-header {
-  background: var(--primary-blue);
-  color: white;
-  padding: 20px 25px;
-  border-radius: 15px 15px 0 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+@media (max-width: 576px) {
+  .app-layout {
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--header-height) 1fr auto;
+  }
 
-.close-btn {
-  font-size: 1.8rem;
-  cursor: pointer;
-}
+  .main-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    display: block;
+    transition: left var(--trans-base);
+  }
 
-.modal-body {
-  padding: 25px;
-}
+  .app-layout.sidebar-mobile-open .main-sidebar {
+    left: 0;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
+  }
 
-.input-group {
-  margin-bottom: 20px;
-}
+  .app-layout.sidebar-mobile-open::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: calc(var(--z-sidebar) - 1);
+    backdrop-filter: blur(2px);
+  }
 
-.input-group label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: var(--text-dark);
-}
-
-.input-group input,
-.input-group select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid var(--gray-light);
-  border-radius: 6px;
-  outline: none;
-}
-
-.row-inputs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.modal-footer {
-  padding: 20px 25px;
-  background: #f8f9fa;
-  border-radius: 0 0 15px 15px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-}
-
-.btn-cancel {
-  background: #95a5a6;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.btn-save {
-  background: var(--success);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
+  .users-table .col-desc {
+    display: none;
+  }
 }

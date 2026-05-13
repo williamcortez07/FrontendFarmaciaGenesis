@@ -1,164 +1,435 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Usuarios</title>
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
+    <meta
+      name="description"
+      content="Consulta, registra y gestiona las Usuarios farmacéuticas disponibles en Farmacia Génesis."
     />
-<link rel="stylesheet" href="../css/base/globals.css" />
+    <title>Gestión de Usuarios — Farmacia Génesis</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/base/design-tokens.css" />
+    <link rel="stylesheet" href="../css/components/catalog-ui.css" />
+
+    <!-- Layout y Componentes -->
+    <link rel="stylesheet" href="../css/layout/users.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/topbar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
-    <link rel="stylesheet" href="../css/layout/users.css" />
+
+    <!-- Iconografía -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
   </head>
   <body>
-
-      <div class="app-layout">
-      <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
         <div class="sidebar-placeholder skeleton-loader"></div>
       </aside>
 
+      <!-- Topbar -->
       <div id="header-target" class="main-header" aria-label="Barra superior">
         <div class="header-placeholder skeleton-loader"></div>
       </div>
-    <main>
-<div class="main-content-wrapper">
 
-
-            <section class="content-body">
-                <button class="back-btn" type="button">
-                <i class="fa-solid fa-arrow-left"></i>
-                <a class="back-link" href="catalogs.html">Volver a Catálogos</a>
+      <!-- Contenido principal -->
+      <main class="main-content" id="main-content">
+        <div class="users-page">
+          <!-- Botón de retroceso -->
+          <div>
+            <button
+              type="button"
+              class="btn-back"
+              onclick="history.back()"
+              id="btnBack"
+            >
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              Volver a Catálogos
             </button>
-                <div class="title-action-bar">
+          </div>
 
-                    <div class="title-desc">
-                        <h2>Gestión de Usuarios</h2>
-                        <p>Administra los accesos y roles del personal de la farmacia.</p>
-                    </div>
-                    <button class="btn-primary" id="openUserModal">
-                        <ion-icon name="person-add-outline"></ion-icon>
-                        Agregar Usuario
-                    </button>
-                </div>
-
-                <div class="data-table-container">
-                    <table class="user-table">
-                        <thead>
-                            <tr>
-                                <th>Nombre Completo</th>
-                                <th>Correo Electrónico</th>
-                                <th>Rol de Sistema</th>
-                                <th>Teléfono</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Ángel David González Morales</strong></td>
-                                <td>angel.gonzalez@est.unan.edu.ni</td>
-                                <td><span class="badge badge-admin">Administrador</span></td>
-                                <td>+505 8888-8888</td>
-                                <td class="action-cell">
-                                    <button class="btn-edit" title="Editar"><i class="fa-solid fa-pen"></i></button>
-                                    <button class="btn-delete" title="Eliminar"><i
-                                            class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Modal -->
-
-            <div class="modal-overlay" id="modalOverlay">
-                <div class="modal-box">
-                    <div class="modal-header">
-                        <h3><ion-icon name="person-add-outline"></ion-icon></i> Registrar Nuevo Usuario</h3>
-                        <span class="close-btn" id="closeModalBtn">&times;</span>
-                    </div>
-                    <form id="newUserForm">
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <label>Nombre Completo</label>
-                                <input type="text" name="userName" placeholder="Nombre y Apellido" required>
-                            </div>
-                            <div class="input-group">
-                                <label>Correo Electrónico</label>
-                                <input type="email" name="userEmail" placeholder="correo@farmaciagenesis.com" required>
-                            </div>
-                            <div class="row-inputs">
-                                <div class="input-group">
-                                    <label>Rol</label>
-                                    <select name="userRole" required>
-                                        <option value="" disabled selected>Seleccione...</option>
-                                        <option value="Administrador">Administrador</option>
-                                        <option value="Vendedor">Vendedor</option>
-                                        <option value="Inventario">Encargado de Inventario</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Teléfono</label>
-                                    <input type="tel" name="userPhone" placeholder="+505 0000-0000" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn-cancel" id="cancelBtn">Cancelar</button>
-                            <button type="submit" class="btn-save">Guardar Registro</button>
-                        </div>
-                    </form>
-                </div>
+          <!-- Cabecera de página -->
+          <header class="page-header">
+            <div class="page-header__title">
+              <h1>Gestión de Usuarios</h1>
+              <p>Consulta, registra y administra las Usuarios farmacéuticas.</p>
             </div>
+            <div class="page-header__actions">
+              <button id="btnOpenModal" class="btn btn-primary" type="button">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+                Nueva Usuario
+              </button>
+            </div>
+          </header>
+
+          <!-- Toolbar: búsqueda -->
+          <div class="toolbar" role="search">
+            <div class="toolbar__search">
+              <i
+                class="fa-solid fa-magnifying-glass toolbar__search-icon"
+                aria-hidden="true"
+              ></i>
+              <input
+                type="search"
+                id="userSearch"
+                placeholder="Buscar Usuario..."
+                aria-label="Buscar Usuario"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <!-- Tabla de Usuarios -->
+          <div
+            class="table-wrapper"
+            role="region"
+            aria-label="Listado de Usuarios"
+          >
+            <div class="table-scroll">
+              <table
+                class="data-table users-table"
+                aria-label="Tabla de Usuarios"
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">correo</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col" class="col-actions">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>#101</td>
+                    <td><span class="cell-main">William</span></td>
+                    <td><span class="cell-main">Cortez</span></td>
+                    <td><span class="cell-main">William@gmail.com</span></td>
+                    <td><span class="cell-main">84532072</span></td>
+                    <td><span class="cell-main">Caja</span></td>
+
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Bayer"
+                        aria-label="Editar Usuario Bayer"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#102</td>
+                    <td><span class="cell-main">Roberto</span></td>
+                    <td><span class="cell-main">Mendieta</span></td>
+                    <td><span class="cell-main">Mendieta@gmail.com</span></td>
+                    <td><span class="cell-main">88789823</span></td>
+                    <td><span class="cell-main">Caja</span></td>
+
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Bayer"
+                        aria-label="Editar Usuario Bayer"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#103</td>
+                    <td><span class="cell-main">Angel</span></td>
+                    <td><span class="cell-main">Gonzales</span></td>
+                    <td><span class="cell-main">Gonzales@gmail.com</span></td>
+                    <td><span class="cell-main">989832072</span></td>
+                    <td><span class="cell-main">Vendedor</span></td>
+
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Bayer"
+                        aria-label="Editar Usuario Bayer"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#103</td>
+                    <td><span class="cell-main">Diego</span></td>
+                    <td><span class="cell-main">Baltodano</span></td>
+                    <td><span class="cell-main">DBaltodano@gmail.com</span></td>
+                    <td><span class="cell-main">24232072</span></td>
+                    <td><span class="cell-main">Admin</span></td>
+
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Bayer"
+                        aria-label="Editar Usuario Bayer"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#103</td>
+                    <td><span class="cell-main">Diego</span></td>
+                    <td><span class="cell-main">Baltodano</span></td>
+                    <td><span class="cell-main">DBaltodano@gmail.com</span></td>
+                    <td><span class="cell-main">24232072</span></td>
+                    <td><span class="cell-main">Admin</span></td>
+
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Bayer"
+                        aria-label="Editar Usuario Bayer"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>#103</td>
+                    <td><span class="cell-main">Diego</span></td>
+                    <td><span class="cell-main">Baltodano</span></td>
+                    <td><span class="cell-main">DBaltodano@gmail.com</span></td>
+                    <td><span class="cell-main">24232072</span></td>
+                    <td><span class="cell-main">Admin</span></td>
+
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Bayer"
+                        aria-label="Editar Usuario Bayer"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#103</td>
+                    <td><span class="cell-main">Diego</span></td>
+                    <td><span class="cell-main">Baltodano</span></td>
+                    <td><span class="cell-main">DBaltodano@gmail.com</span></td>
+                    <td><span class="cell-main">24232072</span></td>
+                    <td><span class="cell-main">Admin</span></td>
+
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Bayer"
+                        aria-label="Editar Usuario Bayer"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#103</td>
+                    <td><span class="cell-main">Isaac</span></td>
+                    <td><span class="cell-main">Jimenes</span></td>
+                    <td><span class="cell-main">Jimenes@gmail.com</span></td>
+                    <td><span class="cell-main">24232789</span></td>
+                    <td><span class="cell-main">Caja</span></td>
+
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar Bayer"
+                        aria-label="Editar Usuario Bayer"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Paginación -->
+            <nav class="pagination-bar" aria-label="Paginación de Usuarios">
+              <p class="pagination-bar__info">
+                Mostrando 1 a 10 de 50 Usuarios
+              </p>
+              <ul class="pagination" role="list">
+                <li>
+                  <button
+                    class="page-link"
+                    disabled
+                    aria-label="Página anterior"
+                  >
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="page-link is-active"
+                    aria-current="page"
+                    aria-label="Página 1"
+                  >
+                    1
+                  </button>
+                </li>
+                <li>
+                  <button class="page-link" aria-label="Página 2">2</button>
+                </li>
+                <li>
+                  <button class="page-link" aria-label="Página 3">3</button>
+                </li>
+                <li>
+                  <button class="page-link" aria-label="Página siguiente">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
+      </main>
 
-
-        <script type="module" src=" https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js "> </script>
-        < script nomodule src=" https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js ">
-        </script>
-            <script>
-
-                const modal = document.getElementById('modalOverlay');
-                const openBtn = document.getElementById('openUserModal');
-                const closeBtn = document.getElementById('closeModalBtn');
-                const cancelBtn = document.getElementById('cancelBtn');
-
-                // Abrir modal
-                openBtn.onclick = () => modal.style.display = 'flex';
-
-                // Cerrar modal
-                const closeModal = () => modal.style.display = 'none';
-
-                closeBtn.onclick = closeModal;
-                cancelBtn.onclick = closeModal;
-
-                // Cerrar al clickear fuera
-                window.onclick = (e) => {
-                    if (e.target == modal) closeModal();
-                }
-
-                // Manejo de envío
-                document.getElementById('newUserForm').onsubmit = (e) => {
-                    e.preventDefault();
-                    alert('Usuario registrado exitosamente.');
-                    closeModal();
-                }
-            </script>
-    </main>
-
-        <div id="footer-target" aria-label="Pie de página">
+      <!-- Footer -->
+      <div id="footer-target" class="footer" aria-label="Pie de página">
         <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+    </div>
+    <!-- /.app-layout -->
 
-  </body>
-   <script src="../js/sidebar.js" defer></script>
+    <!-- Modal: Registrar / Editar Usuario -->
+    <div
+      id="userModal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="userModalTitle"
+    >
+      <div class="modal">
+        <header class="modal__header">
+          <h2 class="modal__title" id="userModalTitle">
+            Registrar Nueva Usuario
+          </h2>
+          <button
+            id="btnCloseModal"
+            class="modal__close"
+            aria-label="Cerrar modal"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+
+        <form id="userForm" class="modal__body" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="userName"
+                >Nombre de la Usuario</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                id="userName"
+                name="userName"
+                placeholder="Ej: Bayer"
+                required
+                autocomplete="off"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="userDesc">Apellido</label>
+               <input
+                class="form-control"
+                type="text"
+                id="userLastName"
+                name="userLastName"
+                placeholder="Ej: Cortez"
+                required
+                autocomplete="off"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="userDesc">Correo</label>
+               <input
+                class="form-control"
+                type="text"
+                id="userMail"
+                name="userMail"
+                placeholder="Ej: Usuario@gmail.com"
+                required
+                autocomplete="off"
+              />
+            </div>
+             <div class="form-group">
+              <label class="form-label" for="userDesc">Teléfono</label>
+               <input
+                class="form-control"
+                type="text"
+                id="userPhone"
+                name="userPhone"
+                placeholder="Ej:  84532072"
+                required
+                autocomplete="off"
+              />
+            </div>
+            </div>
+             <div class="form-group">
+              <label class="form-label" for="userDesc">Teléfono</label>
+               <input
+                class="form-control"
+                type="text"
+                id="userPhone"
+                name="userPhone"
+                placeholder="Ej:  84532072"
+                required
+                autocomplete="off"
+              />
+             <div class="form-group">
+              <label class="form-label" for="userRol">Rol</label>
+              <select id="form-control-set" class="form-control" name="rol">
+                <option value="" disabled selected>Seleccionar...</option>
+                <option value="Adm">Admin</option>
+                <option value="cja">Caja</option>
+                <option value="vendedor">Vendedor</option>
+              </select>
+          </div>
+        </form>
+
+        <footer class="modal__footer">
+          <button id="btnCancelModal" type="button" class="btn btn-secondary">
+            Cancelar
+          </button>
+          <button type="submit" form="userForm" class="btn btn-success">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            Guardar Usuario
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <script src="/js/users.js"></script>
+    <script src="../js/sidebar.js" defer></script>
     <script src="../js/topbar.js" defer></script>
     <script src="../js/footer.js" defer></script>
+  </body>
 </html>
