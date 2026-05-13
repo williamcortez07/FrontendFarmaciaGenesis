@@ -203,6 +203,180 @@
         </section>
       </main>
 
+      <div class="modal modal-hidden" id="sales-modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-card">
+          <div class="modal-header">
+            <div>
+              <h2 class="modal-title">Nueva venta</h2>
+              <p class="modal-subtitle">Ingresa cliente, usuario y productos para facturar.</p>
+            </div>
+            <button class="modal-close-btn" type="button" data-close-modal aria-label="Cerrar modal">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <section class="sale-form-panel">
+              <div class="field-grid">
+                <div class="field-group">
+                  <label for="sale-client-name">Nombre del Cliente</label>
+                  <input id="sale-client-name" class="form-control" type="text" value="Cliente común" />
+                </div>
+                <div class="field-group">
+                  <label for="sale-user-name">Nombre del Usuario</label>
+                  <input id="sale-user-name" class="form-control" type="text" value="William Cortez" />
+                </div>
+                <div class="field-group">
+                  <label for="sale-date">Fecha</label>
+                  <input id="sale-date" class="form-control" type="date" value="2026-04-24" />
+                </div>
+              </div>
+
+              <div class="product-search-panel">
+                <h3 class="panel-title">Buscar productos</h3>
+                <div class="search-row">
+                  <div class="field-group field-full">
+                    <label for="sale-product-search">Escribe el nombre del producto</label>
+                    <input id="sale-product-search" class="form-control" type="text" value="2311321" />
+                  </div>
+                  <div class="field-group field-mini">
+                    <label for="sale-product-stock">Stock</label>
+                    <input id="sale-product-stock" class="form-control" type="number" value="20" />
+                  </div>
+                  <div class="field-group field-mini">
+                    <label for="sale-product-quantity">Cantidad</label>
+                    <input id="sale-product-quantity" class="form-control" type="number" value="1" />
+                  </div>
+                  <button class="btn btn-secondary btn-add-product" type="button">
+                    Agregar
+                  </button>
+                </div>
+              </div>
+
+              <div class="table-wrapper table-small-wrapper">
+                <table class="sales-table">
+                  <thead>
+                    <tr>
+                      <th>Nombre del producto</th>
+                      <th>Presentación</th>
+                      <th>Cantidad</th>
+                      <th>P.Unitario</th>
+                      <th>SubTotal</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Amoxicilina</td>
+                      <td>Caja</td>
+                      <td>2</td>
+                      <td>$ 30.00</td>
+                      <td>$ 60.00</td>
+                      <td class="action-cell">
+                        <button class="btn-icon btn-delete" type="button" aria-label="Eliminar producto">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ibuprofén</td>
+                      <td>Sobre</td>
+                      <td>1</td>
+                      <td>$ 20.00</td>
+                      <td>$ 20.00</td>
+                      <td class="action-cell">
+                        <button class="btn-icon btn-delete" type="button" aria-label="Eliminar producto">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Omeprazol</td>
+                      <td>Caja</td>
+                      <td>1</td>
+                      <td>$ 40.00</td>
+                      <td>$ 40.00</td>
+                      <td class="action-cell">
+                        <button class="btn-icon btn-delete" type="button" aria-label="Eliminar producto">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Acetaminofén</td>
+                      <td>Sobre</td>
+                      <td>1</td>
+                      <td>$ 10.00</td>
+                      <td>$ 10.00</td>
+                      <td class="action-cell">
+                        <button class="btn-icon btn-delete" type="button" aria-label="Eliminar producto">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Zepol</td>
+                      <td>Frasco</td>
+                      <td>1</td>
+                      <td>$ 100.00</td>
+                      <td>$ 100.00</td>
+                      <td class="action-cell">
+                        <button class="btn-icon btn-delete" type="button" aria-label="Eliminar producto">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <aside class="sale-summary-panel">
+              <div class="summary-card">
+                <h3>Resumen de Venta</h3>
+                <div class="summary-field">
+                  <label for="sale-discount">Descuento (%)</label>
+                  <input id="sale-discount" class="form-control" type="number" value="8" />
+                </div>
+                <button class="btn btn-secondary btn-apply-discount" type="button">
+                  Aplicar
+                </button>
+
+                <div class="summary-field">
+                  <label for="sale-payment-method">Método de pago</label>
+                  <select id="sale-payment-method" class="form-control">
+                    <option>Depósito</option>
+                    <option>Efectivo</option>
+                    <option>Tarjeta</option>
+                  </select>
+                </div>
+
+                <div class="invoice-row">
+                  <span>SubTotal:</span>
+                  <strong>$ 230.00</strong>
+                </div>
+                <div class="invoice-row">
+                  <span>Descuento:</span>
+                  <strong>$ 00.00</strong>
+                </div>
+                <div class="invoice-row invoice-total">
+                  <span>Total:</span>
+                  <strong>$ 230.00</strong>
+                </div>
+
+                <button class="btn btn-success btn-complete-sale" type="button">
+                  Completar venta
+                </button>
+                <button class="btn btn-danger btn-cancel-sale" type="button" data-close-modal>
+                  Cancelar venta
+                </button>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+
       <div id="footer-target" aria-label="Pie de página">
         <div class="footer-placeholder skeleton-loader"></div>
       </div>
@@ -211,5 +385,6 @@
     <script src="../js/sidebar.js" defer></script>
     <script src="../js/topbar.js" defer></script>
     <script src="../js/footer.js" defer></script>
+    <script src="../js/sales.js" defer></script>
   </body>
 </html>

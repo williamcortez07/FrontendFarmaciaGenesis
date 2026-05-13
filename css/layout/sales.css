@@ -142,16 +142,230 @@
   background-color: rgba(52, 152, 219, 0.18);
 }
 
-.details-table td {
-  vertical-align: middle;
+.btn-secondary {
+  background-color: var(--accent-blue);
+  color: var(--text-on-dark);
 }
 
-.details-table tr:last-child td {
-  border-bottom: none;
+.btn-secondary:hover {
+  background-color: #2176d7;
+}
+
+.btn-success {
+  background-color: var(--success);
+  color: var(--text-on-dark);
+}
+
+.btn-danger {
+  background-color: var(--warning);
+  color: var(--text-on-dark);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field-mini {
+  min-width: 140px;
+}
+
+.field-full {
+  min-width: 320px;
+}
+
+.form-control {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(44, 62, 80, 0.12);
+  border-radius: 10px;
+  background-color: #fff;
+  color: var(--text-main);
+}
+
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  z-index: var(--z-modal);
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.45);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.modal-hidden {
+  display: none;
+}
+
+.modal-visible {
+  display: grid;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
+.modal-card {
+  position: relative;
+  width: min(1080px, 100%);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  background: var(--bg-card);
+  border-radius: 24px;
+  box-shadow: 0 28px 70px rgba(44, 62, 80, 0.18);
+  padding: 24px;
+}
+
+.modal-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(44, 62, 80, 0.08);
+}
+
+.modal-title {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
+}
+
+.modal-subtitle {
+  margin: 0.5rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  max-width: 620px;
+}
+
+.modal-close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(44, 62, 80, 0.14);
+  background: var(--bg-card);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: background var(--trans-base), transform var(--trans-base);
+}
+
+.modal-close-btn:hover {
+  background: rgba(44, 62, 80, 0.06);
+  transform: translateY(-1px);
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.product-search-panel {
+  margin-bottom: 1.5rem;
+}
+
+.sale-form-panel,
+.sale-summary-panel {
+  background: var(--bg-card);
+  border-radius: 22px;
+  padding: 20px;
+  border: 1px solid rgba(44, 62, 80, 0.08);
+}
+
+.sale-summary-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.panel-title {
+  margin: 0 0 1rem;
+  color: var(--primary-color);
+  font-size: 1.12rem;
+}
+
+.search-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1.5rem;
+}
+
+.table-small-wrapper {
+  margin-top: 1rem;
+}
+
+.summary-card h3 {
+  margin: 0 0 1rem;
+  color: var(--primary-color);
+  font-size: 1.15rem;
+}
+
+.summary-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.invoice-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.invoice-total {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+}
+
+.btn-add-product,
+.btn-apply-discount,
+.btn-complete-sale,
+.btn-cancel-sale {
+  width: 100%;
+  justify-content: center;
 }
 
 @media (max-width: 1080px) {
   .sales-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .sale-summary-panel {
+    width: 100%;
+  }
+
+  .search-row {
     grid-template-columns: 1fr;
   }
 }
@@ -175,5 +389,40 @@
   .sales-table,
   .details-table {
     min-width: 100%;
+  }
+
+  .modal {
+    padding: 0.75rem;
+    align-items: start;
+  }
+
+  .modal-card {
+    width: 100%;
+    max-height: calc(100vh - 1.5rem);
+    border-radius: 20px;
+    padding: 18px;
+  }
+
+  .modal-header {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .field-grid,
+  .search-row {
+    grid-template-columns: 1fr;
+  }
+
+  .sale-form-panel,
+  .sale-summary-panel {
+    padding: 16px;
+  }
+
+  .sale-summary-panel {
+    width: 100%;
+  }
+
+  .form-control {
+    min-height: 42px;
   }
 }
