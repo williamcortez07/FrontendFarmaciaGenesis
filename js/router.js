@@ -61,60 +61,52 @@ async function loadLogin() {
   loadLoginStyles();
   appRoot.className = "auth-mode";
 
+  // 1. Cargamos el HTML
   const response = await fetch("/pages/components/login.html");
   appRoot.innerHTML = await response.text();
 
-  /* // Vinculamos el evento del formulario inyectado
-  const form = document.getElementById("login-form");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      // Lógica de autenticación (Simulada)
-      localStorage.setItem("token", "user_active_session");
-      initApp(); // Recargamos la vista hacia el dashboard
-    });
-  }
-
-  */
-
+  // 2. Buscamos el botón DESPUÉS de insertar el HTML
   const btnLogin = document.getElementById("btn-login-submit");
 
-  btnLogin.addEventListener("click", async (event) => {
-    event.preventDefault();
-    const userName = document.getElementById("login-name").value;
-    const password = document.getElementById("login-pass").value;
-    if (!userName || !password) {
-      alert("Por favor, ingresa tu usuario y contraseña.");
-      return;
-    }
+  if (btnLogin) {
+    btnLogin.addEventListener("click", async (event) => {
+      event.preventDefault();
+      
+      const userName = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
 
-    try {
-      const response = await fetch("https://localhost:7204/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userName: userName,
-          password: password,
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("tokenFarmacia", data.token);
-        //William aqui le vas a poner que te rediriga al home
-        window.location.href = "/pages/home.html";
-      } else {
-        alert("Nombre de usuario o contraseña incorrectos.");
+      if (!userName || !password) {
+        alert("Por favor, ingresa tu usuario y contraseña.");
+        return;
       }
-    } catch (error) {
-      console.error("Error de conexión:", error);
-      alert(
-        "No se pudo conectar con el servidor. Revisa si la API está corriendo.",
-      );
-    }
-  });
+
+      try {
+        const response = await fetch("https://localhost:7204/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            userName: userName,
+            password: password
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          // GUARDAMOS CON EL MISMO NOMBRE QUE EL STATE
+          localStorage.setItem("tokenFarmacia", data.token); 
+          
+          // NO USES window.location.href. 
+          // Simplemente vuelve a ejecutar initApp() para que detecte el token y cargue el dashboard.
+          window.location.href = "/pages/home.html";
+        } else {
+          alert("Credenciales incorrectas.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        window.alert("El servidor no responde.");
+      }
+    });
+  }
 }
 
 /**

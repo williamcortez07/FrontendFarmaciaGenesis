@@ -15,16 +15,9 @@ body {
   background-color: #f0f4f3;
 }
 
-#main-content {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0f4f3;
-}
-.container {
-  width: 60%;
+
+.continer {
+  width: 800px;
   height: 60vh;
   display: flex;
   position: relative;
@@ -34,12 +27,12 @@ body {
   box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
 }
 
-.container-form {
-  width: 100%;
+.continer-form {
+  width: 50%;
   overflow: hidden;
 }
 
-.container-form form {
+.continer-form form {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -47,7 +40,7 @@ body {
   align-items: center;
   transition: transform 0.5s ease-in;
 }
-.container-form h2 {
+.continer-form h2 {
   font-size: 30px;
   margin-bottom: 20px;
   text-align: center;
@@ -63,11 +56,11 @@ body {
   padding: 8px;
   cursor: pointer;
 }
-.container-form span {
+.continer-form span {
   font-size: 12px;
   margin-bottom: 15px;
 }
-.container-input {
+.continer-input {
   width: 80%;
   height: 40px;
   margin-bottom: 10px;
@@ -79,7 +72,7 @@ body {
   background-color: #eeeeee;
 }
 
-.container-input input {
+.continer-input input {
   border: none;
   outline: none;
   width: 100%;
@@ -87,7 +80,7 @@ body {
   background-color: inherit;
 }
 
-.container-form a {
+.continer-form a {
   color: black;
   font-size: 14px;
   margin-bottom: 20px;
@@ -115,15 +108,15 @@ body {
   transform: translateX(-100%);
 }
 
-.container.toggle .sing-in {
+.continer.toggle .sign-in {
   transform: translateX(100%);
 }
-.container.toggle .sing-up {
+.continer.toggle .sign-up {
   transform: translateX(0);
 }
 
 /*Welcome*/
-.container-welcome {
+.continer-welcome {
   position: absolute;
   width: 50%;
   height: 100%;
@@ -137,13 +130,13 @@ body {
   border-radius: 50% 0 0 50%;
 }
 
-.container.toogle .continer-welcome {
+.continer.toogle .continer-welcome {
   transform: translateX(0%);
   border-radius: 0 50% 50% 0;
   background-color: #2c3e50;
 }
 
-.container-welcome .welcome {
+.continer-welcome .welcome {
   position: absolute;
   width: 100%;
   display: flex;
@@ -157,39 +150,27 @@ body {
 .welcome-sign-in {
   transform: translateX(100%);
 }
-.container-welcome h3 {
+.continer-welcome h3 {
   font-size: 30px;
 }
-.container-welcome p {
+.continer-welcome p {
   font-size: 14px;
   text-align: center;
 }
-.container-welcome .button {
+.continer-welcome .button {
   border: 2px solid white;
   background-color: transparent;
 }
-.container.toggle .welcome-sign-in {
+.continer.toggle .welcome-sign-in {
   transform: translateX(0);
 }
-.container.toogle .welcome-sign-up {
+.continer.toogle .welcome-sign-up {
   transform: translateX(-100%);
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #2e3e50;
-  color: white;
-}
-
 @media (max-width: 768px) {
-  .container {
-    width: 90%;
+  .continer {
+    width: 400px;
     height: auto;
     min-height: 480px;
     display: flex;
@@ -197,23 +178,24 @@ body {
     justify-content: center;
   }
 
-  .container-welcome {
+  .continer-welcome {
     display: none !important;
+    transition: none !important;
   }
 
-  .container-form:nth-child(2) {
+  .continer-form:nth-child(2) {
     display: none;
   }
 
-  .container-form:nth-child(1) {
+  .continer-form:nth-child(1) {
     width: 100%;
   }
 
-  .container-form h2 {
+  .continer-form h2 {
     font-size: 26px;
   }
 
-  .container-input {
+  .continer-input {
     width: 90%;
   }
 
@@ -223,7 +205,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .container {
+  .continer {
     width: 95%;
     box-shadow: none;
     border-radius: 10px;
