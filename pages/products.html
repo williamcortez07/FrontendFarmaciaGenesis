@@ -91,150 +91,19 @@
             <table class="products-table" aria-label="Tabla de productos">
               <thead>
                 <tr>
+                  <th scope="col">ID</th>
                   <th scope="col">Nombre Comercial</th>
                   <th scope="col">Nombre Genérico</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Presentación</th>
+                  <th scope="col">Concentración</th>
                   <th scope="col">Proveedor</th>
                   <th scope="col">Marca</th>
-                  <th scope="col">Categoría</th>
-                  <th scope="col">Concentración</th>
-                  <th scope="col">Presentación</th>
+                  <th scope="col">Estado</th>
                   <th scope="col" class="col-actions">Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>Acetaminofén 500mg</td>
-                  <td>Acetaminofén</td>
-                  <td>Bayer</td>
-                  <td>Bayer</td>
-                  <td>Analgésico</td>
-                  <td>500 mg</td>
-                  <td>Tableta</td>
-                  <td class="col-actions">
-                    <button
-                      type="button"
-                      class="products-btn-edit"
-                      title="Editar"
-                      aria-label="Editar producto Acetaminofén 500mg"
-                    >
-                      <i
-                        class="fa-solid fa-pen-to-square"
-                        aria-hidden="true"
-                      ></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Ibuprofeno 400mg</td>
-                  <td>Ibuprofeno</td>
-                  <td>Pfizer</td>
-                  <td>Pfizer</td>
-                  <td>Antiinflamatorio</td>
-                  <td>400 mg</td>
-                  <td>Cápsula</td>
-                  <td class="col-actions">
-                    <button
-                      type="button"
-                      class="products-btn-edit"
-                      title="Editar"
-                      aria-label="Editar producto Ibuprofeno 400mg"
-                    >
-                      <i
-                        class="fa-solid fa-pen-to-square"
-                        aria-hidden="true"
-                      ></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Amoxicilina 500mg</td>
-                  <td>Amoxicilina</td>
-                  <td>Andifar</td>
-                  <td>MK</td>
-                  <td>Antibiótico</td>
-                  <td>500 mg</td>
-                  <td>Cápsula</td>
-                  <td class="col-actions">
-                    <button
-                      type="button"
-                      class="products-btn-edit"
-                      title="Editar"
-                      aria-label="Editar producto Amoxicilina 500mg"
-                    >
-                      <i
-                        class="fa-solid fa-pen-to-square"
-                        aria-hidden="true"
-                      ></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Omeprazol 20mg</td>
-                  <td>Omeprazol</td>
-                  <td>Novartis</td>
-                  <td>Novartis</td>
-                  <td>Gastroprotector</td>
-                  <td>20 mg</td>
-                  <td>Cápsula</td>
-                  <td class="col-actions">
-                    <button
-                      type="button"
-                      class="products-btn-edit"
-                      title="Editar"
-                      aria-label="Editar producto Omeprazol 20mg"
-                    >
-                      <i
-                        class="fa-solid fa-pen-to-square"
-                        aria-hidden="true"
-                      ></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Metformina 850mg</td>
-                  <td>Metformina</td>
-                  <td>Roche</td>
-                  <td>Roche</td>
-                  <td>Antidiabético</td>
-                  <td>850 mg</td>
-                  <td>Tableta</td>
-                  <td class="col-actions">
-                    <button
-                      type="button"
-                      class="products-btn-edit"
-                      title="Editar"
-                      aria-label="Editar producto Metformina 850mg"
-                    >
-                      <i
-                        class="fa-solid fa-pen-to-square"
-                        aria-hidden="true"
-                      ></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Salbutamol 100mcg</td>
-                  <td>Salbutamol</td>
-                  <td>GSK</td>
-                  <td>GSK</td>
-                  <td>Broncodilatador</td>
-                  <td>100 mcg</td>
-                  <td>Inhalador</td>
-                  <td class="col-actions">
-                    <button
-                      type="button"
-                      class="products-btn-edit"
-                      title="Editar"
-                      aria-label="Editar producto Salbutamol 100mcg"
-                    >
-                      <i
-                        class="fa-solid fa-pen-to-square"
-                        aria-hidden="true"
-                      ></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody></tbody>
             </table>
           </div>
         </div>
@@ -282,6 +151,7 @@
                 name="nombreGenerico"
                 autocomplete="off"
                 placeholder="Ej: Ibuprofeno"
+                required
               />
             </div>
             <div class="product-field">
@@ -292,15 +162,13 @@
                 name="nombreComercial"
                 autocomplete="off"
                 placeholder="Ej: Advil"
+                required
               />
             </div>
             <div class="product-field">
               <label for="fieldProvider">Proveedor</label>
               <select id="fieldProvider" name="proveedor">
                 <option value="" disabled selected>Seleccionar...</option>
-                <option value="andifar">Andifar</option>
-                <option value="bayer">Bayer</option>
-                <option value="pfizer">Pfizer</option>
               </select>
             </div>
           </div>
@@ -311,19 +179,12 @@
               <label for="fieldCategory">Categoría</label>
               <select id="fieldCategory" name="categoria">
                 <option value="" disabled selected>Seleccionar...</option>
-                <option value="medicamentos">Medicamentos</option>
-                <option value="cuidado">Cuidado personal</option>
               </select>
             </div>
             <div class="product-field">
               <label for="fieldPresentation">Presentación</label>
               <select id="fieldPresentation" name="presentacion">
                 <option value="" disabled selected>Seleccionar...</option>
-                <option value="ampolla">Ampolla</option>
-                <option value="tableta">Tableta</option>
-                <option value="jarabe">Jarabe</option>
-                <option value="capsula">Cápsula</option>
-                <option value="inhalador">Inhalador</option>
               </select>
             </div>
           </div>
@@ -356,9 +217,6 @@
               <label for="fieldBrand">Marca</label>
               <select id="fieldBrand" name="marca">
                 <option value="" disabled selected>Seleccionar...</option>
-                <option value="bpl">BPL</option>
-                <option value="bayer">Bayer</option>
-                <option value="mk">MK</option>
               </select>
             </div>
           </div>

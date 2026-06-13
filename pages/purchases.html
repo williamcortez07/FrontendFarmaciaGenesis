@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Proveedores</title>
+    <title>compras</title>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/topbar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
-    <link rel="stylesheet" href="../css/layout/suppliers.css" />
+    <link rel="stylesheet" href="../css/layout/purchases.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -38,36 +38,23 @@
 
       <!-- Contenido principal -->
       <main class="main-content" id="main-content">
-        <div class="suppliers-page">
-          <!-- Botón de retroceso -->
-          <div>
-            <button
-              type="button"
-              class="back-btn"
-              id="btnBack"
-              onclick="history.back()"
-            >
-              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-              <span class="back-link">Volver a Catálogos</span>
-            </button>
-          </div>
-
+        <div class="purchases-page">
           <!-- Cabecera de página -->
           <header class="page-header">
             <div class="page-header__title">
-              <h1>Catálogo de Proveedores</h1>
-              <p>Consulta y administra los proveedores de la farmacia.</p>
+              <h1>Gestión de Copras</h1>
+              <p>Lleva un control de lo que compras</p>
             </div>
           </header>
 
           <!-- Toolbar: búsqueda + acción principal -->
-          <div class="suppliers-search-row" role="search">
+          <div class="purchases-search-row" role="search">
             <input
               type="search"
               class="search-input"
-              id="suppliersearch"
-              placeholder="Buscar proveedor..."
-              aria-label="Buscar proveedor"
+              id="purchasesearch"
+              placeholder="Buscar compra..."
+              aria-label="Buscar compra"
               autocomplete="off"
             />
             <button type="button" class="btn-create" id="btnAddSupp">
@@ -76,21 +63,21 @@
             </button>
           </div>
 
-          <!-- Tabla de Proveedores -->
+          <!-- Tabla de compraes -->
           <div
-            class="suppliers-table-card"
+            class="purchases-table-card"
             role="region"
-            aria-label="Listado de proveedores"
+            aria-label="Listado de compraes"
           >
-            <table class="suppliers-table" aria-label="Tabla de proveedores">
+            <table class="purchases-table" aria-label="Tabla de compraes">
               <thead>
                 <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">Nombre Proveedor</th>
-                  <th scope="col">RNC</th>
-                  <th scope="col">Mail</th>
-                  <th scope="col">Teléfono</th>
-                  <th scope="col">Dirección</th>
+                  <th scope="col">nan</th>
+                  <th scope="col">nan</th>
+                  <th scope="col">nan</th>
+                  <th scope="col">nan</th>
+                  <th scope="col">nan</th>
                   <th scope="col">Activo</th>
                   <th scope="col" class="col-actions">Acciones</th>
                 </tr>
@@ -106,35 +93,35 @@
       </div>
 
       <div
-        id="supplier-Modal"
-        class="supplier-modal"
+        id="f-Modal"
+        class="purchase-modal"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="supplierModalTitle"
+        aria-labelledby="purchaseModalTitle"
         aria-hidden="true"
       >
         <div
-          class="supplier-modal__backdrop"
+          class="purchase-modal__backdrop"
           data-close-modal
           tabindex="-1"
         ></div>
-        <div class="supplier-modal__panel">
+        <div class="purchase-modal__panel">
           <button
             type="button"
-            class="supplier-modal__close"
+            class="purchase-modal__close"
             data-close-modal
             aria-label="Cerrar modal"
           >
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
 
-          <p id="supplierModalTitle" class="supplier-modal__intro">
-            Complete todos los campos para registrar o actualizar un proveedor.
+          <p id="purchaseModalTitle" class="purchase-modal__intro">
+            Complete todos los campos para registrar o actualizar un compra.
           </p>
 
-          <form id="supplierForm" class="supplier-modal__form" novalidate>
-            <div class="supplier-form__row supplier-form__row--3">
-              <div class="supplier-field">
+          <form id="purchaseForm" class="purchase-modal__form" novalidate>
+            <div class="purchase-form__row purchase-form__row--3">
+              <div class="purchase-field">
                 <label for="fieldName">Nombre</label>
                 <input
                   type="text"
@@ -144,7 +131,7 @@
                   placeholder="Ej: BioFarma"
                 />
               </div>
-              <div class="supplier-field">
+              <div class="purchase-field">
                 <label for="fieldRCN">RNC</label>
                 <input
                   type="text"
@@ -154,7 +141,7 @@
                   placeholder="Ej: 90993039300"
                 />
               </div>
-              <div class="supplier-field">
+              <div class="purchase-field">
                 <label for="fieldMail">Correo</label>
                 <input
                   type="text"
@@ -166,8 +153,8 @@
               </div>
             </div>
 
-            <div class="supplier-form__row supplier-form__row--2">
-              <div class="supplier-field">
+            <div class="purchase-form__row purchase-form__row--2">
+              <div class="purchase-field">
                 <label for="fieldPhone">Teléfono</label>
                 <input
                   type="text"
@@ -177,7 +164,7 @@
                   placeholder="Ej: 7878-3393"
                 />
               </div>
-              <div class="supplier-field">
+              <div class="purchase-field">
                 <label for="fieldAddress">Dirección</label>
                 <input
                   type="text"
@@ -190,11 +177,11 @@
             </div>
 
             <!-- Acciones del modal -->
-            <div class="supplier-modal__actions">
+            <div class="purchase-modal__actions">
               <button
                 type="button"
-                class="supplier-btn-cancel"
-                id="btnCancelsupplier"
+                class="purchase-btn-cancel"
+                id="btnCancelpurchase"
                 data-close-modal
               >
                 <i class="fa-solid fa-xmark" aria-hidden="true"></i>
@@ -202,11 +189,11 @@
               </button>
               <button
                 type="submit"
-                class="supplier-btn-save"
-                id="btnSavesupplier"
+                class="purchase-btn-save"
+                id="btnSavepurchase"
               >
                 <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-                Guardar proveedor
+                Guardar compra
               </button>
             </div>
           </form>
@@ -214,7 +201,7 @@
       </div>
     </div>
   </body>
-  <script src="/js/suppliers.js" defer></script>
+  <script src="/js/purchases.js" defer></script>
   <script src="../js/sidebar.js" defer></script>
   <script src="../js/topbar.js" defer></script>
   <script src="../js/footer.js" defer></script>

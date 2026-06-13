@@ -34,17 +34,11 @@ function loadDashboardStyles() {
   ].forEach(addDynamicStyle);
 }
 
-/**
- * 1. GESTIÓN DE ESTADO
- */
 const state = {
   isAuthenticated: () => localStorage.getItem("token") !== null,
   currentView: "login",
 };
 
-/*
- * 2. NAVEGADOR PRINCIPAL
- */
 async function initApp() {
   if (state.isAuthenticated()) {
     await loadDashboard();
@@ -53,25 +47,19 @@ async function initApp() {
   }
 }
 
-/**
-  3. VISTA: LOGIN
-
-  */
 async function loadLogin() {
   loadLoginStyles();
   appRoot.className = "auth-mode";
 
-  // 1. Cargamos el HTML
   const response = await fetch("/pages/components/login.html");
   appRoot.innerHTML = await response.text();
 
-  // 2. Buscamos el botón DESPUÉS de insertar el HTML
   const btnLogin = document.getElementById("btn-login-submit");
 
   if (btnLogin) {
     btnLogin.addEventListener("click", async (event) => {
       event.preventDefault();
-      
+
       const userName = document.getElementById("username").value;
       const password = document.getElementById("password").value;
 
@@ -84,19 +72,16 @@ async function loadLogin() {
         const response = await fetch("https://localhost:7204/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
+          body: JSON.stringify({
             userName: userName,
-            password: password
+            password: password,
           }),
         });
 
         if (response.ok) {
           const data = await response.json();
-          // GUARDAMOS CON EL MISMO NOMBRE QUE EL STATE
-          localStorage.setItem("tokenFarmacia", data.token); 
-          
-          // NO USES window.location.href. 
-          // Simplemente vuelve a ejecutar initApp() para que detecte el token y cargue el dashboard.
+          localStorage.setItem("tokenFarmacia", data.token);
+
           window.location.href = "/pages/home.html";
         } else {
           alert("Credenciales incorrectas.");
@@ -109,9 +94,6 @@ async function loadLogin() {
   }
 }
 
-/**
- * 4. VISTA: DASHBOARD
- */
 async function loadDashboard() {
   loadDashboardStyles();
   appRoot.className = "app-layout";
@@ -151,9 +133,6 @@ function renderDashboardContent() {
   `;
 }
 
-/**
- * 5. FUNCIONES AUXILIARES
- */
 async function loadFragment(targetSelector, url) {
   const target = document.querySelector(targetSelector);
   try {

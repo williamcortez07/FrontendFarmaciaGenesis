@@ -15,6 +15,7 @@
 
 .data-table.brands-table {
   min-width: 520px;
+  overflow-y: auto;
 }
 
 .brands-table .col-desc {

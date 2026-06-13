@@ -95,7 +95,7 @@
             role="region"
             aria-label="Listado de marcas"
           >
-            <div class="table-scroll">
+            <div class="table-scroll" id="tbl-container-brands">
               <table
                 class="data-table brands-table"
                 aria-label="Tabla de marcas"
@@ -104,179 +104,18 @@
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col" class="col-desc">Descripción</th>
+                    <th scope="col">Descripción</th>
                     <th scope="col">Estado</th>
                     <th scope="col" class="col-actions">Acciones</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>#101</td>
-                    <td><span class="cell-main">Bayer</span></td>
-                    <td class="col-desc">Distintos productos medicinales</td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Bayer"
-                        aria-label="Editar marca Bayer"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#102</td>
-                    <td><span class="cell-main">Pfizer</span></td>
-                    <td class="col-desc">Productos farmacéuticos y vacunas</td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Pfizer"
-                        aria-label="Editar marca Pfizer"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#103</td>
-                    <td>
-                      <span class="cell-main">Johnson &amp; Johnson</span>
-                    </td>
-                    <td class="col-desc">
-                      Dispositivos médicos y productos de consumo
-                    </td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar J&J"
-                        aria-label="Editar marca Johnson & Johnson"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#104</td>
-                    <td><span class="cell-main">Roche</span></td>
-                    <td class="col-desc">
-                      Productos de diagnóstico y oncología
-                    </td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Roche"
-                        aria-label="Editar marca Roche"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#105</td>
-                    <td><span class="cell-main">Novartis</span></td>
-                    <td class="col-desc">
-                      Medicamentos genéricos y especializados
-                    </td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Novartis"
-                        aria-label="Editar marca Novartis"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#106</td>
-                    <td><span class="cell-main">AstraZeneca</span></td>
-                    <td class="col-desc">Productos biofarmacéuticos</td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar AstraZeneca"
-                        aria-label="Editar marca AstraZeneca"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#107</td>
-                    <td><span class="cell-main">Sanofi</span></td>
-                    <td class="col-desc">Vacunas y productos de salud</td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Sanofi"
-                        aria-label="Editar marca Sanofi"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#108</td>
-                    <td><span class="cell-main">GlaxoSmithKline</span></td>
-                    <td class="col-desc">
-                      Productos de consumo y medicamentos
-                    </td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar GSK"
-                        aria-label="Editar marca GlaxoSmithKline"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#109</td>
-                    <td><span class="cell-main">Abbott</span></td>
-                    <td class="col-desc">Dispositivos médicos y nutrición</td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Abbott"
-                        aria-label="Editar marca Abbott"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#110</td>
-                    <td><span class="cell-main">Merck</span></td>
-                    <td class="col-desc">Productos químicos y farmacéuticos</td>
-                    <td><span class="badge status-inactive">Inactivo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Merck"
-                        aria-label="Editar marca Merck"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody></tbody>
               </table>
             </div>
 
             <!-- Paginación -->
             <nav class="pagination-bar" aria-label="Paginación de marcas">
-              <p class="pagination-bar__info">Mostrando 1 a 10 de 50 marcas</p>
+              <p class="pagination-bar__info"></p>
               <ul class="pagination" role="list">
                 <li>
                   <button
@@ -375,7 +214,12 @@
           <button id="btnCancelModal" type="button" class="btn btn-secondary">
             Cancelar
           </button>
-          <button type="submit" form="brandForm" class="btn btn-success">
+          <button
+            type="submit"
+            form="brandForm"
+            class="btn btn-success"
+            id="btn-submit-brand"
+          >
             <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
             Guardar Marca
           </button>

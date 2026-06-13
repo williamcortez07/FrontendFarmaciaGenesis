@@ -1,5 +1,5 @@
 /* ==========================================================================
-   products.css — Catálogo de Productos
+   purchases.css — Catálogo de purchase
    Depende de: globals.css → design-tokens.css → catalog-ui.css
    ========================================================================== */
 
@@ -8,17 +8,17 @@
    viven en catalog-ui.css. Aquí SÓLO los ajustes de layout de la página. */
 
 /* Contenedor interior */
-.products-page {
+.purchases-page {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
 }
 
-.data-table.products-table {
+.data-table.purchases-table {
   min-width: 780px;
 }
 
-.product-form-intro {
+.purchase-form-intro {
   margin-bottom: var(--space-5);
   text-align: center;
   font-size: var(--font-size-sm);
@@ -26,7 +26,7 @@
   line-height: var(--line-height-base);
 }
 
-.products-btn-edit {
+.purchases-btn-edit {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -43,7 +43,7 @@
     border-color var(--trans-fast),
     transform var(--trans-fast);
 }
-.products-btn-edit:hover {
+.purchases-btn-edit:hover {
   background-color: var(--color-success-light);
   border-color: var(--color-success);
   transform: translateY(-1px);
@@ -96,14 +96,14 @@
   transform: translateY(-1px);
 }
 
-.products-search-row {
+.purchases-search-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-bottom: var(--space-5);
 }
-.products-search-row .search-input {
+.purchases-search-row .search-input {
   flex: 1 1 220px;
   max-width: 420px;
   padding: 0.625rem var(--space-3);
@@ -117,31 +117,30 @@
     border-color var(--trans-fast),
     box-shadow var(--trans-fast);
 }
-.products-search-row .search-input:focus {
+.purchases-search-row .search-input:focus {
   outline: none;
   border-color: var(--color-info);
   box-shadow: 0 0 0 3px var(--color-info-light);
 }
-.products-search-row .btn-create {
+.purchases-search-row .btn-create {
   margin-left: auto;
 }
 
-.products-table-card {
+.purchases-table-card {
   background: var(--bg-surface);
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--radius-lg);
-  overflow-y: auto;
+  overflow: hidden;
   box-shadow: var(--shadow-sm);
 }
 
-.products-table {
+.purchases-table {
   width: 100%;
   border-collapse: collapse;
   font-size: var(--font-size-sm);
   min-width: 780px;
-  overflow: hidden;
 }
-.products-table thead th {
+.purchases-table thead th {
   background-color: var(--color-primary);
   color: var(--text-on-color);
   font-weight: var(--font-weight-semibold);
@@ -153,29 +152,29 @@
   white-space: nowrap;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
-.products-table thead th:last-child {
+.purchases-table thead th:last-child {
   border-right: none;
 }
 
-.products-table tbody td {
+.purchases-table tbody td {
   padding: var(--space-3) var(--space-4);
   color: var(--text-body);
   border-bottom: var(--border-width) solid var(--border-color);
   vertical-align: middle;
 }
-.products-table tbody tr:last-child td {
+.purchases-table tbody tr:last-child td {
   border-bottom: none;
 }
-.products-table tbody tr:hover {
+.purchases-table tbody tr:hover {
   background-color: var(--color-secondary-light);
 }
-.products-table td:last-child {
+.purchases-table td:last-child {
   text-align: center;
   width: 1%;
 }
 
 /* Panel con fondo ligeramente gris para contraste interno */
-.product-modal__panel {
+.purchase-modal__panel {
   background: var(--bg-subtle);
   border: var(--border-width) solid var(--color-neutral-300);
   border-radius: var(--radius-lg);
@@ -189,7 +188,7 @@
   box-shadow: var(--shadow-xl);
 }
 
-.product-modal {
+.purchase-modal {
   position: fixed;
   inset: 0;
   display: none;
@@ -199,18 +198,18 @@
   z-index: var(--z-modal);
   font-family: var(--font-sans);
 }
-.product-modal.is-open {
+.purchase-modal.is-open {
   display: flex;
 }
 
-.product-modal__backdrop {
+.purchase-modal__backdrop {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
   cursor: pointer;
 }
 
-.product-modal__close {
+.purchase-modal__close {
   position: absolute;
   top: var(--space-4);
   right: var(--space-4);
@@ -227,11 +226,11 @@
   justify-content: center;
   transition: background-color var(--trans-fast);
 }
-.product-modal__close:hover {
+.purchase-modal__close:hover {
   background-color: rgba(0, 0, 0, 0.06);
 }
 
-.product-modal__intro {
+.purchase-modal__intro {
   margin: 0 var(--space-12) var(--space-6) 0;
   text-align: center;
   font-size: var(--font-size-sm);
@@ -239,19 +238,19 @@
   line-height: var(--line-height-base);
 }
 
-.product-form__row {
+.purchase-form__row {
   display: grid;
   gap: var(--space-5);
   margin-bottom: var(--space-5);
 }
-.product-form__row--3 {
+.purchase-form__row--3 {
   grid-template-columns: repeat(3, 1fr);
 }
-.product-form__row--2 {
+.purchase-form__row--2 {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.product-field label {
+.purchase-field label {
   display: block;
   margin-bottom: var(--space-2);
   font-size: var(--font-size-sm);
@@ -259,8 +258,8 @@
   color: var(--color-info-hover);
 }
 
-.product-field input,
-.product-field select {
+.purchase-field input,
+.purchase-field select {
   width: 100%;
   padding: 0.625rem var(--space-3);
   border: var(--border-width) solid var(--color-neutral-700);
@@ -274,27 +273,27 @@
     border-color var(--trans-fast),
     box-shadow var(--trans-fast);
 }
-.product-field input:focus,
-.product-field select:focus {
+.purchase-field input:focus,
+.purchase-field select:focus {
   outline: none;
   border-color: var(--color-info);
   box-shadow: 0 0 0 2px var(--color-info-light);
 }
 
-.product-field__concentration {
+.purchase-field__concentration {
   display: flex;
   gap: var(--space-2);
   align-items: stretch;
 }
-.product-field__concentration input {
+.purchase-field__concentration input {
   flex: 1;
   min-width: 0;
 }
-.product-field__concentration select {
+.purchase-field__concentration select {
   flex: 0 0 90px;
 }
 
-.product-modal__actions {
+.purchase-modal__actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
@@ -304,7 +303,7 @@
   border-top: var(--border-width) solid var(--border-color);
 }
 
-.product-btn-cancel {
+.purchase-btn-cancel {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -321,11 +320,11 @@
   color: var(--text-on-color);
   transition: background-color var(--trans-fast);
 }
-.product-btn-cancel:hover {
+.purchase-btn-cancel:hover {
   background-color: var(--color-neutral-700);
 }
 
-.product-btn-save {
+.purchase-btn-save {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -345,7 +344,7 @@
     box-shadow var(--trans-fast),
     transform var(--trans-fast);
 }
-.product-btn-save:hover {
+.purchase-btn-save:hover {
   background-color: var(--color-success-hover);
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
@@ -358,29 +357,29 @@
 }
 
 @media (max-width: 768px) {
-  .products-search-row .btn-create {
+  .purchases-search-row .btn-create {
     margin-left: 0;
     width: 100%;
     justify-content: center;
   }
 
-  .products-table-card {
+  .purchases-table-card {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 }
 
 @media (max-width: 700px) {
-  .product-form__row--3,
-  .product-form__row--2 {
+  .purchase-form__row--3,
+  .purchase-form__row--2 {
     grid-template-columns: 1fr;
   }
 
-  .product-modal__intro {
+  .purchase-modal__intro {
     margin-right: 0;
     text-align: left;
   }
-  .product-modal__panel {
+  .purchase-modal__panel {
     padding: var(--space-6) var(--space-4);
   }
 }

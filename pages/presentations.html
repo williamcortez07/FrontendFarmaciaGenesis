@@ -98,7 +98,7 @@
             role="region"
             aria-label="Listado de presentaciones"
           >
-            <div class="table-scroll">
+            <div class="table-scroll" id="tbl-container-presentation">
               <table
                 class="data-table presentations-table"
                 aria-label="Tabla de presentaciones"
@@ -106,99 +106,14 @@
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col" class="col-desc">Descripción</th>
+                    <th scope="col">Descripción</th>
                     <th scope="col">Unidad Medida</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Estado</th>
                     <th scope="col" class="col-actions">Acciones</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>#101</td>
-                    <td><span class="cell-main">Tabletas recubiertas</span></td>
-                    <td>mg</td>
-                    <td>500</td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Bayer"
-                        aria-label="Editar presentacion Bayer"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#102</td>
-                    <td><span class="cell-main">Jarabe pediátrico</span></td>
-                    <td>ml</td>
-                    <td>120</td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Pfizer"
-                        aria-label="Editar presentacion Pfizer"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#103</td>
-                    <td>
-                      <span class="cell-main"
-                        >Cápsulas de liberación prolongada</span
-                      >
-                    </td>
-                    <td>mg</td>
-                    <td>20</td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar TR"
-                        aria-label="Editar presentacion Tabletas recubiertas"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#104</td>
-                    <td><span class="cell-main">Ungüento tópico</span></td>
-                    <td>g</td>
-                    <td>30</td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Ungüento"
-                        aria-label="Ungüento tópico"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#105</td>
-                    <td><span class="cell-main">Solución inyectable</span></td>
-                    <td>ml</td>
-                    <td>2</td>
-                    <td><span class="badge status-active">Activo</span></td>
-                    <td class="col-actions">
-                      <button
-                        class="btn-icon btn-icon--edit"
-                        title="Editar Solución"
-                        aria-label="Editar presentacion Solución inyectable"
-                      >
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody></tbody>
               </table>
             </div>
 
@@ -296,8 +211,8 @@
               <input
                 class="form-control"
                 type="text"
-                id="presentatationName"
-                name="presentatationName"
+                id="presentatationunit"
+                name="presentatationunit"
                 placeholder="Ej: mg"
                 required
                 autocomplete="off"
@@ -310,8 +225,8 @@
               <input
                 class="form-control"
                 type="text"
-                id="presentatationName"
-                name="presentatationName"
+                id="presentatationquantity"
+                name="presentatationquantity"
                 placeholder="Ej: 500"
                 required
                 autocomplete="off"
@@ -325,6 +240,7 @@
             Cancelar
           </button>
           <button
+            id="btn-save"
             type="submit"
             form="presentatationForm"
             class="btn btn-success"
