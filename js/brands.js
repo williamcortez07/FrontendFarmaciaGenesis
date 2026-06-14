@@ -1,323 +1,381 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // --- CONFIGURACIÓN Y ESTADO DE LA APP ---
+  const API_CONFIG = {
+    baseURL: "https://localhost:7204/api",
+    endpoints: { brands: "/Brands" },
+    tokenKey: "tokenFarmacia", // este es el nombre que le pusimos en el router para el login
+  };
+
+  let currentBrandId = null;
+
+  // --- ELEMENTOS DEL DOM ---
   const modal = document.getElementById("brandModal");
+  const modalTitle = document.getElementById("brandModalTitle");
+  const brandForm = document.getElementById("brandForm");
   const btnOpen = document.getElementById("btnOpenModal");
   const btnClose = document.getElementById("btnCloseModal");
   const btnCancel = document.getElementById("btnCancelModal");
+  const tableBody = document.querySelector(".brands-table tbody");
+  const searchInput = document.getElementById("brandSearch");
 
-  const closeModal = () => {
-    if (modal) {
-      modal.classList.remove("active");
+  // --- HELPER PARA AUTENTICACIÓN (HEADERS) ---
+  // Recupera el token de localStorage en tiempo real para cada petición
+  function getHeaders(includeContentType = true) {
+    const token = localStorage.getItem(API_CONFIG.tokenKey);
+    const headers = {
+      Accept: "application/json",
+    };
+
+    if (includeContentType) {
+      headers["Content-Type"] = "application/json";
+    }
+
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    } else {
+      console.warn(
+        "No se encontró ningún token de autenticación en localStorage.",
+      );
+    }
+
+    return headers;
+  }
+
+  // --- FUNCIONES DEL MODAL Y FORMULARIO ---
+  const openModal = (isEdit = false) => {
+    if (!modal) return;
+    modal.classList.add("active");
+
+    if (isEdit) {
+      modalTitle.textContent = "Editar Marca";
+      toggleStatusField(true);
+    } else {
+      currentBrandId = null;
+      modalTitle.textContent = "Registrar Nueva Marca";
+      if (brandForm) brandForm.reset();
+      toggleStatusField(false);
     }
   };
 
-  if (btnOpen && modal) {
-    btnOpen.addEventListener("click", () => modal.classList.add("active"));
-  }
-
-  if (btnClose) {
-    btnClose.addEventListener("click", closeModal);
-  }
-
-  if (btnCancel) {
-    btnCancel.addEventListener("click", closeModal);
-  }
-
-  const API_CONFIG = {
-    baseURL: "https://localhost:7204/api",
-    endpoints: {
-      brands: "/Brands",
-    },
+  const closeModal = () => {
+    if (modal) modal.classList.remove("active");
+    if (brandForm) brandForm.reset();
+    currentBrandId = null;
   };
 
-  // Función principal para obtener todas las marcas
+  const toggleStatusField = (show) => {
+    let statusGroup = document.getElementById("statusFormGroup");
+    const formGrid = document.querySelector(".form-grid");
+
+    if (show) {
+      if (!statusGroup && formGrid) {
+        statusGroup = document.createElement("div");
+        statusGroup.id = "statusFormGroup";
+        statusGroup.className = "form-group";
+        statusGroup.innerHTML = `
+          <label class="form-label" for="brandStatus">Estado de la Marca</label>
+          <select class="form-control" id="brandStatus" name="isActive">
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+          </select>
+        `;
+        formGrid.appendChild(statusGroup);
+      }
+    } else {
+      if (statusGroup) statusGroup.remove();
+    }
+  };
+
+  // --- ESCUCHADORES DE EVENTOS ---
+  if (btnOpen) btnOpen.addEventListener("click", () => openModal(false));
+  if (btnClose) btnClose.addEventListener("click", closeModal);
+  if (btnCancel) btnCancel.addEventListener("click", closeModal);
+
+  if (tableBody) {
+    tableBody.addEventListener("click", (e) => {
+      const editBtn = e.target.closest(".btn-icon--edit");
+      const emptyBtn = e.target.closest("#btnOpenModalEmpty");
+
+      if (editBtn) {
+        const id = editBtn.dataset.id;
+        prepareEditModal(id);
+      } else if (emptyBtn) {
+        openModal(false);
+      }
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => searchBrands(e.target.value));
+  }
+
+  // --- OPERACIONES API (CRUD) ---
+
+  // Obtener todas las marcas
   async function getAllBrands() {
     try {
       showLoadingState();
-
       const response = await fetch(
         `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}`,
         {
           method: "GET",
-          headers: {
-            Accept: "application/json",
-            //Authorization: `Bearer ${Token()}`,
-          },
+          headers: getHeaders(false), // Sin Content-Type para peticiones GET
         },
       );
 
-      if (!response.ok) {
-        throw new Error(
-          `Error HTTP: ${response.status} - ${response.statusText}`,
-        );
-      }
+      if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
 
       const data = await response.json();
-
       const brands = data.data || data;
-      // Renderizar las marcas en la tabla
+
       renderBrandsTable(brands);
-
-      // Actualizar la información de paginación
       updatePaginationInfo(brands.length);
-
-      return brands;
     } catch (error) {
       console.error("Error al obtener las marcas:", error);
       showErrorState(error.message);
-      return [];
     }
   }
 
-  // Función para mostrar estado de carga
-  function showLoadingState() {
-    const tbody = document.querySelector(".brands-table tbody");
-    if (tbody) {
-      tbody.innerHTML = `
-            <tr>
-                <td colspan="5" class="loading-state">
-                    <div class="skeleton-loader" style="height: 50px;"></div>
-                    <p>Cargando marcas...</p>
-                </td>
-            </tr>
-        `;
+  // Obtener marca por ID y rellenar formulario
+  // 13/06/26 -- revisar esta función ya que no me rellena los campos para una marca
+  async function prepareEditModal(id) {
+    try {
+      openModal(true);
+      currentBrandId = id;
+
+      const response = await fetch(
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}/${id}`,
+        {
+          method: "GET",
+          headers: getHeaders(false),
+        },
+      );
+
+      if (!response.ok)
+        throw new Error("No se pudo obtener la información de la marca.");
+
+      const data = await response.json();
+      const brand = data.data || data;
+
+      const finalName =
+        brand.brandName || brand.nombre || brand.BrandName || "";
+      const finalDesc =
+        brand.brandDescription ||
+        brand.descripcion ||
+        brand.BrandDescription ||
+        "";
+      const finalStatus =
+        brand.isActive !== undefined
+          ? brand.isActive
+          : brand.activo !== undefined
+            ? brand.activo
+            : true;
+
+      document.getElementById("brandName").value = finalName;
+      document.getElementById("brandDesc").value = finalDesc;
+
+      const statusSelect = document.getElementById("brandStatus");
+      if (statusSelect) {
+        statusSelect.value = finalStatus.toString();
+      }
+    } catch (error) {
+      console.error(error);
+      showNotification("Error al cargar datos de la marca", "error");
+      closeModal();
     }
   }
 
-  // Función para mostrar error
-  function showErrorState(errorMessage) {
-    const tbody = document.querySelector(".brands-table tbody");
-    if (tbody) {
-      tbody.innerHTML = `
-            <tr>
-                <td colspan="5" class="error-state">
-                    <i class="fas fa-exclamation-triangle" style="color: #dc3545; font-size: 24px;"></i>
-                    <p>Error al cargar las marcas: ${errorMessage}</p>
-                    <button onclick="getAllBrands()" class="btn btn-primary btn-sm">
-                        <i class="fas fa-sync-alt"></i> Reintentar
-                    </button>
-                </td>
-            </tr>
-        `;
+  // Guardar (POST) o Editar (PUT) con Token de seguridad
+  if (brandForm) {
+    brandForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const brandName = document.getElementById("brandName").value.trim();
+      const brandDescription = document
+        .getElementById("brandDesc")
+        .value.trim();
+
+      if (!brandName) {
+        showNotification("El nombre de la marca es obligatorio", "error");
+        return;
+      }
+
+      const payload = { brandName, brandDescription };
+      let url = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}`;
+      let method = "POST";
+
+      if (currentBrandId) {
+        method = "PUT";
+        url = `${url}/${currentBrandId}`;
+
+        const statusSelect = document.getElementById("brandStatus");
+        payload.brandId = parseInt(currentBrandId);
+        payload.isActive = statusSelect ? statusSelect.value === "true" : true;
+      }
+
+      try {
+        const response = await fetch(url, {
+          method: method,
+          headers: getHeaders(true),
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          showNotification(
+            currentBrandId
+              ? "Marca actualizada correctamente"
+              : "Marca registrada correctamente",
+            "success",
+          );
+          closeModal();
+          getAllBrands();
+        } else {
+          if (response.status === 401 || response.status === 403) {
+            showNotification("No tienes permisos o tu sesión expiró", "error");
+          } else {
+            throw new Error("Error en la respuesta del servidor");
+          }
+        }
+      } catch (error) {
+        console.error("Error al procesar la marca:", error);
+        showNotification("Ocurrió un error al guardar los cambios", "error");
+      }
+    });
+  }
+
+  // --- RENDERS Y AUXILIARES ---
+  async function searchBrands(searchTerm) {
+    try {
+      const response = await fetch(
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}`,
+        {
+          headers: getHeaders(false),
+        },
+      );
+      const data = await response.json();
+      const brands = data.data || data;
+
+      const filteredBrands = brands.filter((brand) => {
+        const name = brand.brandName || brand.nombre || "";
+        const desc = brand.brandDescription || brand.descripcion || "";
+        return (
+          name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          desc.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
+
+      renderBrandsTable(filteredBrands);
+    } catch (error) {
+      console.error("Error al buscar marcas:", error);
     }
   }
 
   function renderBrandsTable(brands) {
-    const tbody = document.querySelector(".brands-table tbody");
-    if (!tbody) return;
+    if (!tableBody) return;
 
     if (!brands || brands.length === 0) {
-      tbody.innerHTML = `
-            <tr>
-                <td colspan="5" class="empty-state">
-                    <i class="fas fa-box-open" style="font-size: 48px; color: #6c757d;"></i>
-                    <p>No hay marcas registradas</p>
-                    <button id="btnOpenModalEmpty" class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> Registrar primera marca
-                    </button>
-                </td>
-            </tr>
-        `;
-
-      const emptyBtn = document.getElementById("btnOpenModalEmpty");
-      if (emptyBtn) {
-        emptyBtn.addEventListener("click", () => openModal());
-      }
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="5" class="empty-state">
+            <i class="fas fa-box-open" style="font-size: 48px; color: #6c757d;"></i>
+            <p>No hay marcas registradas</p>
+            <button id="btnOpenModalEmpty" class="btn btn-primary btn-sm">
+              <i class="fas fa-plus"></i> Registrar primera marca
+            </button>
+          </td>
+        </tr>
+      `;
       return;
     }
 
-    // Renderizar las filas de la tabla
-    tbody.innerHTML = brands
-      .map(
-        (brand) => `
-        <tr data-brand-id="${brand.brandId}">
-            <td>${formatId(brand.brandId)}</td>
-            <td><span class="cell-main">${escapeHtml(brand.brandName)}</span></td>
-            <td class="cell-main">${escapeHtml(brand.brandDescription || "Sin descripción")}</td>
+    tableBody.innerHTML = brands
+      .map((brand) => {
+        const id = brand.brandId || brand.id;
+        const name = brand.brandName || brand.nombre || "Sin nombre";
+        const desc =
+          brand.brandDescription || brand.descripcion || "Sin descripción";
+        const active =
+          brand.isActive !== undefined ? brand.isActive : brand.activo;
+
+        return `
+          <tr data-brand-id="${id}">
+            <td>${formatId(id)}</td>
+            <td><span class="cell-main">${escapeHtml(name)}</span></td>
+            <td class="cell-main">${escapeHtml(desc)}</td>
             <td>
-                <span class="badge ${brand.isActive ? "status-active" : "status-inactive"}">
-                    ${brand.isActive ? "Activo" : "Inactivo"}
-                </span>
+              <span class="badge ${active ? "status-active" : "status-inactive"}">
+                ${active ? "Activo" : "Inactivo"}
+              </span>
             </td>
             <td class="col-actions">
-                <button
-                    class="btn-icon btn-icon--edit"
-                    onclick="editBrand(${brand.brandId})"
-                    title="Editar ${escapeHtml(brand.brandName)}"
-                    aria-label="Editar marca ${escapeHtml(brand.brandName)}"
-                >
-                    <i class="fas fa-edit" aria-hidden="true"></i>
-                </button>
+              <button
+                class="btn-icon btn-icon--edit"
+                data-id="${id}"
+                title="Editar ${escapeHtml(name)}"
+                aria-label="Editar marca ${escapeHtml(name)}"
+              >
+                <i class="fas fa-edit" aria-hidden="true"></i>
+              </button>
             </td>
-        </tr>
-    `,
-      )
+          </tr>
+        `;
+      })
       .join("");
   }
 
-  // Función auxiliar para formatear ID
+  function showLoadingState() {
+    if (tableBody) {
+      tableBody.innerHTML = `<tr><td colspan="5" class="loading-state"><div class="skeleton-loader" style="height: 50px;"></div><p>Cargando marcas...</p></td></tr>`;
+    }
+  }
+
+  function showErrorState(errorMessage) {
+    if (tableBody) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="5" class="error-state">
+            <i class="fas fa-exclamation-triangle" style="color: #dc3545; font-size: 24px;"></i>
+            <p>Error al cargar las marcas: ${errorMessage}</p>
+            <button id="btnRetryBrands" class="btn btn-primary btn-sm"><i class="fas fa-sync-alt"></i> Reintentar</button>
+          </td>
+        </tr>`;
+      document
+        .getElementById("btnRetryBrands")
+        ?.addEventListener("click", getAllBrands);
+    }
+  }
+
   function formatId(Id) {
     return `#${String(Id).padStart(3, "0")}`;
   }
-
-  // Función para escapar HTML (seguridad)
   function escapeHtml(text) {
     const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
   }
 
-  // Función para actualizar información de paginación
   function updatePaginationInfo(totalItems) {
     const paginationInfo = document.querySelector(".pagination-bar__info");
     if (paginationInfo) {
-      const start = 1;
       const end = Math.min(10, totalItems);
-      paginationInfo.textContent = `Mostrando ${start} a ${end} de ${totalItems} marcas`;
+      paginationInfo.textContent = `Mostrando 1 a ${end} de ${totalItems} marcas`;
     }
   }
 
-  // Función para obtener una marca específica (útil para editar)
-  async function getBrandById(id) {
-    try {
-      const response = await fetch(
-        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data.data || data;
-    } catch (error) {
-      console.error(`Error al obtener la marca ${id}:`, error);
-      showNotification("Error al cargar la marca", "error");
-      return null;
-    }
-  }
-
-  async function searchBrands(searchTerm) {
-    try {
-      // Opción 1: Filtrar localmente
-      const response = await fetch(
-        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}`,
-      );
-      const data = await response.json();
-      const brands = data.data || data;
-
-      const filteredBrands = brands.filter(
-        (brand) =>
-          brand.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (brand.descripcion &&
-            brand.descripcion.toLowerCase().includes(searchTerm.toLowerCase())),
-      );
-
-      renderBrandsTable(filteredBrands);
-    } catch (error) {
-      console.error("Error al buscar marcas:", error);
-      showNotification("Error al realizar la búsqueda", "error");
-    }
-  }
-
-  // Función para mostrar notificaciones
   function showNotification(message, type = "info") {
-    // Crear elemento de notificación si no existe
     let notification = document.querySelector(".notification-toast");
     if (!notification) {
       notification = document.createElement("div");
       notification.className = "notification-toast";
       document.body.appendChild(notification);
     }
-
     notification.textContent = message;
     notification.className = `notification-toast notification-${type}`;
     notification.style.display = "block";
-
     setTimeout(() => {
       notification.style.display = "none";
     }, 3000);
   }
 
-  async function addBrands() {
-    try {
-      const btnSubmit = document.getElementById("btn-submit-brand");
-      if (btnSubmit) {
-        btnSubmit.addEventListener("click", async (event) => {
-          event.preventDefault();
-
-          const brandName = document.getElementById("brandName").value;
-          const brandDescription = document.getElementById("brandDesc").value;
-
-          if (!brandName || !brandDescription) {
-            alert(
-              "Por favor debe llenar los campos {brandname} & {brandDescription} ",
-            );
-            return;
-          }
-
-          const response = await fetch(
-            `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}`,
-            {
-              method: "POST",
-              headers: {
-                "content-Type": "Application/json",
-              },
-              body: JSON.stringify({
-                brandName: brandName,
-                brandDescription: brandDescription,
-              }),
-            },
-          );
-
-          if (response.ok) {
-            alert("Marca registrada correctamente");
-            refreshBrandsTable();
-            closeModal();
-          } else {
-            console.log("error http", response.status - response.statusText);
-          }
-        });
-      }
-    } catch (error) {
-      console.log("ocurrió un error al registar a la marca: ", error);
-    }
-  }
-
-  // Función para recargar la tabla después de guardar/editar
-  function refreshBrandsTable() {
-    getAllBrands();
-  }
-
-  function editBrand(id) {
-    console.log(`Editar marca con ID: ${id}`);
-
-    openModalForEdit(id);
-  }
-
-  // Función para abrir modal (ejemplo básico)
-  function openModal() {
-    const modal = document.getElementById("brandModal");
-    if (modal) {
-      modal.style.display = "flex";
-      document.getElementById("brandModalTitle").textContent =
-        "Registrar Nueva Marca";
-      document.getElementById("brandForm").reset();
-    }
-  }
-
-  function openModalForEdit(id) {
-    let brandname = document.getElementById("brandName");
-
-    console.log("Editar marca:", id);
-  }
-
   getAllBrands();
-  addBrands();
-  editBrand();
 });
