@@ -114,40 +114,16 @@
             </div>
 
             <!-- Paginación -->
-            <nav class="pagination-bar" aria-label="Paginación de marcas">
-              <p class="pagination-bar__info"></p>
-              <ul class="pagination" role="list">
-                <li>
-                  <button
-                    class="page-link"
-                    disabled
-                    aria-label="Página anterior"
-                  >
-                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                  </button>
-                </li>
-                <li>
-                  <button
-                    class="page-link is-active"
-                    aria-current="page"
-                    aria-label="Página 1"
-                  >
-                    1
-                  </button>
-                </li>
-                <li>
-                  <button class="page-link" aria-label="Página 2">2</button>
-                </li>
-                <li>
-                  <button class="page-link" aria-label="Página 3">3</button>
-                </li>
-                <li>
-                  <button class="page-link" aria-label="Página siguiente">
-                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                  </button>
-                </li>
-              </ul>
-            </nav>
+            <nav class="pagination-bar" aria-label="Paginación de Categorías">
+
+            <p class="pagination-bar__info" id="paginationInfo">
+            </p>
+
+            <ul class="pagination" role="list" id="paginationContainer">
+              <!-- Aquí JavaScript generará los botones -->
+            </ul>
+
+          </nav>
           </div>
         </div>
       </main>
@@ -227,7 +203,7 @@
       </div>
     </div>
 
-    <script src="/js/brands.js"></script>
+    <script type="module"src="/js/brands.js"></script>
     <script src="../js/sidebar.js" defer></script>
     <script src="../js/topbar.js" defer></script>
     <script src="../js/footer.js" defer></script>

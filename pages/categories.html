@@ -1,239 +1,158 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Consulta, registra y gestiona las Categorias farmacéuticas disponibles en Farmacia Génesis."
-    />
-    <title>Gestión de Categorias — Farmacia Génesis</title>
 
-    <!-- Design System -->
-    <link rel="stylesheet" href="../css/base/globals.css" />
-    <link rel="stylesheet" href="../css/base/design-tokens.css" />
-    <link rel="stylesheet" href="../css/components/catalog-ui.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Consulta, registra y gestiona las Categorias farmacéuticas disponibles en Farmacia Génesis." />
+  <title>Gestión de Categorias — Farmacia Génesis</title>
 
-    <!-- Layout y Componentes -->
-    <link rel="stylesheet" href="../css/layout/categories.css" />
-    <link rel="stylesheet" href="../css/components/sidebar.css" />
-    <link rel="stylesheet" href="../css/components/topbar.css" />
-    <link rel="stylesheet" href="../css/components/footer.css" />
+  <!-- Design System -->
+  <link rel="stylesheet" href="../css/base/globals.css" />
+  <link rel="stylesheet" href="../css/base/design-tokens.css" />
+  <link rel="stylesheet" href="../css/components/catalog-ui.css" />
 
-    <!-- Iconografía -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-  </head>
-  <body>
-    <div class="app-layout">
-      <!-- Sidebar -->
-      <aside
-        id="sidebar-target"
-        class="main-sidebar"
-        aria-label="Navegación principal"
-      >
-        <div class="sidebar-placeholder skeleton-loader"></div>
-      </aside>
+  <!-- Layout y Componentes -->
+  <link rel="stylesheet" href="../css/layout/categories.css" />
+  <link rel="stylesheet" href="../css/components/sidebar.css" />
+  <link rel="stylesheet" href="../css/components/topbar.css" />
+  <link rel="stylesheet" href="../css/components/footer.css" />
 
-      <!-- Topbar -->
-      <div id="header-target" class="main-header" aria-label="Barra superior">
-        <div class="header-placeholder skeleton-loader"></div>
-      </div>
+  <!-- Iconografía -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
 
-      <!-- Contenido principal -->
-      <main class="main-content" id="main-content">
-        <div class="categories-page">
-          <!-- Botón de retroceso -->
-          <div>
-            <button
-              type="button"
-              class="btn-back"
-              onclick="history.back()"
-              id="btnBack"
-            >
-              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-              Volver a Catálogos
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación principal">
+      <div class="sidebar-placeholder skeleton-loader"></div>
+    </aside>
+
+    <!-- Topbar -->
+    <div id="header-target" class="main-header" aria-label="Barra superior">
+      <div class="header-placeholder skeleton-loader"></div>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="main-content" id="main-content">
+      <div class="categories-page">
+        <!-- Botón de retroceso -->
+        <div>
+          <button type="button" class="btn-back" onclick="history.back()" id="btnBack">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            Volver a Catálogos
+          </button>
+        </div>
+
+        <!-- Cabecera de página -->
+        <header class="page-header">
+          <div class="page-header__title">
+            <h1>Gestión de Categorias</h1>
+            <p>
+              Consulta, registra y administra las Categorias farmacéuticas.
+            </p>
+          </div>
+          <div class="page-header__actions">
+            <button id="btnOpenModal" class="btn btn-primary" type="button">
+              <i class="fas fa-plus" aria-hidden="true"></i>
+              Nueva Categoria
             </button>
           </div>
-
-          <!-- Cabecera de página -->
-          <header class="page-header">
-            <div class="page-header__title">
-              <h1>Gestión de Categorias</h1>
-              <p>
-                Consulta, registra y administra las Categorias farmacéuticas.
-              </p>
-            </div>
-            <div class="page-header__actions">
-              <button id="btnOpenModal" class="btn btn-primary" type="button">
-                <i class="fas fa-plus" aria-hidden="true"></i>
-                Nueva Categoria
-              </button>
-            </div>
-          </header>
-
-          <!-- Toolbar: búsqueda -->
-          <div class="toolbar" role="search">
-            <div class="toolbar__search">
-              <i
-                class="fa-solid fa-magnifying-glass toolbar__search-icon"
-                aria-hidden="true"
-              ></i>
-              <input
-                type="search"
-                id="categoriesSearch"
-                placeholder="Buscar Categoria..."
-                aria-label="Buscar Categoria"
-                autocomplete="off"
-              />
-            </div>
-          </div>
-
-          <!-- Tabla de Categorias -->
-          <div
-            class="table-wrapper"
-            role="region"
-            aria-label="Listado de Categorias"
-          >
-            <div class="table-scroll">
-              <table
-                class="data-table categories-table"
-                aria-label="Tabla de Categorias"
-              >
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col" class="col-actions">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div>
-
-            <!-- Paginación -->
-            <nav class="pagination-bar" aria-label="Paginación de Categorias">
-              <p class="pagination-bar__info">
-                Mostrando 1 a 10 de 50 Categorias
-              </p>
-              <ul class="pagination" role="list">
-                <li>
-                  <button
-                    class="page-link"
-                    disabled
-                    aria-label="Página anterior"
-                  >
-                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                  </button>
-                </li>
-                <li>
-                  <button
-                    class="page-link is-active"
-                    aria-current="page"
-                    aria-label="Página 1"
-                  >
-                    1
-                  </button>
-                </li>
-                <li>
-                  <button class="page-link" aria-label="Página 2">2</button>
-                </li>
-                <li>
-                  <button class="page-link" aria-label="Página 3">3</button>
-                </li>
-                <li>
-                  <button class="page-link" aria-label="Página siguiente">
-                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                  </button>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </main>
-
-      <!-- Footer -->
-      <div id="footer-target" class="footer" aria-label="Pie de página">
-        <div class="footer-placeholder skeleton-loader"></div>
-      </div>
-    </div>
-    <!-- /.app-layout -->
-
-    <!-- Modal: Registrar / Editar Categoria -->
-    <div
-      id="categoryModal"
-      class="modal-overlay"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="categoryModalTitle"
-    >
-      <div class="modal">
-        <header class="modal__header">
-          <h2 class="modal__title" id="categoryModalTitle">
-            Registrar Nueva Categoria
-          </h2>
-          <button
-            id="btnCloseModal"
-            class="modal__close"
-            aria-label="Cerrar modal"
-          >
-            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-          </button>
         </header>
 
-        <form id="categoryForm" class="modal__body" novalidate>
-          <div class="form-grid">
-            <div class="form-group">
-              <label class="form-label" for="categoryName"
-                >Nombre de la Categoria</label
-              >
-              <input
-                class="form-control"
-                type="text"
-                id="categoryName"
-                name="categoryName"
-                placeholder="Ej: Higiene Personal"
-                required
-                autocomplete="off"
-              />
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="categoryDesc">Descripción</label>
-              <textarea
-                class="form-control"
-                id="categoryDesc"
-                name="categoryDesc"
-                rows="3"
-                placeholder="Breve descripción de la Categoria..."
-              ></textarea>
-            </div>
+        <!-- Toolbar: búsqueda -->
+        <div class="toolbar" role="search">
+          <div class="toolbar__search">
+            <i class="fa-solid fa-magnifying-glass toolbar__search-icon" aria-hidden="true"></i>
+            <input type="search" id="categoriesSearch" placeholder="Buscar Categoria..." aria-label="Buscar Categoria"
+              autocomplete="off" />
           </div>
-        </form>
+        </div>
 
-        <footer class="modal__footer">
-          <button id="btnCancelModal" type="button" class="btn btn-secondary">
-            Cancelar
-          </button>
-          <button
-            type="submit"
-            id="btn-Submit"
-            form="categoryForm"
-            class="btn btn-success"
-          >
-            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-            Guardar Categoria
-          </button>
-        </footer>
+        <!-- Tabla de Categorias -->
+        <div class="table-wrapper" role="region" aria-label="Listado de Categorias">
+          <div class="table-scroll">
+            <table class="data-table categories-table" aria-label="Tabla de Categorias">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col" class="col-actions">Acciones</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <!-- Paginación -->
+          <nav class="pagination-bar" aria-label="Paginación de Categorías">
+
+            <p class="pagination-bar__info" id="paginationInfo">
+            </p>
+
+            <ul class="pagination" role="list" id="paginationContainer">
+              <!-- Aquí JavaScript generará los botones -->
+            </ul>
+
+          </nav>
+        </div>
       </div>
-    </div>
+    </main>
 
-    <script src="/js/category.js"></script>
-    <script src="../js/sidebar.js" defer></script>
-    <script src="../js/topbar.js" defer></script>
-    <script src="../js/footer.js" defer></script>
-  </body>
+    <!-- Footer -->
+    <div id="footer-target" class="footer" aria-label="Pie de página">
+      <div class="footer-placeholder skeleton-loader"></div>
+    </div>
+  </div>
+  <!-- /.app-layout -->
+
+  <!-- Modal: Registrar / Editar Categoria -->
+  <div id="categoryModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
+    <div class="modal">
+      <header class="modal__header">
+        <h2 class="modal__title" id="categoryModalTitle">
+          Registrar Nueva Categoria
+        </h2>
+        <button id="btnCloseModal" class="modal__close" aria-label="Cerrar modal">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <form id="categoryForm" class="modal__body" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="categoryName">Nombre de la Categoria</label>
+            <input class="form-control" type="text" id="categoryName" name="categoryName"
+              placeholder="Ej: Higiene Personal" required autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="categoryDesc">Descripción</label>
+            <textarea class="form-control" id="categoryDesc" name="categoryDesc" rows="3"
+              placeholder="Breve descripción de la Categoria..."></textarea>
+          </div>
+        </div>
+      </form>
+
+      <footer class="modal__footer">
+        <button id="btnCancelModal" type="button" class="btn btn-secondary">
+          Cancelar
+        </button>
+        <button type="submit" id="btn-Submit" form="categoryForm" class="btn btn-success">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Guardar Categoria
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <script type="module" src="/js/category.js"></script>
+  <script src="../js/sidebar.js" defer></script>
+  <script src="../js/topbar.js" defer></script>
+  <script src="../js/footer.js" defer></script>
+</body>
+
 </html>

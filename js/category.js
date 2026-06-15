@@ -1,4 +1,8 @@
+import { renderGlobalPagination, updatePaginationInfo } from './utils/pagination.js';
+
 document.addEventListener("DOMContentLoaded", () => {
+  let currentPage = 1;
+  const pageSize = 10;
   const modal = document.getElementById("categoryModal");
   const btnOpen = document.getElementById("btnOpenModal");
   const btnClose = document.getElementById("btnCloseModal");
@@ -23,38 +27,49 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const API_CONFIG = {
-    baseURL: "https:/localhost:7204/api",
+    baseURL: "https://localhost:7204/api",
     endpoints: {
       categories: "/Categories",
     },
   };
 
-  async function GetAllCategory() {
+  async function GetAllCategory(page = currentPage, size = pageSize) {
     try {
       const response = await fetch(
-        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.categories}`,
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.categories}/paged?page=${page}&limit=${size}`,
         {
           method: "GET",
           headers: {
             accept: "Application/json",
           },
-        },
+        }
       );
 
       if (!response.ok) {
-        throw new Error(
-          `Error http: ${response.status}- ${response.statusText}`,
-        );
+        throw new Error(`Error http: ${response.status} - ${response.statusText}`);
       }
 
-      const data = await response.json();
-      const categories = data.data || data;
-      renderCategoriesTable(categories);
+      const result = await response.json();
+      renderCategoriesTable(result.data);
+      updatePaginationInfo(
+        result.meta.currentPage,
+        result.meta.itemsPerPage,
+        result.meta.totalItems,
+        "paginationInfo",
+        "Categorías"
+      );
 
-      return categories;
+      renderGlobalPagination(
+        result.meta.totalPages,
+        result.meta.currentPage,
+        "paginationContainer",
+        async (newPage) => {
+          currentPage = newPage;
+          await GetAllCategory(currentPage, pageSize);
+        }
+      );
     } catch (error) {
-      console.log("ha ocurrido un error al obtener las categorias: ", error);
-      return [];
+      console.log("Ha ocurrido un error al obtener las categorias: ", error);
     }
   }
 
@@ -64,31 +79,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!categories || categories.length === 0) {
       tbody.innerHTML = `
-    <tr>
-         <td>
+        <tr>
+             <td>
                     <i class="fas fa-box-open" style="font-size: 48px; color: #6c757d;"></i>
                      <p> No hay categorias registradas </p>
-
                     <button id="btnOpenModalEmpty" class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> Registrar primera marca
+                        <i class="fas fa-plus"></i> Registrar primera categoría
                     </button>
-
-         </td>
-    </tr>
-
-
-    `;
+             </td>
+        </tr>
+      `;
       const emptyBtn = document.getElementById("btnOpenModalEmpty");
       if (emptyBtn) {
-        emptyBtn = addEventListener("click", () => openModal());
+        // Corregida la asignación del evento
+        emptyBtn.addEventListener("click", () => modal.classList.add("active"));
       }
       return;
     }
 
+    // Corregidas las propiedades categoryName a name y description
     tbody.innerHTML = categories
       .map(
         (category) => `
-      <tr data-categories-id="${category.id}">
+        <tr data-categories-id="${category.id}">
             <td>${formatId(category.id)}</td>
             <td><span class="cell-main">${escapeHtml(category.name)}</span></td>
             <td class="cell-main">${escapeHtml(category.description || "Sin descripción")}</td>
@@ -101,20 +114,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button
                     class="btn-icon btn-icon--edit"
                     onclick="editCategory(${category.id})"
-                    title="Editar ${escapeHtml(category.categoryName)}"
-                    aria-label="Editar marca ${escapeHtml(category.categoryDescription)}"
+                    title="Editar ${escapeHtml(category.name)}"
+                    aria-label="Editar marca ${escapeHtml(category.description)}"
                 >
                     <i class="fas fa-edit" aria-hidden="true"></i>
                 </button>
             </td>
         </tr>
-
-
-
-
-`,
+        `
       )
       .join("");
+  
   }
 
   function formatId(id) {
@@ -128,44 +138,46 @@ document.addEventListener("DOMContentLoaded", () => {
     return div.innerHTML;
   }
 
-  async function addCategory() {
+  
+
+ async function addCategory() {
     const btnSubmit = document.getElementById("btn-Submit");
     if (btnSubmit) {
-      try {
-        btnSubmit.addEventListener("click", async (event) => {
-          event.preventDefault();
-          const categoryName = document.getElementById("categoryName").value;
-          const categoryDescription =
-            document.getElementById("categoryDesc").value;
+      btnSubmit.addEventListener("click", async (event) => {
+        event.preventDefault();
+        const categoryName = document.getElementById("categoryName").value;
+        const categoryDescription = document.getElementById("categoryDesc").value;
 
-          if (!categoryName || !categoryDescription) {
-            alert("Por favor complete los campos");
-            return;
-          }
+        if (!categoryName || !categoryDescription) {
+          alert("Por favor complete los campos");
+          return;
+        }
 
+        try {
           const response = await fetch(
             `${API_CONFIG.baseURL}${API_CONFIG.endpoints.categories}`,
             {
               method: "POST",
-              headers: { "content-Type": "Application/json" },
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                categoryName: categoryName,
-                categoryDescription: categoryDescription,
+                name: categoryName, // Cambiado para que coincida con tu backend
+                description: categoryDescription, // Cambiado para que coincida con tu backend
               }),
-            },
+            }
           );
 
           if (response.ok) {
-            alert("Categoria agregada con exito");
+            alert("Categoria agregada con éxito");
             refresh();
             closeModal();
           } else {
-            alert("ocurrio un error", response.status - response.statusText);
+            // Corregido el error matemático del alert usando template literals
+            alert(`Ocurrió un error: ${response.status} ${response.statusText}`);
           }
-        });
-      } catch (error) {
-        console.log("Ocurrio un error", error);
-      }
+        } catch (error) {
+          console.log("Ocurrió un error", error);
+        }
+      });
     }
   }
 
@@ -177,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       btnEdit.addEventListener("click");
-    } catch (error) {}
+    } catch (error) { }
   }
 
   function refresh() {

@@ -1,5 +1,8 @@
+import { renderGlobalPagination, updatePaginationInfo } from './utils/pagination.js';
 document.addEventListener("DOMContentLoaded", () => {
   // --- CONFIGURACIÓN Y ESTADO DE LA APP ---
+  let currentPage = 1;
+  const pageSize = 10;
   const API_CONFIG = {
     baseURL: "https://localhost:7204/api",
     endpoints: { brands: "/Brands" },
@@ -112,24 +115,42 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- OPERACIONES API (CRUD) ---
 
   // Obtener todas las marcas
-  async function getAllBrands() {
+  async function getAllBrands(page = currentPage, size = pageSize) {
     try {
       showLoadingState();
       const response = await fetch(
-        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}`,
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}/paged?page=${page}&limit=${size}`,
         {
           method: "GET",
-          headers: getHeaders(false), // Sin Content-Type para peticiones GET
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem(API_CONFIG.tokenKey)}`,
+          },
         },
       );
 
-      if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+      const result = await response.json();
+      renderBrandsTable(result.data);
+      updatePaginationInfo(
+        result.meta.currentPage,
+        result.meta.itemsPerPage,
+        result.meta.totalItems,
+        "paginationInfo",
+        "Marcas"
+      );
 
-      const data = await response.json();
-      const brands = data.data || data;
-
-      renderBrandsTable(brands);
-      updatePaginationInfo(brands.length);
+      renderGlobalPagination(
+        result.meta.totalPages,
+        result.meta.currentPage,
+        "paginationContainer",
+        async (newPage) => {
+          currentPage = newPage;
+          await getAllBrands(currentPage, pageSize);
+        }
+      );
     } catch (error) {
       console.error("Error al obtener las marcas:", error);
       showErrorState(error.message);
