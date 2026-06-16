@@ -1,120 +1,291 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Reporte de ventas y compras para Farmacia Génesis." />
+    <title>Reportes — Farmacia Génesis</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reportes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/base/globals.css" />
-  <link rel="stylesheet" href="../css/components/sidebar.css" />
-  <link rel="stylesheet" href="../css/components/topbar.css" />
-  <link rel="stylesheet" href="../css/components/footer.css" />
-  <link id="page-style" rel="stylesheet" href="../css/layout/reports.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Design System -->
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/base/design-tokens.css" />
+    <link rel="stylesheet" href="../css/components/catalog-ui.css" />
 
-  
-</head>
+    <!-- Layout y Componentes -->
+    <link rel="stylesheet" href="../css/layout/reports.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
 
-<body>
-  <div class="app-layout">
-    <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
-      <div class="sidebar-placeholder skeleton-loader"></div>
-    </aside>
+    <!-- Iconografía -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
 
-    <div id="header-target" class="main-header" aria-label="Barra superior">
-      <div class="header-placeholder skeleton-loader"></div>
-    </div>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
+        <div class="sidebar-placeholder skeleton-loader"></div>
+      </aside>
 
-    <main>
-      <h1 class="text">Todos tus reportes</h1>
-
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-icon"><i class="fa-solid fa-cash-register"></i></div>
-          <div class="kpi-info">
-            <h3>Ventas Totales</h3>
-            <p class="kpi-value">$1,200.00</p>
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-icon"><i class="fa-solid fa-basket-shopping"></i></div>
-          <div class="kpi-info">
-            <h3>Compras Realizadas</h3>
-            <p class="kpi-value">50 pedidos</p>
-          </div>
-        </div>
-
-        <div class="kpi-card highlight">
-          <div class="kpi-icon"><i class="fa-solid fa-crown"></i></div>
-          <div class="kpi-info">
-            <h3>Producto Más Vendido</h3>
-            <p class="kpi-value">Paracetamol</p>
-            <span class="kpi-sub">500mg (120 uds)</span>
-          </div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-          <div class="kpi-info">
-            <h3>Alertas Inventario</h3>
-            <p class="kpi-value">20 Stock Bajo</p>
-          </div>
-        </div>
+      <!-- Topbar -->
+      <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
       </div>
 
-      <div class="report-section">
-        <h2><i class="fa-solid fa-chart-line"></i> Productos con mayor rendimiento</h2>
-        
-        <div class="table-responsive">
-          <table class="report-table">
-            <thead>
-              <tr>
-                <th>Puesto</th>
-                <th>Medicamento</th>
-                <th>Concentración</th>
-                <th>Unidades Vendidas</th>
-                <th>Total General</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="top-product-row">
-                <td><strong>1</strong></td>
-                <td><strong><i class="fa-solid fa-crown badge-crown"></i> Paracetamol</strong></td>
-                <td>500 mg</td>
-                <td>120 unidades</td>
-                <td><strong>$240.00</strong></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Omeprazol</td>
-                <td>20 mg</td>
-                <td>95 unidades</td>
-                <td>$190.00</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Alka-Seltzer</td>
-                <td>Estándar</td>
-                <td>80 unidades</td>
-                <td>$80.00</td>
-              </tr>
-            </tbody>
-          </table>
+      <!-- Contenido principal -->
+      <main class="main-content" id="main-content">
+        <div class="reports-page">
+          <header class="page-header">
+            <div class="page-header__title">
+              <h1>Reportes</h1>
+              <p>Consulta y analiza reportes independientes de ventas y compras.</p>
+            </div>
+
+            <div class="page-header__actions">
+              <div class="report-tabs" role="tablist" aria-label="Selector de reportes">
+                <button class="btn btn-outline btn-tab is-active" type="button" data-tab="sales" role="tab" aria-selected="true" aria-controls="panel-sales">Reporte de Ventas</button>
+                <button class="btn btn-outline btn-tab" type="button" data-tab="purchases" role="tab" aria-selected="false" aria-controls="panel-purchases">Reporte de Compras</button>
+              </div>
+            </div>
+          </header>
+
+          <div class="reports-panels">
+            <section id="panel-sales" class="report-panel report-panel--sales is-active" data-tab="sales">
+              <div class="report-card-grid">
+                <article class="report-card">
+                  <span class="report-card__icon"><i class="fa-solid fa-cash-register"></i></span>
+                  <div class="report-card__content">
+                    <p class="report-card__label">Ventas Totales</p>
+                    <p class="report-card__value">C$12,450.00</p>
+                  </div>
+                </article>
+
+                <article class="report-card">
+                  <span class="report-card__icon"><i class="fa-solid fa-crown"></i></span>
+                  <div class="report-card__content">
+                    <p class="report-card__label">Producto Más Vendido</p>
+                    <p class="report-card__value">Paracetamol</p>
+                  </div>
+                </article>
+
+                <article class="report-card">
+                  <span class="report-card__icon"><i class="fa-solid fa-clock"></i></span>
+                  <div class="report-card__content">
+                    <p class="report-card__label">Hora de Mayor Venta</p>
+                    <p class="report-card__value">3:00 pm - 4:00 pm</p>
+                  </div>
+                </article>
+
+                <article class="report-card">
+                  <span class="report-card__icon"><i class="fa-solid fa-coins"></i></span>
+                  <div class="report-card__content">
+                    <p class="report-card__label">Ganancia Total</p>
+                    <p class="report-card__value">C$42,320.00</p>
+                  </div>
+                </article>
+              </div>
+
+              <div class="report-charts">
+                <article class="chart-card">
+                  <h2 class="chart-card__title">Ventas por hora</h2>
+                  <div class="chart-placeholder">[Gráfico: Ventas por hora]</div>
+                </article>
+                <article class="chart-card">
+                  <h2 class="chart-card__title">Top productos vendidos</h2>
+                  <div class="chart-placeholder">[Gráfico: Top productos]</div>
+                </article>
+              </div>
+
+              <div class="report-toolbar">
+                <div class="toolbar__search">
+                  <i class="fa-solid fa-magnifying-glass toolbar__search-icon" aria-hidden="true"></i>
+                  <input type="search" placeholder="Buscar ventas..." aria-label="Buscar ventas" />
+                </div>
+                <div class="toolbar__actions">
+                  <button class="btn btn-secondary" type="button"><i class="fa-solid fa-file-pdf"></i> Exportar PDF</button>
+                  <button class="btn btn-secondary" type="button"><i class="fa-solid fa-file-excel"></i> Exportar Excel</button>
+                </div>
+              </div>
+
+              <div class="table-wrapper report-table-wrapper" role="region" aria-label="Tabla de ventas">
+                <div class="table-scroll">
+                  <table class="data-table report-table" aria-label="Tabla de ventas">
+                    <thead>
+                      <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Ganancia</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>2026-06-10</td>
+                        <td>Paracetamol 500mg</td>
+                        <td>12</td>
+                        <td>C$24.00</td>
+                        <td>C$8.00</td>
+                      </tr>
+                      <tr>
+                        <td>2026-06-10</td>
+                        <td>Omeprazol 20mg</td>
+                        <td>8</td>
+                        <td>C$16.00</td>
+                        <td>C$5.20</td>
+                      </tr>
+                      <tr>
+                        <td>2026-06-09</td>
+                        <td>Ibuprofeno 400mg</td>
+                        <td>5</td>
+                        <td>C$10.00</td>
+                        <td>C$3.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <nav class="pagination-bar" aria-label="Paginación de ventas">
+                  <p class="pagination-bar__info">Mostrando 1 a 10 de 34 resultados</p>
+                  <ul class="pagination" role="list">
+                    <li><button class="page-link" type="button" aria-label="Página anterior"><i class="fa-solid fa-chevron-left"></i></button></li>
+                    <li><button class="page-link is-active" type="button" aria-current="page">1</button></li>
+                    <li><button class="page-link" type="button">2</button></li>
+                    <li><button class="page-link" type="button">3</button></li>
+                    <li><button class="page-link" type="button" aria-label="Página siguiente"><i class="fa-solid fa-chevron-right"></i></button></li>
+                  </ul>
+                </nav>
+              </div>
+            </section>
+
+            <section id="panel-purchases" class="report-panel report-panel--purchases" data-tab="purchases" hidden>
+              <div class="report-card-grid">
+                <article class="report-card">
+                  <span class="report-card__icon"><i class="fa-solid fa-cart-plus"></i></span>
+                  <div class="report-card__content">
+                    <p class="report-card__label">Total Comprado</p>
+                    <p class="report-card__value">C$8,900.00</p>
+                  </div>
+                </article>
+
+                <article class="report-card">
+                  <span class="report-card__icon"><i class="fa-solid fa-truck"></i></span>
+                  <div class="report-card__content">
+                    <p class="report-card__label">Proveedor Principal</p>
+                    <p class="report-card__value">Distribuidora Salud S.A.</p>
+                  </div>
+                </article>
+
+                <article class="report-card">
+                  <span class="report-card__icon"><i class="fa-solid fa-percent"></i></span>
+                  <div class="report-card__content">
+                    <p class="report-card__label">Mejor Descuento</p>
+                    <p class="report-card__value">18%</p>
+                  </div>
+                </article>
+
+                <article class="report-card">
+                  <span class="report-card__icon"><i class="fa-solid fa-receipt"></i></span>
+                  <div class="report-card__content">
+                    <p class="report-card__label">Cantidad de Compras</p>
+                    <p class="report-card__value">74</p>
+                  </div>
+                </article>
+              </div>
+
+              <div class="report-charts">
+                <article class="chart-card">
+                  <h2 class="chart-card__title">Compras por proveedor</h2>
+                  <div class="chart-placeholder">[Gráfico: Compras por proveedor]</div>
+                </article>
+                <article class="chart-card">
+                  <h2 class="chart-card__title">Compras por mes</h2>
+                  <div class="chart-placeholder">[Gráfico: Compras mensuales]</div>
+                </article>
+              </div>
+
+              <div class="report-toolbar">
+                <div class="toolbar__search">
+                  <i class="fa-solid fa-magnifying-glass toolbar__search-icon" aria-hidden="true"></i>
+                  <input type="search" placeholder="Buscar compras..." aria-label="Buscar compras" />
+                </div>
+                <div class="toolbar__actions">
+                  <button class="btn btn-secondary" type="button"><i class="fa-solid fa-file-pdf"></i> Exportar PDF</button>
+                  <button class="btn btn-secondary" type="button"><i class="fa-solid fa-file-excel"></i> Exportar Excel</button>
+                </div>
+              </div>
+
+              <div class="table-wrapper report-table-wrapper" role="region" aria-label="Tabla de compras">
+                <div class="table-scroll">
+                  <table class="data-table report-table" aria-label="Tabla de compras">
+                    <thead>
+                      <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total Compra</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>2026-06-08</td>
+                        <td>Distribuidora Salud S.A.</td>
+                        <td>Paracetamol 500mg</td>
+                        <td>100</td>
+                        <td>C$200.00</td>
+                      </tr>
+                      <tr>
+                        <td>2026-06-05</td>
+                        <td>FarmaX</td>
+                        <td>Omeprazol 20mg</td>
+                        <td>50</td>
+                        <td>C$95.00</td>
+                      </tr>
+                      <tr>
+                        <td>2026-05-28</td>
+                        <td>Distribuidora Salud S.A.</td>
+                        <td>Ibuprofeno 400mg</td>
+                        <td>60</td>
+                        <td>C$120.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <nav class="pagination-bar" aria-label="Paginación de compras">
+                  <p class="pagination-bar__info">Mostrando 1 a 10 de 29 resultados</p>
+                  <ul class="pagination" role="list">
+                    <li><button class="page-link" type="button" aria-label="Página anterior"><i class="fa-solid fa-chevron-left"></i></button></li>
+                    <li><button class="page-link is-active" type="button" aria-current="page">1</button></li>
+                    <li><button class="page-link" type="button">2</button></li>
+                    <li><button class="page-link" type="button">3</button></li>
+                    <li><button class="page-link" type="button" aria-label="Página siguiente"><i class="fa-solid fa-chevron-right"></i></button></li>
+                  </ul>
+                </nav>
+              </div>
+            </section>
+          </div>
         </div>
+      </main>
 
+      <!-- Footer -->
+      <div id="footer-target" class="footer" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
       </div>
-    </main>
+    </div><!-- /.app-layout -->
 
-    <div id="footer-target" aria-label="Pie de página">
-      <div class="footer-placeholder skeleton-loader"></div>
-    </div>
-  </div>
-
-  <script src="../js/sidebar.js" defer></script>
-  <script src="../js/topbar.js" defer></script>
-  <script src="../js/footer.js" defer></script>
-</body>
-
+    <script src="../js/reports.js" defer></script>
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/topbar.js" defer></script>
+    <script src="../js/footer.js" defer></script>
+  </body>
 </html>
