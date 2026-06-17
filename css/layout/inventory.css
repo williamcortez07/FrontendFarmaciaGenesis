@@ -1,0 +1,93 @@
+/* ==========================================================================
+   INVENTORY LAYOUT STYLES
+   Ruta: ../css/layout/inventory.css
+   ========================================================================== */
+
+/* Importamos los componentes atómicos (tablas, botones, tarjetas, badges) */
+@import url("../components/catalog-ui.css");
+
+/* ── Estructura del Contenedor Principal ── */
+main {
+  grid-area: main;
+  padding: var(--space-6);
+  background-color: var(--bg-body);
+  overflow-y: auto;
+}
+
+/* ── Cabecera de la Página (Ajustes de espaciado) ── */
+.page-header {
+  margin-bottom: var(--space-6);
+}
+
+/* ── Pestañas de Navegación (Manejo de estados) ── */
+.report-tabs {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  border-bottom: var(--border-width) solid var(--border-color);
+  padding-bottom: var(--space-3);
+}
+
+/* Estado activo inyectado dinámicamente por reports.js */
+.report-tabs .btn.is-active {
+  background-color: var(--color-primary);
+  color: var(--text-on-color) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Paneles del Reporte ── */
+.report-panel {
+  animation: fadeIn var(--trans-fast) ease;
+}
+
+/* Forzar ocultamiento cuando reports.js añade el atributo hidden */
+.report-panel[hidden] {
+  display: none !important;
+}
+
+/* ── Grid de Tarjetas de Control (KPIs) ── */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+/* Estilos específicos para el contenido interno de las tarjetas KPI */
+.catalog-grid .card .card__body {
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.catalog-grid .card h3 {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: var(--font-weight-semibold);
+}
+
+.catalog-grid .card p {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+/* Clases utilitarias de control de color semántico */
+.text-heading { color: var(--text-heading); }
+.text-success { color: var(--color-success); }
+.text-danger  { color: var(--color-danger); }
+
+/* ── Animación de entrada suave ── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

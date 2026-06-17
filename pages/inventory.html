@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/topbar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/layout/inventory.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -31,7 +32,184 @@
         <div class="header-placeholder skeleton-loader"></div>
       </div>
 
-<main> <h1>Gestión del Inventario</h1></main>
+<main> 
+
+  <!-- Cabecera de Sección -->
+        <div class="page-header">
+          <div class="page-header__title">
+            <h1>Gestión del Inventario</h1>
+            <p>Control de existencias, niveles de stock y alertas de reabastecimiento</p>
+          </div>
+          <div class="page-header__actions">
+            <button class="btn btn-outline"><i class="fa-solid fa-file-excel"></i> Exportar Inventario</button>
+            <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nuevo Producto</button>
+          </div>
+        </div>
+
+        <!-- Pestañas de Navegación del Reporte (Compatibles con reports.js) -->
+        <div class="report-tabs" style="display: flex; gap: var(--space-3); margin-bottom: var(--space-6);">
+          <button class="btn btn-secondary" data-tab="existencias">Existencias Actuales</button>
+          <button class="btn btn-secondary" data-tab="alertas">Alertas de Reposición</button>
+        </div>
+
+        <!-- ==========================================
+             PANEL 1: EXISTENCIAS ACTUALES
+             ========================================== -->
+        <div class="report-panel" data-tab="existencias">
+          
+          <!-- Indicadores de Inventario (KPIs de Negocio) -->
+          <div class="catalog-grid" style="margin-bottom: var(--space-6); display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--space-5);">
+            <div class="card">
+              <div class="card__body" style="text-align: center; padding: var(--space-6);">
+                <h3 style="font-size: var(--font-size-sm); color: var(--text-muted); margin-bottom: var(--space-2); text-transform: uppercase;">Total Productos Únicos</h3>
+                <p style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--text-heading); margin: 0;">1,240</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__body" style="text-align: center; padding: var(--space-6);">
+                <h3 style="font-size: var(--font-size-sm); color: var(--text-muted); margin-bottom: var(--space-2); text-transform: uppercase;">Valoración de Stock</h3>
+                <p style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-success); margin: 0;">C$ 310,450.00</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__body" style="text-align: center; padding: var(--space-6);">
+                <h3 style="font-size: var(--font-size-sm); color: var(--text-muted); margin-bottom: var(--space-2); text-transform: uppercase;">Productos en Alerta</h3>
+                <p style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-danger); margin: 0;">14</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabla de Inventario General -->
+          <div class="card">
+            <div class="card__header">
+              <span>Listado General de Existencias</span>
+            </div>
+            <div class="card__body">
+              
+              <!-- Buscador y Filtros -->
+              <div class="toolbar">
+                <div class="toolbar__search">
+                  <i class="fa-solid fa-magnifying-glass toolbar__search-icon"></i>
+                  <input type="text" placeholder="Buscar por fármaco, código o componente..." />
+                </div>
+                <div class="toolbar__actions">
+                  <button class="btn btn-icon"><i class="fa-solid fa-filter"></i></button>
+                </div>
+              </div>
+
+              <!-- Contenedor de Tabla con Scroll Responsivo -->
+              <div class="table-wrapper">
+                <div class="table-scroll">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Código</th>
+                        <th>Descripción Producto</th>
+                        <th>Categoría</th>
+                        <th>Existencias</th>
+                        <th>Precio Venta</th>
+                        <th>Estado</th>
+                        <th class="col-actions">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>PROD-1022</code></td>
+                        <td>
+                          <div class="cell-main">Paracetamol 500mg</div>
+                          <div class="cell-sub">Caja x 100 tabletas</div>
+                        </td>
+                        <td>Analgésicos</td>
+                        <td class="cell-main">45 cajas</td>
+                        <td>C$ 120.00</td>
+                        <td><span class="badge badge--success">Disponible</span></td>
+                        <td class="col-actions">
+                          <button class="btn-icon btn-icon--edit"><i class="fa-solid fa-pen"></i></button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>PROD-1089</code></td>
+                        <td>
+                          <div class="cell-main">Amoxicilina 500mg</div>
+                          <div class="cell-sub">Frasco suspensión 60ml</div>
+                        </td>
+                        <td>Antibióticos</td>
+                        <td class="cell-main">8 frascos</td>
+                        <td>C$ 185.00</td>
+                        <td><span class="badge badge--warning">Stock Bajo</span></td>
+                        <td class="col-actions">
+                          <button class="btn-icon btn-icon--edit"><i class="fa-solid fa-pen"></i></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Paginación -->
+              <div class="pagination-bar">
+                <span class="pagination-bar__info">Mostrando 1-2 de 1,240 productos</span>
+                <ul class="pagination">
+                  <li><button class="page-link" disabled><i class="fa-solid fa-chevron-left"></i></button></li>
+                  <li><button class="page-link is-active">1</button></li>
+                  <li><button class="page-link">2</button></li>
+                  <li><button class="page-link"><i class="fa-solid fa-chevron-right"></i></button></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             PANEL 2: ALERTAS DE REPOSICIÓN
+             ========================================== -->
+        <div class="report-panel" data-tab="alertas" hidden>
+          <div class="card">
+            <div class="card__header">
+              <span>Productos Urgentes por Solicitar a Proveedor</span>
+            </div>
+            <div class="card__body">
+              <div class="table-wrapper">
+                <div class="table-scroll">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Producto</th>
+                        <th>Stock Mínimo</th>
+                        <th>Stock Actual</th>
+                        <th>Déficit Crítico</th>
+                        <th>Nivel de Riesgo</th>
+                        <th class="col-actions">Orden</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="cell-main">Ibuprofeno 400mg</div>
+                          <div class="cell-sub">Tabletas - Laboratorio Ramos</div>
+                        </td>
+                        <td>30 unidades</td>
+                        <td class="cell-main" style="color: var(--color-danger);">2 unidades</td>
+                        <td>-28 unidades</td>
+                        <td><span class="badge badge--danger">Crítico</span></td>
+                        <td class="col-actions">
+                          <button class="btn btn-sm btn-success"><i class="fa-solid fa-cart-shopping"></i> Pedir</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+</main>
+
+
+
 
     <div id="footer-target" aria-label="Pie de página">
         <div class="footer-placeholder skeleton-loader"></div>
