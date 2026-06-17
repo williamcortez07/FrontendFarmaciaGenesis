@@ -7,23 +7,17 @@
 @import url("../components/catalog-ui.css");
 
 /* ── Estructura del Contenedor Principal ── */
-main {
-  grid-area: main;
-  padding: var(--space-6);
-  background-color: var(--bg-body);
-  overflow-y: auto;
-}
-
-/* ── Cabecera de la Página (Ajustes de espaciado) ── */
-.page-header {
-  margin-bottom: var(--space-6);
+.inventory-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
 }
 
 /* ── Pestañas de Navegación (Manejo de estados) ── */
 .report-tabs {
   display: flex;
   gap: var(--space-3);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
   border-bottom: var(--border-width) solid var(--border-color);
   padding-bottom: var(--space-3);
 }
@@ -43,6 +37,15 @@ main {
 /* Forzar ocultamiento cuando reports.js añade el atributo hidden */
 .report-panel[hidden] {
   display: none !important;
+}
+
+/* ── Toolbar ── */
+.report-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
 }
 
 /* ── Grid de Tarjetas de Control (KPIs) ── */
@@ -75,10 +78,174 @@ main {
   line-height: var(--line-height-tight);
 }
 
-/* Clases utilitarias de control de color semántico */
+/* ── Clases utilitarias de control de color semántico ── */
 .text-heading { color: var(--text-heading); }
 .text-success { color: var(--color-success); }
 .text-danger  { color: var(--color-danger); }
+
+/* ── Modal para Nuevo/Editar Producto (mismo estilo que products.css) ── */
+.product-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  z-index: var(--z-modal);
+  font-family: var(--font-sans);
+}
+.product-modal.is-open {
+  display: flex;
+}
+
+.product-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+}
+
+.product-modal__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: transparent;
+  color: var(--color-neutral-700);
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--trans-fast);
+}
+.product-modal__close:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.product-modal__intro {
+  margin: 0 var(--space-12) var(--space-6) 0;
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  line-height: var(--line-height-base);
+}
+
+.product-form__row {
+  display: grid;
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+.product-form__row--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.product-form__row--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.product-field label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-info-hover);
+}
+
+.product-field input,
+.product-field select {
+  width: 100%;
+  padding: 0.625rem var(--space-3);
+  border: var(--border-width) solid var(--color-neutral-700);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-sans);
+  background: var(--bg-surface);
+  color: var(--text-body);
+  box-sizing: border-box;
+  transition:
+    border-color var(--trans-fast),
+    box-shadow var(--trans-fast);
+}
+.product-field input:focus,
+.product-field select:focus {
+  outline: none;
+  border-color: var(--color-info);
+  box-shadow: 0 0 0 2px var(--color-info-light);
+}
+
+.product-modal__panel {
+  background: var(--bg-subtle);
+  border: var(--border-width) solid var(--color-neutral-300);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-8) var(--space-6);
+  max-width: 720px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  max-height: calc(100vh - var(--space-12));
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+}
+
+.product-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: center;
+  margin-top: var(--space-8);
+  padding-top: var(--space-2);
+  border-top: var(--border-width) solid var(--border-color);
+}
+
+.product-btn-cancel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 150px;
+  padding: 0.75rem var(--space-5);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  background: var(--color-neutral-600);
+  color: var(--text-on-color);
+  transition: background-color var(--trans-fast);
+}
+.product-btn-cancel:hover {
+  background-color: var(--color-neutral-700);
+}
+
+.product-btn-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 150px;
+  padding: 0.75rem var(--space-5);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  background: var(--color-success);
+  color: var(--text-on-color);
+  transition:
+    background-color var(--trans-fast),
+    box-shadow var(--trans-fast),
+    transform var(--trans-fast);
+}
+.product-btn-save:hover {
+  background-color: var(--color-success-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
 
 /* ── Animación de entrada suave ── */
 @keyframes fadeIn {
@@ -89,5 +256,20 @@ main {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .product-form__row--3,
+  .product-form__row--2 {
+    grid-template-columns: 1fr;
+  }
+  .product-modal__intro {
+    margin-right: 0;
+    text-align: left;
+  }
+  .product-modal__panel {
+    padding: var(--space-6) var(--space-4);
   }
 }
