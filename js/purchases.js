@@ -8,6 +8,7 @@ const API_CONFIG = {
     brands: "/Brands",
     purchases: "/Purchase",
   },
+  tokenKey: "tokenFarmacia",
 };
 
 // Declaración del estado global de la compra en memoria
@@ -18,24 +19,14 @@ let currentPurchase = {
   details: [],
 };
 
-/**
- * ==========================================
- * REFERENCIAS DEL DOM
- * ==========================================
- */
+// referencias al Dom
 const modal = document.getElementById("f-Modal");
 const btnAddDetail = document.getElementById("btn-add-detail");
 const btnSavePurchase = document.getElementById("btn-save-purchase");
 const closeButtons = document.querySelectorAll("[data-close-modal]");
 const purchaseForm = document.getElementById("purchaseForm");
 
-/**
- * ==========================================
- * UTILIDAD: Sistema de Notificaciones Toast
- * ==========================================
- * Reemplaza los alert() nativos por notificaciones
- * no intrusivas con estados semánticos.
- */
+// para las notificaciones bien tuani no como el alert todo feo
 function showToast(message, type = "info", duration = 4000) {
   const ICONS = {
     success: "fa-circle-check",
@@ -44,7 +35,7 @@ function showToast(message, type = "info", duration = 4000) {
     info: "fa-circle-info",
   };
 
-  // Crear contenedor si no existe
+  // Crear contenedor si no existe. por si acaso esto
   let container = document.getElementById("toast-container");
   if (!container) {
     container = document.createElement("div");
@@ -87,25 +78,63 @@ function dismissToast(toast) {
   toast.addEventListener("animationend", () => toast.remove(), { once: true });
 }
 
-/**
- * ==========================================
- * UTILIDAD: Obtener Headers para peticiones
- * ==========================================
- */
-function getHeaders() {
+// optener los headers como en brands, la autenticacion y todo eso
+function getHeaders(includeContentType = true) {
+  const token = localStorage.getItem(API_CONFIG.tokenKey);
   const headers = {
-    "Content-Type": "application/json",
+    Accept: "application/json",
   };
+
+  if (includeContentType) {
+    headers["Content-Type"] = "application/json";
+  }
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  } else {
+    console.warn(
+      "[Compras] No se encontró token de autenticación en localStorage.",
+    );
+  }
+
   return headers;
 }
 
-/**
- * ==========================================
- * MODAL: Apertura y Cierre
- * ==========================================
- * Usa clases CSS (is-open) en lugar de style.display
- * para mantener consistencia con los demás módulos.
- */
+// obtenemos al id del usuario logueado para mandarlo en la petición
+// segun gemini lo que  se pretende hacer aqui es primero decodificar el payload del token jwt
+//para tomar o extraer el userId
+function getUserIdFromToken() {
+  const token = localStorage.getItem(API_CONFIG.tokenKey);
+  if (!token) return null;
+
+  try {
+    // El JWT tiene 3 partes separadas por ".": header.payload.signature
+    const payloadBase64 = token.split(".")[1];
+    if (!payloadBase64) return null;
+
+    // Decodificar el payload Base64URL → JSON
+    const payloadJson = atob(
+      payloadBase64.replace(/-/g, "+").replace(/_/g, "/"),
+    );
+    const payload = JSON.parse(payloadJson);
+
+    const userId =
+      payload.nameid ||
+      payload.sub ||
+      payload.userId ||
+      payload.UserId ||
+      payload[
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      ];
+
+    return userId ? parseInt(userId, 10) : null;
+  } catch (error) {
+    console.error("[Compras] Error al decodificar el token JWT:", error);
+    return null;
+  }
+}
+
+// modal de apertura y cierre
 function openModal() {
   if (!modal) return;
   modal.classList.add("is-open");
@@ -151,11 +180,13 @@ if (purchaseForm) {
 }
 
 /**
+ *
  * ==========================================
  * VALIDACIÓN: Formulario de Detalle
  * ==========================================
  * Valida todos los campos del modal antes de
  * agregar un detalle a la tabla de compra.
+ *
  */
 function validateDetailForm() {
   const errors = [];
@@ -196,7 +227,8 @@ function validateDetailForm() {
     markFieldError("price-input");
   }
 
-  // 5. Fecha de vencimiento presente
+  // 5. Fecha de vencimiento presente -- por ejemplo no se puede ingresar una fecha de vencimiento
+  // si ese dia ya pasó...
   const expInput = document.getElementById("exp-date-input");
   const expirationDate = expInput ? expInput.value : "";
   if (!expirationDate) {
@@ -226,7 +258,7 @@ function validateDetailForm() {
       markFieldError("mfg-date-input");
     } else if (mfgDate >= expDate) {
       errors.push(
-        "La fecha de fabricación debe ser anterior a la fecha de vencimiento."
+        "La fecha de fabricación debe ser anterior a la fecha de vencimiento.",
       );
       markFieldError("mfg-date-input");
     }
@@ -237,11 +269,11 @@ function validateDetailForm() {
     const duplicate = currentPurchase.details.find(
       (d) =>
         d.productId === parseInt(productId, 10) &&
-        d.batchNumber.toLowerCase() === batchNumber.toLowerCase()
+        d.batchNumber.toLowerCase() === batchNumber.toLowerCase(),
     );
     if (duplicate) {
       errors.push(
-        `El producto "${productSelect.options[productSelect.selectedIndex].text}" con lote "${batchNumber}" ya fue agregado.`
+        `El producto "${productSelect.options[productSelect.selectedIndex].text}" con lote "${batchNumber}" ya fue agregado.`,
       );
       markFieldError("product-select");
       markFieldError("batch-input");
@@ -265,9 +297,7 @@ function markFieldError(fieldId) {
  * Limpia las marcas de error de todos los campos del modal
  */
 function clearFieldErrors() {
-  const invalidFields = document.querySelectorAll(
-    "#purchaseForm .is-invalid"
-  );
+  const invalidFields = document.querySelectorAll("#purchaseForm .is-invalid");
   invalidFields.forEach((field) => field.classList.remove("is-invalid"));
 }
 
@@ -315,7 +345,7 @@ function addPurchaseDetail() {
   showToast(
     `"${productName}" agregado correctamente a la factura.`,
     "success",
-    3000
+    3000,
   );
 }
 
@@ -325,8 +355,7 @@ function addPurchaseDetail() {
  * ==========================================
  */
 function removeDetail(index) {
-  const removedName =
-    currentPurchase.details[index]?.productName || "Producto";
+  const removedName = currentPurchase.details[index]?.productName || "Producto";
   currentPurchase.details.splice(index, 1);
   renderPurchaseTable();
   showToast(`"${removedName}" eliminado de la factura.`, "info", 3000);
@@ -364,9 +393,9 @@ function renderPurchaseTable() {
     const subtotal = detail.quantity * detail.unitPrice;
     totalEstimado += subtotal;
 
-    const expDateFormatted = new Date(
-      detail.expirationDate
-    ).toLocaleDateString("es-NI");
+    const expDateFormatted = new Date(detail.expirationDate).toLocaleDateString(
+      "es-NI",
+    );
 
     const tr = document.createElement("tr");
     tr.innerHTML = `
@@ -430,7 +459,7 @@ async function loadSuppliers() {
       `${API_CONFIG.baseURL}${API_CONFIG.endpoints.suppliers}`,
       {
         headers: getHeaders(),
-      }
+      },
     );
 
     if (!response.ok) throw new Error("Error en la respuesta del servidor");
@@ -442,14 +471,14 @@ async function loadSuppliers() {
       showToast(
         "No se encontraron proveedores registrados. Registra uno antes de crear una compra.",
         "warning",
-        6000
+        6000,
       );
       return;
     }
 
     suppliers.forEach((supplier) => {
       const option = document.createElement("option");
-      option.value = supplier.id;
+      option.value = supplier.supplierId ?? supplier.id;
       option.textContent = supplier.supplierName;
       supplierSelect.appendChild(option);
     });
@@ -458,16 +487,12 @@ async function loadSuppliers() {
     showToast(
       "No fue posible cargar la lista de proveedores. Verifica tu conexión e intenta recargar la página.",
       "error",
-      6000
+      6000,
     );
   }
 }
 
-/**
- * ==========================================
- * CARGA DE DATOS: Productos
- * ==========================================
- */
+// carga de datos productos.
 async function loadProducts() {
   const productSelect = document.getElementById("product-select");
 
@@ -476,7 +501,7 @@ async function loadProducts() {
       `${API_CONFIG.baseURL}${API_CONFIG.endpoints.products}`,
       {
         headers: getHeaders(),
-      }
+      },
     );
 
     if (!response.ok) throw new Error("Error en la respuesta del servidor");
@@ -488,14 +513,14 @@ async function loadProducts() {
       showToast(
         "No se encontraron productos registrados. Registra uno antes de crear una compra.",
         "warning",
-        6000
+        6000,
       );
       return;
     }
 
     products.forEach((product) => {
       const option = document.createElement("option");
-      option.value = product.id;
+      option.value = product.productId ?? product.id;
       option.textContent = product.tradeName;
       productSelect.appendChild(option);
     });
@@ -504,34 +529,29 @@ async function loadProducts() {
     showToast(
       "No fue posible cargar la lista de productos. Verifica tu conexión e intenta recargar la página.",
       "error",
-      6000
+      6000,
     );
   }
 }
 
-/**
- * ==========================================
- * GUARDAR COMPRA: Envío al backend
- * ==========================================
- */
+// enviar los datos de compra al backend
 async function savePurchase() {
   // 1. Validar que la tabla no esté vacía
   if (currentPurchase.details.length === 0) {
     showToast(
       "Debes agregar al menos un producto a la factura para poder guardar la compra.",
-      "warning"
+      "warning",
     );
     return;
   }
 
-  // 2. Validar sesión
-  const storedUserId = localStorage.getItem("currentUserId") || "0";
-  const currentUserId = parseInt(storedUserId, 10);
+  // 2. Validar sesión — obtener userId desde el token JWT
+  const currentUserId = getUserIdFromToken();
   if (!currentUserId || isNaN(currentUserId) || currentUserId <= 0) {
     showToast(
       "Tu sesión no es válida o ha expirado. Por favor, inicia sesión nuevamente.",
       "error",
-      6000
+      6000,
     );
     return;
   }
@@ -539,10 +559,24 @@ async function savePurchase() {
   // 3. Validar Proveedor
   const supplierSelect = document.getElementById("supplier-select");
   const supplierSelectValue = supplierSelect ? supplierSelect.value : "";
-  if (!supplierSelectValue || isNaN(parseInt(supplierSelectValue, 10))) {
+  const parsedSupplierId = parseInt(supplierSelectValue, 10);
+
+  // LOG DE DIAGNÓSTICO: muestra el valor crudo del select
+  console.log(
+    "[Compras] Valor crudo del select de proveedor:",
+    supplierSelectValue,
+    "→ parseado:",
+    parsedSupplierId,
+  );
+
+  if (
+    !supplierSelectValue ||
+    isNaN(parsedSupplierId) ||
+    parsedSupplierId <= 0
+  ) {
     showToast(
       "Debes seleccionar un proveedor de la lista antes de guardar.",
-      "warning"
+      "warning",
     );
     if (supplierSelect) supplierSelect.focus();
     return;
@@ -561,8 +595,6 @@ async function savePurchase() {
   btnSave.disabled = true;
   btnSave.innerHTML =
     '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
-
-  // Preparar el Payload exacto para el endpoint C#
   const payloadToAPI = {
     supplierId: currentPurchase.supplierId,
     userId: currentPurchase.userId,
@@ -582,23 +614,20 @@ async function savePurchase() {
       `${API_CONFIG.baseURL}${API_CONFIG.endpoints.purchases}`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
+        headers: getHeaders(true),
         body: JSON.stringify(payloadToAPI),
-      }
+      },
     );
 
     if (response.ok) {
       showToast(
         "¡La compra se registró correctamente y el inventario fue actualizado!",
         "success",
-        5000
+        5000,
       );
       resetPurchaseForm();
     } else {
-      // Manejo de errores seguro
+      // Manejo de errores
       const errorText = await response.text();
       let errorMessage = "Ocurrió un problema inesperado.";
       try {
@@ -609,13 +638,12 @@ async function savePurchase() {
           errorJson.message ||
           "Revisa los datos e inténtalo nuevamente.";
       } catch (e) {
-        errorMessage =
-          errorText || "No fue posible procesar la solicitud.";
+        errorMessage = errorText || "No fue posible procesar la solicitud.";
       }
       showToast(
         `No fue posible registrar la compra: ${errorMessage}`,
         "error",
-        6000
+        6000,
       );
     }
   } catch (error) {
@@ -623,7 +651,7 @@ async function savePurchase() {
     showToast(
       "No se pudo conectar con el servidor. Verifica tu conexión a internet e inténtalo nuevamente.",
       "error",
-      6000
+      6000,
     );
   } finally {
     btnSave.disabled = false;
@@ -646,3 +674,19 @@ document.addEventListener("DOMContentLoaded", () => {
     btnSavePurchase.addEventListener("click", savePurchase);
   }
 });
+
+/**
+ *                           ======         ======
+ *                          |      |       |      |
+ *                          |      |       |      |
+ *                           ======         ======
+ *
+ *                                    ----->
+ *
+ *
+ *                                 ________________
+ *
+ *
+ *
+ *
+ */
