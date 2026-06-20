@@ -130,7 +130,7 @@
   background: var(--bg-surface);
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-x: auto;
   box-shadow: var(--shadow-sm);
 }
 
@@ -139,6 +139,7 @@
   border-collapse: collapse;
   font-size: var(--font-size-sm);
   min-width: 780px;
+  overflow-x: auto;
 }
 .purchases-table thead th {
   background-color: var(--color-primary);
