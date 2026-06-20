@@ -1,5 +1,5 @@
 /* ==========================================================================
-   purchases.css — Catálogo de purchase
+   purchases.css — Módulo de Compras
    Depende de: globals.css → design-tokens.css → catalog-ui.css
    ========================================================================== */
 
@@ -7,12 +7,178 @@
    viven en globals.css. Los botones, tabla, badge, modal y paginación
    viven en catalog-ui.css. Aquí SÓLO los ajustes de layout de la página. */
 
+/* ==========================================================================
+   1. LAYOUT DE PÁGINA
+   ========================================================================== */
+
 /* Contenedor interior */
 .purchases-page {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
 }
+
+/* Padding del contenido principal (reemplaza inline style="padding: 20px") */
+.purchase-page-content {
+  padding: var(--space-5);
+}
+
+/* Header de la página */
+.purchase-page-header {
+  margin-bottom: var(--space-5);
+}
+
+.purchase-page-header__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-heading);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+/* ==========================================================================
+   2. SECCIONES DE TARJETA (Datos Generales + Detalle)
+   ========================================================================== */
+
+/* Título de sección dentro de las cards */
+.purchase-section-title {
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-heading);
+}
+
+/* Toolbar del detalle de factura (título + botón Agregar) */
+.purchase-detail-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.purchase-detail-toolbar .purchase-section-title {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   3. TABLA DE DETALLE DE COMPRA
+   ========================================================================== */
+
+.purchase-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--font-size-sm);
+  min-width: 700px;
+}
+
+.purchase-detail-table thead {
+  background-color: var(--color-neutral-50);
+  border-bottom: 2px solid var(--color-neutral-300);
+}
+
+.purchase-detail-table thead th {
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-heading);
+  white-space: nowrap;
+}
+
+.purchase-detail-table tbody td {
+  padding: var(--space-3) var(--space-4);
+  color: var(--text-body);
+  border-bottom: var(--border-width) solid var(--border-color);
+  vertical-align: middle;
+}
+
+.purchase-detail-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.purchase-detail-table tbody tr:hover {
+  background-color: var(--color-secondary-light);
+}
+
+/* Estado vacío de la tabla */
+.purchase-table__empty-state {
+  text-align: center;
+  padding: var(--space-10) var(--space-5) !important;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.purchase-table__empty-state i {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: var(--space-3);
+  opacity: 0.4;
+}
+
+/* Celda de acciones */
+.purchase-table__actions-cell {
+  text-align: center;
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* Botón de eliminar en la tabla */
+.purchase-btn-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: var(--border-width) solid var(--color-danger-muted);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-danger);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition:
+    background-color var(--trans-fast),
+    border-color var(--trans-fast),
+    transform var(--trans-fast);
+}
+
+.purchase-btn-delete:hover {
+  background-color: var(--color-danger-light);
+  border-color: var(--color-danger);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   4. RESUMEN / TOTAL DE COMPRA
+   ========================================================================== */
+
+.purchase-summary {
+  margin-top: var(--space-5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: var(--border-width) solid var(--border-color);
+  padding-top: var(--space-4);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.purchase-summary__label {
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+  color: var(--text-heading);
+}
+
+.purchase-summary__amount {
+  color: var(--color-success);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ==========================================================================
+   5. TABLA HEREDADA (compatibilidad con .purchases-table)
+   ========================================================================== */
 
 .data-table.purchases-table {
   min-width: 780px;
@@ -174,6 +340,10 @@
   width: 1%;
 }
 
+/* ==========================================================================
+   6. MODAL DE DETALLE
+   ========================================================================== */
+
 /* Panel con fondo ligeramente gris para contraste interno */
 .purchase-modal__panel {
   background: var(--bg-subtle);
@@ -239,6 +409,10 @@
   line-height: var(--line-height-base);
 }
 
+/* ==========================================================================
+   7. FORMULARIOS (filas y campos)
+   ========================================================================== */
+
 .purchase-form__row {
   display: grid;
   gap: var(--space-5);
@@ -281,6 +455,18 @@
   box-shadow: 0 0 0 2px var(--color-info-light);
 }
 
+/* Estado de error en campos */
+.purchase-field input.is-invalid,
+.purchase-field select.is-invalid {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 2px var(--color-danger-light);
+}
+.purchase-field input.is-invalid:focus,
+.purchase-field select.is-invalid:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px var(--color-danger-light);
+}
+
 .purchase-field__concentration {
   display: flex;
   gap: var(--space-2);
@@ -293,6 +479,10 @@
 .purchase-field__concentration select {
   flex: 0 0 90px;
 }
+
+/* ==========================================================================
+   8. ACCIONES DEL MODAL
+   ========================================================================== */
 
 .purchase-modal__actions {
   display: flex;
@@ -351,6 +541,131 @@
   transform: translateY(-1px);
 }
 
+/* Botón deshabilitado (durante envío) */
+.purchase-btn-save:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   9. TOAST NOTIFICATIONS
+   ========================================================================== */
+
+.toast-container {
+  position: fixed;
+  top: var(--space-5);
+  right: var(--space-5);
+  z-index: var(--z-toast, 1100);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  pointer-events: none;
+  max-width: 420px;
+  width: 100%;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-base);
+  color: var(--text-body);
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateX(100%);
+  transition:
+    opacity var(--trans-base),
+    transform var(--trans-base);
+}
+
+.toast--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast--dismissing {
+  animation: toastDismiss 0.3s ease forwards;
+}
+
+@keyframes toastDismiss {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.toast__icon {
+  font-size: var(--font-size-lg);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.toast__message {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--trans-fast);
+}
+.toast__close:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Variantes de Toast por tipo */
+.toast--success {
+  border-left: 4px solid var(--color-success);
+}
+.toast--success .toast__icon {
+  color: var(--color-success);
+}
+
+.toast--error {
+  border-left: 4px solid var(--color-danger);
+}
+.toast--error .toast__icon {
+  color: var(--color-danger);
+}
+
+.toast--warning {
+  border-left: 4px solid var(--color-warning);
+}
+.toast--warning .toast__icon {
+  color: var(--color-warning);
+}
+
+.toast--info {
+  border-left: 4px solid var(--color-info);
+}
+.toast--info .toast__icon {
+  color: var(--color-info);
+}
+
+/* ==========================================================================
+   10. RESPONSIVE
+   ========================================================================== */
+
 @media (max-width: 992px) {
   .app-layout {
     grid-template-columns: var(--sidebar-collapsed) 1fr;
@@ -367,6 +682,35 @@
   .purchases-table-card {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .purchase-summary {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .purchase-summary .purchase-btn-save {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .purchase-detail-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .purchase-detail-toolbar .purchase-btn-save {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Toasts más estrechos en móvil */
+  .toast-container {
+    left: var(--space-3);
+    right: var(--space-3);
+    max-width: none;
   }
 }
 
@@ -417,5 +761,9 @@
     background: rgba(0, 0, 0, 0.4);
     z-index: calc(var(--z-sidebar) - 1);
     backdrop-filter: blur(2px);
+  }
+
+  .purchase-page-header__title {
+    font-size: var(--font-size-xl);
   }
 }

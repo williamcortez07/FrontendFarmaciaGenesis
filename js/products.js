@@ -1,47 +1,12 @@
-import { renderGlobalPagination, updatePaginationInfo } from './utils/pagination.js';
+import {
+  renderGlobalPagination,
+  updatePaginationInfo,
+} from "./utils/pagination.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Variables de paginación
+  // --- CONFIGURACIÓN Y ESTADO DE LA APP ---
   let currentPage = 1;
   const pageSize = 10;
-
-  const modal = document.getElementById("productModal");
-  const openBtn = document.getElementById("btnAddProduct");
-  const form = document.getElementById("productForm");
-  const closeSelector = "[data-close-modal]";
-
-  if (!modal || !openBtn) return;
-
-  function openModal() {
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-    const firstInput = form && form.querySelector("input, select");
-    if (firstInput) firstInput.focus();
-  }
-
-  function closeModal() {
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
-
-  openBtn.addEventListener("click", openModal);
-
-  modal.querySelectorAll(closeSelector).forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      closeModal();
-    });
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("is-open")) {
-      closeModal();
-    }
-  });
-
-  // 2. Corrección del baseURL (https://)
   const API_CONFIG = {
     baseURL: "https://localhost:7204/api",
     endpoints: {
@@ -49,103 +14,186 @@ document.addEventListener("DOMContentLoaded", () => {
       suppliers: "/Suppliers",
       categories: "/Categories",
       presentations: "/Presentation",
+      concentration: "/Concentrations",
       brands: "/Brands",
     },
-    tokenKey: "tuTokenKey" // Asegúrate de tener esto definido si usas JWT
+    tokenKey: "tokenFarmacia",
   };
 
-  async function getSuppliers() {
+  let currentProductId = null;
+  const modal = document.getElementById("productModal");
+  const modalTitle = document.getElementById("productModalTitle");
+  const productForm = document.getElementById("productForm");
+  const btnOpen = document.getElementById("btnAddProduct");
+  const tableBody = document.querySelector(".products-table tbody");
+  const searchInput = document.getElementById("productSearch");
+
+  function getHeaders(includeContentType = true) {
+    const token = localStorage.getItem(API_CONFIG.tokenKey);
+    const headers = {
+      Accept: "application/json",
+    };
+
+    if (includeContentType) {
+      headers["Content-Type"] = "application/json";
+    }
+
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    } else {
+      console.warn(
+        "No se encontró ningún token de autenticación en localStorage.",
+      );
+    }
+
+    return headers;
+  }
+
+  const openModal = (isEdit = false) => {
+    if (!modal) return;
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    if (isEdit) {
+      if (modalTitle) modalTitle.textContent = "Editar Producto";
+      toggleStatusField(true);
+    } else {
+      currentProductId = null;
+      if (modalTitle) modalTitle.textContent = "Registrar Nuevo Producto";
+      if (productForm) productForm.reset();
+      toggleStatusField(false);
+    }
+
+    const firstInput =
+      productForm && productForm.querySelector("input, select");
+    if (firstInput) firstInput.focus();
+  };
+
+  const closeModal = () => {
+    if (modal) {
+      modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
+    }
+    document.body.style.overflow = "";
+    if (productForm) productForm.reset();
+    currentProductId = null;
+  };
+
+  const toggleStatusField = (show) => {
+    let statusGroup = document.getElementById("statusFormGroup");
+    const actionsSection = productForm && productForm.querySelector(".product-modal__actions");
+
+    if (show) {
+      if (!statusGroup && actionsSection) {
+        statusGroup = document.createElement("div");
+        statusGroup.id = "statusFormGroup";
+        statusGroup.className = "product-form__row product-form__row--2";
+        statusGroup.innerHTML = `
+          <div class="product-field">
+            <label for="productStatus">Estado del Producto</label>
+            <select id="productStatus" name="isActive">
+              <option value="true">Activo</option>
+              <option value="false">Inactivo</option>
+            </select>
+          </div>
+        `;
+        productForm.insertBefore(statusGroup, actionsSection);
+      }
+    } else {
+      if (statusGroup) statusGroup.remove();
+    }
+  };
+
+  if (btnOpen) btnOpen.addEventListener("click", () => openModal(false));
+
+  if (modal) {
+    modal.querySelectorAll("[data-close-modal]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        closeModal();
+      });
+    });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal && modal.classList.contains("active")) {
+      closeModal();
+    }
+  });
+
+  if (tableBody) {
+    tableBody.addEventListener("click", (e) => {
+      const editBtn = e.target.closest(".btn-icon--edit");
+      const emptyBtn = e.target.closest("#btnOpenModalEmpty");
+
+      if (editBtn) {
+        const id = editBtn.dataset.id;
+        prepareEditModal(id);
+      } else if (emptyBtn) {
+        openModal(false);
+      }
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => searchProducts(e.target.value));
+  }
+
+  // --- CARGA DE CATÁLOGOS AUXILIARES ---
+  async function loadSelectData(
+    endpoint,
+    elementId,
+    valueField,
+    textField,
+    errorMsg,
+  ) {
     try {
-      const response = await fetch(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.suppliers}`);
-      const resultado = await response.json();
-      const select = document.getElementById("fieldProvider");
-      resultado.data.forEach((supplier) => {
+      const response = await fetch(`${API_CONFIG.baseURL}${endpoint}`, {
+        headers: getHeaders(false),
+      });
+      if (!response.ok) throw new Error();
+      const result = await response.json();
+      const select = document.getElementById(elementId);
+      if (!select) return;
+
+      select.innerHTML =
+        select.innerHTML = `<option value="">Seleccione una opción</option>`;
+
+      result.data.forEach((item) => {
         const option = document.createElement("option");
-        option.value = supplier.supplierId;
-        option.textContent = supplier.supplierName;
+        option.value = item[valueField];
+        option.textContent = item[textField] || item.description || item.name;
         select.appendChild(option);
       });
     } catch (error) {
-      console.log("Se generó un error:", error);
+      console.error(`Error al cargar datos en ${elementId}:`, error);
+      showToast(errorMsg, "error");
     }
   }
 
-  async function getCategories() {
-    try {
-      const response = await fetch(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.categories}`);
-      const resultado = await response.json();
-      const select = document.getElementById("fieldCategory");
-      resultado.data.forEach((category) => {
-        const option = document.createElement("option");
-        option.value = category.id;
-        option.textContent = category.name;
-        select.appendChild(option);
-      });
-    } catch (error) {
-      console.log("Se generó un error:", error);
-    }
-  }
-
-  async function getPresentations() {
-    try {
-      const response = await fetch(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.presentations}`);
-      const resultado = await response.json();
-      const select = document.getElementById("fieldPresentation");
-      resultado.data.forEach((presentation) => {
-        const option = document.createElement("option");
-        option.value = presentation.id;
-        option.textContent = presentation.description;
-        select.appendChild(option);
-      });
-    } catch (error) {
-      console.log("Ha ocurrido un error", error);
-    }
-  }
-
-  async function getBrands() {
-    try {
-      const response = await fetch(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}`);
-      const resultado = await response.json();
-      const select = document.getElementById("fieldBrand");
-      resultado.data.forEach((brands) => {
-        const option = document.createElement("option");
-        option.value = brands.brandId;
-        option.textContent = brands.brandName;
-        select.appendChild(option);
-      });
-    } catch (error) {
-      console.log("Ha ocurrido un error", error);
-    }
-  }
-
-  // 3. Integración de paginación en getProducts
   async function getProducts(page = currentPage, size = pageSize) {
     try {
+      showLoadingState();
       const response = await fetch(
         `${API_CONFIG.baseURL}${API_CONFIG.endpoints.products}/paged?page=${page}&limit=${size}`,
         {
           method: "GET",
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${localStorage.getItem(API_CONFIG.tokenKey)}`,
-          },
-        }
+          headers: getHeaders(false),
+        },
       );
 
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
-      }
+      if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
 
       const result = await response.json();
       renderProductsTable(result.data);
 
-      // Llamada a las utilidades importadas
       updatePaginationInfo(
         result.meta.currentPage,
         result.meta.itemsPerPage,
         result.meta.totalItems,
         "paginationInfo",
-        "Productos"
+        "Productos",
       );
 
       renderGlobalPagination(
@@ -155,119 +203,309 @@ document.addEventListener("DOMContentLoaded", () => {
         async (newPage) => {
           currentPage = newPage;
           await getProducts(currentPage, pageSize);
-        }
+        },
+      );
+    } catch (error) {
+      console.error("Error al obtener productos:", error);
+      showErrorState(error.message);
+    }
+  }
+
+  async function prepareEditModal(id) {
+    try {
+      showToast("Cargando datos del producto...", "info", 1500);
+      currentProductId = id;
+
+      const response = await fetch(
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.products}/${id}`,
+        {
+          method: "GET",
+          headers: getHeaders(false),
+        },
       );
 
-    } catch (error) {
-      console.log(error);
-    }
-  }
+      if (!response.ok) throw new Error();
 
-  // 4. Corrección de variables dentro de la tabla
-  function renderProductsTable(products) {
-    const tbody = document.querySelector(".products-table tbody");
-    if (!tbody) return;
+      const result = await response.json();
+      const product = result.data || result;
 
-    if (!products || products.length === 0) {
-      tbody.innerHTML = `
-        <tr>
-            <td colspan="9" class="empty-state">
-                <i class="fas fa-box-open" style="font-size: 48px; color: #6c757d;"></i>
-                <p>No hay productos registrados</p>
-                <button id="btnOpenModalEmpty" class="btn btn-primary btn-sm">
-                    <i class="fas fa-plus"></i> Registrar primer producto
-                </button>
-            </td>
-        </tr>
-      `;
-      const emptyBtn = document.getElementById("btnOpenModalEmpty");
-      if (emptyBtn) {
-        emptyBtn.addEventListener("click", () => openModal());
+      openModal(true);
+
+      document.getElementById("fieldTradeName").value = product.tradeName || "";
+      document.getElementById("fieldGenericName").value =
+        product.genericName || "";
+      document.getElementById("fieldProvider").value = product.supplierId || "";
+      document.getElementById("fieldCategory").value = product.categoryId || "";
+      document.getElementById("fieldPresentation").value =
+        product.presentationId || "";
+      document.getElementById("fieldConcentration").value =
+        product.concentrationValue || "";
+      document.getElementById("fieldConcentrationUnit").value =
+        product.concentrationId || "";
+
+      document.getElementById("fieldBrand").value = product.brandId || "";
+
+      const statusSelect = document.getElementById("productStatus");
+      if (statusSelect && product.isActive !== undefined) {
+        statusSelect.value = product.isActive.toString();
       }
-      return;
+    } catch (error) {
+      console.error(error);
+      showToast("Error al cargar la información del producto", "error");
+      closeModal();
     }
-
-    tbody.innerHTML = products.map((product) => `
-        <tr data-product-id="${product.productId}">
-            <td>${formatId(product.productId)}</td>
-            <td><span class="cell-main">${escapeHtml(product.tradeName)}</span></td>
-            <td><span class="cell-main">${escapeHtml(product.genericName)}</span></td>
-            <td><span class="cell-main">${escapeHtml(product.categoryName)}</span></td>
-            <td><span class="cell-main">${escapeHtml(product.presentationName)}</span></td>
-            <td><span class="cell-main">${escapeHtml(product.porcentage || "")}</span></td>
-            <td><span class="cell-main">${escapeHtml(product.supplierName)}</span></td>
-            <td><span class="cell-main">${escapeHtml(product.brandName)}</span></td>
-            <td>
-                <span class="badge ${product.isActive ? "status-active" : "status-inactive"}">
-                    ${product.isActive ? "Activo" : "Inactivo"}
-                </span>
-            </td>
-            <td class="col-actions">
-                <button
-                    class="btn-icon btn-icon--edit"
-                    onclick="editProduct(${product.productId})"
-                    title="Editar ${escapeHtml(product.genericName)}"
-                    aria-label="Editar producto ${escapeHtml(product.genericName)}"
-                >
-                    <i class="fas fa-edit" aria-hidden="true"></i>
-                </button>
-            </td>
-        </tr>
-      `).join("");
   }
 
-  async function addProducts() {
-    const btnsubmit = document.getElementById("btnSaveProduct");
-    if (!btnsubmit) return;
-
-    btnsubmit.addEventListener("click", async (event) => {
+  if (productForm) {
+    productForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const genericName = document.getElementById("fieldGenericName").value;
-      const tradeName = document.getElementById("fieldTradeName").value;
-      const idSupplier = parseInt(document.getElementById("fieldProvider").value);
-      const idCategory = parseInt(document.getElementById("fieldCategory").value);
-      const idPresentation = parseInt(document.getElementById("fieldPresentation").value);
-      const idbrand = parseInt(document.getElementById("fieldBrand").value);
 
-      if (!genericName || !tradeName || !idSupplier || !idCategory || !idbrand) {
-        alert("Debe completar los campos solicitados");
+      // --- VALIDACIONES OBLIGATORIAS Y SANITIZACIÓN ---
+      const tradeName = document.getElementById("fieldTradeName").value.trim();
+      const genericName = document
+        .getElementById("fieldGenericName")
+        .value.trim();
+      const supplierId = parseInt(
+        document.getElementById("fieldProvider").value,
+      );
+      const categoryId = parseInt(
+        document.getElementById("fieldCategory").value,
+      );
+      const presentationId = parseInt(
+        document.getElementById("fieldPresentation").value,
+      );
+      const concentrationValue = document
+        .getElementById("fieldConcentration")
+        .value.trim();
+      const concentrationId = parseInt(
+        document.getElementById("fieldConcentrationUnit").value,
+      );
+      const brandId = parseInt(document.getElementById("fieldBrand").value);
+
+      if (!tradeName) {
+        showToast(
+          "El nombre comercial es obligatorio y no puede estar vacío",
+          "warning",
+        );
+        return;
+      }
+      if (tradeName.length > 100) {
+        showToast(
+          "El nombre comercial excede la longitud máxima permitida",
+          "warning",
+        );
+        return;
+      }
+      if (!genericName) {
+        showToast("El nombre genérico es obligatorio", "warning");
+        return;
+      }
+      if (
+        isNaN(supplierId) ||
+        isNaN(categoryId) ||
+        isNaN(presentationId) ||
+        isNaN(concentrationId) ||
+        isNaN(brandId)
+      ) {
+        showToast(
+          "Por favor, seleccione todas las clasificaciones obligatorias",
+          "warning",
+        );
         return;
       }
 
+      const payload = {
+        tradeName,
+        genericName,
+        concentrationValue,
+        concentrationId,
+        categoryId,
+        presentationId,
+        concentrationId,
+        supplierId,
+        brandId,
+      };
+
+      let url = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.products}`;
+      let method = "POST";
+      const btnSave = document.getElementById("btnSaveProduct");
+
+      if (currentProductId) {
+        method = "PUT";
+        url = `${url}/${currentProductId}`;
+        payload.productId = parseInt(currentProductId);
+
+        const statusSelect = document.getElementById("productStatus");
+        payload.isActive = statusSelect ? statusSelect.value === "true" : true;
+      }
+
       try {
-        const response = await fetch(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.products}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            genericName: genericName,
-            tradeName: tradeName,
-            supplierId: idSupplier,
-            categoryId: idCategory,
-            concentrationId: 1, // ¿Este valor es fijo?
-            presentationId: idPresentation,
-            brandId: idbrand,
-          }),
+        if (btnSave) {
+          btnSave.disabled = true;
+          btnSave.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Procesando...`;
+        }
+
+        const response = await fetch(url, {
+          method: method,
+          headers: getHeaders(true),
+          body: JSON.stringify(payload),
         });
 
         if (response.ok) {
-          alert("Producto guardado con éxito");
+          showToast(
+            currentProductId
+              ? "Producto actualizado correctamente"
+              : "Producto registrado correctamente",
+            "success",
+          );
           closeModal();
-          // Volvemos a la página 1 después de guardar
-          currentPage = 1;
-          getProducts();
+          await getProducts(currentProductId ? currentPage : 1, pageSize);
         } else {
-            alert(`Ocurrió un error: ${response.status}`);
+          if (response.status === 401 || response.status === 403) {
+            showToast(
+              "Su sesión ha expirado o no cuenta con los permisos necesarios",
+              "error",
+            );
+          } else {
+            throw new Error();
+          }
         }
       } catch (error) {
-        console.log("Ocurrió un error", error);
+        console.error("Error en operación de producto:", error);
+        showToast(
+          "Ocurrió un error inesperado al procesar la solicitud",
+          "error",
+        );
+      } finally {
+        if (btnSave) {
+          btnSave.disabled = false;
+          btnSave.innerHTML = `<i class="fas fa-save"></i> Guardar`;
+        }
       }
     });
   }
 
+  function renderProductsTable(products) {
+    if (!tableBody) return;
+
+    if (!products || products.length === 0) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="10" class="empty-state">
+            <i class="fas fa-box-open" style="font-size: 48px; color: #6c757d;"></i>
+            <p>No hay productos registrados en el sistema</p>
+            <button id="btnOpenModalEmpty" class="btn btn-primary btn-sm">
+              <i class="fas fa-plus"></i> Registrar primer producto
+            </button>
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tableBody.innerHTML = products
+      .map((product) => {
+        const id = product.productId;
+        const active = product.isActive;
+
+        return `
+          <tr data-product-id="${id}">
+            <td>${formatId(id)}</td>
+            <td><span class="cell-main">${escapeHtml(product.tradeName)}</span></td>
+            <td><span class="cell-main">${escapeHtml(product.genericName)}</span></td>
+            <td><span class="cell-main">${escapeHtml(product.categoryName)}</span></td>
+            <td><span class="cell-main">${escapeHtml(product.presentationName)}</span></td>
+            <td><span class="cell-main">${escapeHtml(product.concentrationValue + " " + product.porcentage)}</span></td>
+            <td><span class="cell-main">${escapeHtml(product.supplierName)}</span></td>
+            <td><span class="cell-main">${escapeHtml(product.brandName)}</span></td>
+            <td>
+              <span class="badge ${active ? "status-active" : "status-inactive"}">
+                ${active ? "Activo" : "Inactivo"}
+              </span>
+            </td>
+            <td class="col-actions">
+              <button
+                class="btn-icon btn-icon--edit"
+                data-id="${id}"
+                title="Editar ${escapeHtml(product.tradeName)}"
+                aria-label="Editar producto ${escapeHtml(product.tradeName)}"
+              >
+                <i class="fas fa-edit" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      })
+      .join("");
+  }
+
+  function showLoadingState() {
+    if (tableBody) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="10" class="loading-state">
+            <div class="skeleton-loader" style="height: 45px; margin-bottom: 10px;"></div>
+            <p>Cargando catálogo de productos...</p>
+          </td>
+        </tr>`;
+    }
+  }
+
+  function showErrorState(errorMessage) {
+    if (tableBody) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="10" class="error-state">
+            <i class="fas fa-exclamation-triangle" style="color: #dc3545; font-size: 24px;"></i>
+            <p>Error de conexión con el servidor: ${escapeHtml(errorMessage)}</p>
+            <button id="btnRetryProducts" class="btn btn-primary btn-sm"><i class="fas fa-sync-alt"></i> Reintentar</button>
+          </td>
+        </tr>`;
+
+      const btnRetry = document.getElementById("btnRetryProducts");
+      if (btnRetry)
+        btnRetry.addEventListener("click", () =>
+          getProducts(currentPage, pageSize),
+        );
+    }
+  }
+
   function formatId(id) {
     return `#${String(id).padStart(3, "0")}`;
+  }
+
+  async function searchProducts(
+    searchTerm,
+    page = currentPage,
+    size = pageSize,
+  ) {
+    try {
+      const response = await fetch(
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.products}/paged?page=${page}&limit=${size}`,
+        {
+          headers: getHeaders(false),
+        },
+      );
+      const data = await response.json();
+      const products = data.data || data;
+
+      const filteredProducts = products.filter((product) => {
+        const name = product.tradeName || product.genericName || "";
+        const desc =
+          product.categoryName ||
+          product.presentationName ||
+          product.concentrationValue ||
+          "";
+        return (
+          name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          desc.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
+
+      renderProductsTable(filteredProducts);
+    } catch (error) {
+      console.error("Error al buscar productos:", error);
+    }
   }
 
   function escapeHtml(text) {
@@ -277,17 +515,73 @@ document.addEventListener("DOMContentLoaded", () => {
     return div.innerHTML;
   }
 
-  // Inicialización de la pantalla
-  getSuppliers();
-  getCategories();
-  getPresentations();
-  getBrands();
-  getProducts();
-  addProducts();
-});
+  // --- SISTEMA DE NOTIFICACIONES TOAST ---
+  function showToast(message, type = "info", duration = 4000) {
+    const ICONS = {
+      success: "fa-circle-check",
+      error: "fa-circle-xmark",
+      warning: "fa-triangle-exclamation",
+      info: "fa-circle-info",
+    };
 
-// Función global para editar
-window.editProduct = function(id) {
-    console.log("Editando producto con ID:", id);
-    // Lógica para abrir modal y cargar datos del producto
-};
+    let toastContainer = document.querySelector(".toast-container");
+    if (!toastContainer) {
+      toastContainer = document.createElement("div");
+      toastContainer.className = "toast-container";
+      document.body.appendChild(toastContainer);
+    }
+
+    const toast = document.createElement("div");
+    toast.className = `toast-item toast-${type}`;
+    toast.innerHTML = `
+      <i class="fas ${ICONS[type] || ICONS.info}"></i>
+      <span class="toast-message">${message}</span>
+    `;
+
+    toastContainer.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add("fade-out");
+      toast.addEventListener("transitionend", () => toast.remove());
+    }, duration);
+  }
+
+  // --- INICIALIZACIÓN DE COMPONENTES ---
+  loadSelectData(
+    API_CONFIG.endpoints.suppliers,
+    "fieldProvider",
+    "supplierId",
+    "supplierName",
+    "Error al cargar proveedores",
+  );
+  loadSelectData(
+    API_CONFIG.endpoints.categories,
+    "fieldCategory",
+    "id",
+    "name",
+    "Error al cargar categorías",
+  );
+  loadSelectData(
+    API_CONFIG.endpoints.presentations,
+    "fieldPresentation",
+    "id",
+    "description",
+    "Error al cargar presentaciones",
+  );
+  loadSelectData(
+    API_CONFIG.endpoints.concentration,
+    "fieldConcentrationUnit",
+    "concentrationId",
+    "porcentage",
+    "Error al cargar concentraciones",
+  );
+  loadSelectData(
+    API_CONFIG.endpoints.brands,
+    "fieldBrand",
+    "brandId",
+    "brandName",
+    "Error al cargar marcas",
+  );
+
+  getProducts();
+});

@@ -1,4 +1,7 @@
-import { renderGlobalPagination, updatePaginationInfo } from './utils/pagination.js';
+import {
+  renderGlobalPagination,
+  updatePaginationInfo,
+} from "./utils/pagination.js";
 document.addEventListener("DOMContentLoaded", () => {
   // --- CONFIGURACIÓN Y ESTADO DE LA APP ---
   let currentPage = 1;
@@ -139,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
         result.meta.itemsPerPage,
         result.meta.totalItems,
         "paginationInfo",
-        "Marcas"
+        "Marcas",
       );
 
       renderGlobalPagination(
@@ -149,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
         async (newPage) => {
           currentPage = newPage;
           await getAllBrands(currentPage, pageSize);
-        }
+        },
       );
     } catch (error) {
       console.error("Error al obtener las marcas:", error);
@@ -265,10 +268,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- RENDERS Y AUXILIARES ---
-  async function searchBrands(searchTerm) {
+  async function searchBrands(searchTerm, page = currentPage, size = pageSize) {
     try {
       const response = await fetch(
-        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}`,
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}/paged?page=${page}&limit=${size}`,
         {
           headers: getHeaders(false),
         },

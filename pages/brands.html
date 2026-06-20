@@ -25,6 +25,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <link rel="icon" type="image/x-icon" href="../assets/Icons/marcas.ico" />
   </head>
   <body>
     <div class="app-layout">
@@ -115,15 +116,12 @@
 
             <!-- Paginación -->
             <nav class="pagination-bar" aria-label="Paginación de Categorías">
+              <p class="pagination-bar__info" id="paginationInfo"></p>
 
-            <p class="pagination-bar__info" id="paginationInfo">
-            </p>
-
-            <ul class="pagination" role="list" id="paginationContainer">
-              <!-- Aquí JavaScript generará los botones -->
-            </ul>
-
-          </nav>
+              <ul class="pagination" role="list" id="paginationContainer">
+                <!-- Aquí JavaScript generará los botones -->
+              </ul>
+            </nav>
           </div>
         </div>
       </main>
@@ -203,7 +201,7 @@
       </div>
     </div>
 
-    <script type="module"src="/js/brands.js"></script>
+    <script type="module" src="/js/brands.js"></script>
     <script src="../js/sidebar.js" defer></script>
     <script src="../js/topbar.js" defer></script>
     <script src="../js/footer.js" defer></script>

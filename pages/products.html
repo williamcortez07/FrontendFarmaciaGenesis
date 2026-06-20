@@ -25,6 +25,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="icon" type="image/x-icon" href="../assets/Icons/productos.ico" />
   </head>
   <body>
     <div class="app-layout">
@@ -106,16 +107,10 @@
               <tbody></tbody>
             </table>
           </div>
-          
           <nav class="pagination-bar" aria-label="Paginación de Categorías">
+            <p class="pagination-bar__info" id="paginationInfo"></p>
 
-            <p class="pagination-bar__info" id="paginationInfo">
-            </p>
-
-            <ul class="pagination" role="list" id="paginationContainer">
-              <!-- Aquí JavaScript generará los botones -->
-            </ul>
-
+            <ul class="pagination" role="list" id="paginationContainer"></ul>
           </nav>
         </div>
       </main>
@@ -147,24 +142,26 @@
           <i class="fa-solid fa-xmark" aria-hidden="true"></i>
         </button>
 
-        <p id="productModalTitle" class="product-modal__intro">
+        <h3
+          id="productModalTitle"
+          class="product-modal__title"
+          style="
+            text-align: center;
+            font-size: var(--font-size-lg);
+            color: var(--color-info-hover);
+            margin-bottom: var(--space-2);
+            font-weight: var(--font-weight-semibold);
+          "
+        >
+          Registrar Nuevo Producto
+        </h3>
+        <p class="product-modal__intro">
           Complete todos los campos para registrar o actualizar un producto.
         </p>
 
         <form id="productForm" class="product-modal__form" novalidate>
           <!-- Fila 1: Nombre Genérico, Nombre Comercial, Proveedor -->
           <div class="product-form__row product-form__row--3">
-            <div class="product-field">
-              <label for="fieldGenericName">Nombre Genérico</label>
-              <input
-                type="text"
-                id="fieldGenericName"
-                name="nombreGenerico"
-                autocomplete="off"
-                placeholder="Ej: Ibuprofeno"
-                required
-              />
-            </div>
             <div class="product-field">
               <label for="fieldTradeName">Nombre Comercial</label>
               <input
@@ -173,6 +170,17 @@
                 name="nombreComercial"
                 autocomplete="off"
                 placeholder="Ej: Advil"
+                required
+              />
+            </div>
+            <div class="product-field">
+              <label for="fieldGenericName">Nombre Genérico</label>
+              <input
+                type="text"
+                id="fieldGenericName"
+                name="nombreGenerico"
+                autocomplete="off"
+                placeholder="Ej: Ibuprofeno"
                 required
               />
             </div>
@@ -217,10 +225,7 @@
                   name="concentracionUnidad"
                   aria-label="Unidad de concentración"
                 >
-                  <option value="ml">ml</option>
-                  <option value="mg" selected>mg</option>
-                  <option value="g">g</option>
-                  <option value="mcg">mcg</option>
+                  <option value="" disabled selected>Seleccionar...</option>
                 </select>
               </div>
             </div>
