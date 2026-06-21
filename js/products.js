@@ -82,7 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const toggleStatusField = (show) => {
     let statusGroup = document.getElementById("statusFormGroup");
-    const actionsSection = productForm && productForm.querySelector(".product-modal__actions");
+    const actionsSection =
+      productForm && productForm.querySelector(".product-modal__actions");
 
     if (show) {
       if (!statusGroup && actionsSection) {
@@ -137,7 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (searchInput) {
-    searchInput.addEventListener("input", (e) => searchProducts(e.target.value));
+    searchInput.addEventListener("input", (e) =>
+      searchProducts(e.target.value),
+    );
   }
 
   // --- CARGA DE CATÁLOGOS AUXILIARES ---

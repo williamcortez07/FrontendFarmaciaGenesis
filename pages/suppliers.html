@@ -127,8 +127,20 @@
           >
             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
           </button>
-
-          <p id="supplierModalTitle" class="supplier-modal__intro">
+          <h3
+            id="supplierModalTitle"
+            class="supplier-modal__title"
+            style="
+              text-align: center;
+              font-size: var(--font-size-lg);
+              color: var(--color-info-hover);
+              margin-bottom: var(--space-2);
+              font-weight: var(--font-weight-semibold);
+            "
+          >
+            Registrar Nuevo proveedor
+          </h3>
+          <p class="product-modal__intro">
             Complete todos los campos para registrar o actualizar un proveedor.
           </p>
 
@@ -214,7 +226,7 @@
       </div>
     </div>
   </body>
-  <script src="/js/suppliers.js" defer></script>
+  <script type="module" src="/js/suppliers.js" defer></script>
   <script src="../js/sidebar.js" defer></script>
   <script src="../js/topbar.js" defer></script>
   <script src="../js/footer.js" defer></script>
