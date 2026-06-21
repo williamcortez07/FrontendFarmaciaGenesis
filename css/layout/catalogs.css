@@ -1,0 +1,196 @@
+/* ==========================================================================
+   catalogs.css — Vista de selección de catálogo
+   Depende de: globals.css → design-tokens.css → catalog-ui.css
+   ========================================================================== */
+
+/* Los estilos de .app-layout, .main-sidebar, .main-header y .main-content
+   viven en globals.css. Aquí SÓLO estilos específicos de esta vista. */
+
+/* Cabecera de página */
+.page-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-5);
+  border-bottom: var(--border-width) solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+.page-top h1 {
+  margin: 0;
+  color: var(--text-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.page-top .subtitle {
+  margin: var(--space-1) 0 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.top-icons {
+  display: flex;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.top-icons button {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: var(--border-width) solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--color-neutral-700);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color var(--trans-fast),
+    box-shadow var(--trans-fast);
+}
+.top-icons button:hover {
+  background: var(--color-neutral-100);
+  box-shadow: var(--shadow-xs);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-5);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 150px;
+  padding: var(--space-6);
+  background: var(--bg-surface);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--text-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow var(--trans-fast),
+    transform var(--trans-fast),
+    border-color var(--trans-fast);
+}
+.tile:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+  border-color: var(--color-secondary);
+}
+.tile:focus-visible {
+  outline: 3px solid var(--color-info);
+  outline-offset: 2px;
+}
+.tile i {
+  font-size: 2.2rem;
+  transition: transform var(--trans-fast);
+}
+.tile:hover i {
+  transform: scale(1.1);
+}
+
+.c-blue {
+  color: #2563eb;
+}
+.c-blue2 {
+  color: #1d4ed8;
+}
+.c-green {
+  color: #16a34a;
+}
+.c-purple {
+  color: #7c3aed;
+}
+.c-yellow {
+  color: #ca8a04;
+}
+.c-navy {
+  color: #1e3a5f;
+}
+.c-pink {
+  color: #db2777;
+}
+
+@media (max-width: 992px) {
+  .app-layout {
+    grid-template-columns: var(--sidebar-collapsed) 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .app-layout {
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--header-height) 1fr auto;
+  }
+
+  .main-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    display: block;
+    transition: left var(--trans-base);
+  }
+
+  .app-layout.sidebar-mobile-open .main-sidebar {
+    left: 0;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .app-layout.sidebar-mobile-open::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: calc(var(--z-sidebar) - 1);
+    backdrop-filter: blur(2px);
+  }
+
+  .page-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-top h1 {
+    font-size: var(--font-size-xl);
+  }
+
+  .tiles {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .tile {
+    min-height: 120px;
+    padding: var(--space-4);
+    font-size: var(--font-size-xs);
+  }
+  .tile i {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .tiles {
+    grid-template-columns: 1fr;
+  }
+}

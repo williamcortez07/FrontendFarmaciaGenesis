@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Selecciona y gestiona los catálogos de la Farmacia Génesis: productos, marcas, proveedores, categorías y más." />
+    <title>Configuración de Catálogos — Farmacia Génesis</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/base/design-tokens.css" />
+    <link rel="stylesheet" href="../css/components/catalog-ui.css" />
+
+    <!-- Layout y Componentes -->
+    <link rel="stylesheet" href="../css/layout/catalogs.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+
+    <!-- Iconografía -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="app-layout">
+
+      <!-- Sidebar -->
+      <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación principal">
+        <div class="sidebar-placeholder skeleton-loader"></div>
+      </aside>
+
+      <!-- Topbar -->
+      <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
+      </div>
+
+      <!-- Contenido principal -->
+      <main class="main-content" id="main-content">
+
+        <!-- Cabecera de página -->
+        <header class="page-top">
+          <div>
+            <h1>Configuración de Catálogos</h1>
+            <p class="subtitle">
+              Seleccione el catálogo que desea gestionar o modificar.
+            </p>
+          </div>
+          <div class="top-icons" aria-label="Acciones rápidas">
+            <button type="button" title="Actualizar" aria-label="Actualizar catálogos">
+              <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+            </button>
+            <button type="button" title="Ajustes" aria-label="Ajustes de catálogos">
+              <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- Grid de catálogos -->
+        <nav class="tiles" aria-label="Catálogos disponibles">
+          <a href="products.html" class="tile" id="tile-products">
+            <i class="fa-solid fa-box-open c-blue" aria-hidden="true"></i>
+            <span>Productos</span>
+          </a>
+          <a href="brands.html" class="tile" id="tile-brands">
+            <i class="fa-solid fa-tag c-blue2" aria-hidden="true"></i>
+            <span>Marcas</span>
+          </a>
+          <a href="suppliers.html" class="tile" id="tile-suppliers">
+            <i class="fa-solid fa-truck c-green" aria-hidden="true"></i>
+            <span>Proveedores</span>
+          </a>
+          <a href="categories.html" class="tile" id="tile-categories">
+            <i class="fa-solid fa-layer-group c-purple" aria-hidden="true"></i>
+            <span>Categorías</span>
+          </a>
+          <a href="presentations.html" class="tile" id="tile-presentations">
+            <i class="fa-solid fa-cubes c-yellow" aria-hidden="true"></i>
+            <span>Presentaciones</span>
+          </a>
+          <a href="paymentMethods.html" class="tile" id="tile-payments">
+            <i class="fa-solid fa-credit-card c-navy" aria-hidden="true"></i>
+            <span>Métodos de Pago</span>
+          </a>
+          <a href="concentrations.html" class="tile" id="tile-concentrations">
+            <i class="fa-solid fa-flask c-pink" aria-hidden="true"></i>
+            <span>Concentraciones</span>
+          </a>
+          <a href="users.html" class="tile" id="tile-users">
+            <i class="fa-solid fa-user-plus c-blue" aria-hidden="true"></i>
+            <span>Usuarios</span>
+          </a>
+        </nav>
+
+      </main>
+
+      <!-- Footer -->
+      <div id="footer-target" class="footer" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+
+    </div><!-- /.app-layout -->
+
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/topbar.js" defer></script>
+    <script src="../js/footer.js" defer></script>
+    <script src="../js/main.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Panel principal de Farmacia Génesis: métricas del día, accesos rápidos y alertas de inventario en tiempo real."
+    />
+    <title>Dashboard — Farmacia Génesis</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/base/design-tokens.css" />
+    <link rel="stylesheet" href="../css/components/catalog-ui.css" />
+
+    <!-- Layout y Componentes -->
+    <link rel="stylesheet" href="../css/layout/home.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+
+    <!-- Iconografía -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="app-layout">
+      <!-- ═══════════════ SIDEBAR ═══════════════ -->
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
+        <div class="sidebar-placeholder skeleton-loader"></div>
+      </aside>
+
+      <!-- ═══════════════ TOPBAR ═══════════════ -->
+      <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
+      </div>
+
+      <!-- ═══════════════ CONTENIDO PRINCIPAL ═══════════════ -->
+      <main
+        class="main-content"
+        id="main-content"
+        aria-label="Panel de control"
+      >
+        <div class="dashboard-layout">
+          <section class="kpi-section" aria-label="Indicadores clave del día">
+            <article class="kpi-card" id="kpi-sales">
+              <div
+                class="kpi-card__icon kpi-card__icon--sales"
+                aria-hidden="true"
+              >
+                <i class="fa-solid fa-dollar-sign"></i>
+              </div>
+              <div class="kpi-card__info">
+                <span class="kpi-card__label">Ventas del Día</span>
+                <span class="kpi-card__value">$ 1,200</span>
+                <span class="kpi-card__trend kpi-card__trend--up">
+                  <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+                  +12%
+                </span>
+              </div>
+            </article>
+
+            <article class="kpi-card" id="kpi-transactions">
+              <div
+                class="kpi-card__icon kpi-card__icon--trans"
+                aria-hidden="true"
+              >
+                <i class="fa-solid fa-receipt"></i>
+              </div>
+              <div class="kpi-card__info">
+                <span class="kpi-card__label">Transacciones</span>
+                <span class="kpi-card__value">50</span>
+                <span class="kpi-card__trend kpi-card__trend--up">
+                  <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+                  +8%
+                </span>
+              </div>
+            </article>
+
+            <article class="kpi-card" id="kpi-low-stock">
+              <div
+                class="kpi-card__icon kpi-card__icon--stock"
+                aria-hidden="true"
+              >
+                <i class="fa-solid fa-boxes-stacked"></i>
+              </div>
+              <div class="kpi-card__info">
+                <span class="kpi-card__label">Stock Bajo</span>
+                <span class="kpi-card__value kpi-card__value--warning">20</span>
+                <span class="kpi-card__trend kpi-card__trend--down">
+                  <i
+                    class="fa-solid fa-arrow-trend-down"
+                    aria-hidden="true"
+                  ></i>
+                  requiere atención
+                </span>
+              </div>
+            </article>
+
+            <article class="kpi-card" id="kpi-expiring">
+              <div
+                class="kpi-card__icon kpi-card__icon--expiring"
+                aria-hidden="true"
+              >
+                <i class="fa-solid fa-clock-rotate-left"></i>
+              </div>
+              <div class="kpi-card__info">
+                <span class="kpi-card__label">Próximo a Vencer</span>
+                <span class="kpi-card__value kpi-card__value--danger">5</span>
+                <span class="kpi-card__trend kpi-card__trend--down">
+                  <i
+                    class="fa-solid fa-triangle-exclamation"
+                    aria-hidden="true"
+                  ></i>
+                  urgente
+                </span>
+              </div>
+            </article>
+          </section>
+
+          <div class="dashboard-grid">
+            <!-- Columna principal -->
+            <section
+              class="main-stats"
+              aria-label="Accesos directos y acciones rápidas"
+            >
+              <!-- Acciones rápidas -->
+              <div class="quick-actions">
+                <div class="quick-actions__header">
+                  <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                  <h2>Acciones Rápidas</h2>
+                </div>
+
+                <nav class="action-grid" aria-label="Atajos principales">
+                  <a href="sales.html" class="action-card" id="action-new-sale">
+                    <div
+                      class="action-card__icon action-card__icon--sales"
+                      aria-hidden="true"
+                    >
+                      <i class="fa-solid fa-cart-plus"></i>
+                    </div>
+                    <h3>Nueva Venta</h3>
+                  </a>
+
+                  <a
+                    href="inventory.html"
+                    class="action-card"
+                    id="action-inventory"
+                  >
+                    <div
+                      class="action-card__icon action-card__icon--inventory"
+                      aria-hidden="true"
+                    >
+                      <i class="fa-solid fa-square-plus"></i>
+                    </div>
+                    <h3>Ingresar Inventario</h3>
+                  </a>
+
+                  <a
+                    href="reports.html"
+                    class="action-card"
+                    id="action-reports"
+                  >
+                    <div
+                      class="action-card__icon action-card__icon--reports"
+                      aria-hidden="true"
+                    >
+                      <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h3>Generar Reportes</h3>
+                  </a>
+
+                  <a
+                    href="catalogs.html"
+                    class="action-card"
+                    id="action-catalogs"
+                  >
+                    <div
+                      class="action-card__icon action-card__icon--users"
+                      aria-hidden="true"
+                    >
+                      <i class="fa-solid fa-boxes-packing"></i>
+                    </div>
+                    <h3>Catálogos</h3>
+                  </a>
+                </nav>
+              </div>
+            </section>
+
+            <aside class="alerts-panel" aria-label="Alertas de inventario">
+              <div class="alerts-header">
+                <h2>
+                  <i class="fa-solid fa-bell" aria-hidden="true"></i>
+                  Alertas
+                </h2>
+                <div
+                  class="status-indicators"
+                  aria-label="Niveles de severidad"
+                >
+                  <span
+                    class="status-dot status-dot--danger"
+                    title="Crítico"
+                  ></span>
+                  <span
+                    class="status-dot status-dot--warning"
+                    title="Advertencia"
+                  ></span>
+                  <span class="alerts-count" aria-label="4 alertas pendientes"
+                    >4</span
+                  >
+                </div>
+              </div>
+
+              <div
+                class="alerts-list"
+                role="list"
+                aria-label="Lista de alertas"
+              >
+                <div class="alert-item alert-item--danger" role="listitem">
+                  <div
+                    class="alert-item__indicator alert-item__indicator--danger"
+                  ></div>
+                  <div class="alert-item__body">
+                    <div class="alert-item__icon" aria-hidden="true">
+                      <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="alert-item__text">
+                      <p class="alert-item__name">Paracetamol 500mg</p>
+                      <p class="alert-item__desc">
+                        Vence mañana — Lote #GR30000
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="alert-item alert-item--warning" role="listitem">
+                  <div
+                    class="alert-item__indicator alert-item__indicator--warning"
+                  ></div>
+                  <div class="alert-item__body">
+                    <div class="alert-item__icon" aria-hidden="true">
+                      <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                    <div class="alert-item__text">
+                      <p class="alert-item__name">Alka-Seltzer</p>
+                      <p class="alert-item__desc">Pocas unidades: 9</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Alerta: stock bajo -->
+                <div class="alert-item alert-item--warning" role="listitem">
+                  <div
+                    class="alert-item__indicator alert-item__indicator--warning"
+                  ></div>
+                  <div class="alert-item__body">
+                    <div class="alert-item__icon" aria-hidden="true">
+                      <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                    <div class="alert-item__text">
+                      <p class="alert-item__name">Zepol Resfríos</p>
+                      <p class="alert-item__desc">Pocas unidades: 5</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Alerta: vencimiento próximo -->
+                <div class="alert-item alert-item--danger" role="listitem">
+                  <div
+                    class="alert-item__indicator alert-item__indicator--danger"
+                  ></div>
+                  <div class="alert-item__body">
+                    <div class="alert-item__icon" aria-hidden="true">
+                      <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="alert-item__text">
+                      <p class="alert-item__name">Omeprazol 20mg</p>
+                      <p class="alert-item__desc">
+                        Vence en 3 días — Lote #GI20000
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="alerts-footer">
+                <a href="reports.html" id="link-all-alerts">
+                  Ver todas las alertas
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </aside>
+          </div>
+          <!-- /.dashboard-grid -->
+        </div>
+        <!-- /.dashboard-layout -->
+      </main>
+
+      <!-- ═══════════════ FOOTER ═══════════════ -->
+      <div id="footer-target" class="footer" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+    </div>
+    <!-- /.app-layout -->
+
+    <!-- ═══════════════ SCRIPTS ═══════════════ -->
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/topbar.js" defer></script>
+    <script src="../js/footer.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Registro de compras e ingreso de inventario — Farmacia Génesis"
+    />
+    <title>Compras — Farmacia Génesis</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="/css/components/catalog-ui.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/layout/purchases.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
+        <div class="sidebar-placeholder skeleton-loader"></div>
+      </aside>
+
+      <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
+      </div>
+
+      <main class="main-content purchase-page-content">
+        <header class="purchase-page-header">
+          <h1 class="purchase-page-header__title">
+            Registro de Compras (Ingreso a Inventario)
+          </h1>
+        </header>
+
+        <section class="purchase-header-section card card__body">
+          <h3 class="purchase-section-title">
+            Datos Generales de la Compra
+          </h3>
+          <div class="purchase-form__row purchase-form__row--2">
+            <div class="purchase-field">
+              <label for="supplier-select">Proveedor *</label>
+              <select
+                id="supplier-select"
+                class="form-control"
+                required
+              >
+                <option value="">Seleccione un proveedor...</option>
+              </select>
+            </div>
+            <div class="purchase-field">
+              <label for="observation-input"
+                >Observación / N° Factura Física</label
+              >
+              <input
+                type="text"
+                id="observation-input"
+                class="form-control"
+                placeholder="Ej. Factura #001234"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section class="purchase-table-section card card__body">
+          <div class="purchase-detail-toolbar">
+            <h3 class="purchase-section-title">Detalle de la Factura</h3>
+            <button
+              type="button"
+              class="purchase-btn-save"
+              id="btn-add-detail"
+            >
+              <i class="fa-solid fa-plus" aria-hidden="true"></i> Agregar
+              Producto
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="purchase-detail-table">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Lote</th>
+                  <th>F. Vencimiento</th>
+                  <th>Cantidad</th>
+                  <th>Costo Unit.</th>
+                  <th>Subtotal</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="purchase-table-body">
+                <tr>
+                  <td
+                    colspan="7"
+                    class="purchase-table__empty-state"
+                  >
+                    <i class="fa-solid fa-box-open" aria-hidden="true"></i>
+                    No hay productos agregados a la factura todavía.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="purchase-summary">
+            <div class="purchase-summary__total">
+              <h4 class="purchase-summary__label">
+                Total Estimado:
+                <span
+                  id="purchase-total-amount"
+                  class="purchase-summary__amount"
+                  >C$ 0.00</span
+                >
+              </h4>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="purchase-btn-save purchase-btn-save--confirm"
+                id="btn-save-purchase"
+              >
+                <i class="fa-solid fa-check" aria-hidden="true"></i> Guardar
+                Compra y Actualizar Inventario
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <div id="footer-target" class="footer" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+
+      <!-- Modal: Agregar detalle de producto -->
+      <div
+        id="f-Modal"
+        class="purchase-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="purchaseModalTitle"
+        aria-hidden="true"
+      >
+        <div
+          class="purchase-modal__backdrop"
+          data-close-modal
+          tabindex="-1"
+        ></div>
+        <div class="purchase-modal__panel">
+          <button
+            type="button"
+            class="purchase-modal__close"
+            data-close-modal
+            aria-label="Cerrar modal"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+
+          <p id="purchaseModalTitle" class="purchase-modal__intro">
+            Complete todos los campos para agregar un medicamento a la factura.
+          </p>
+
+          <form id="purchaseForm" class="purchase-modal__form" novalidate>
+            <div class="purchase-form__row purchase-form__row--3">
+              <div class="purchase-field">
+                <label for="product-select">Producto *</label>
+                <select
+                  id="product-select"
+                  name="productId"
+                  required
+                >
+                  <option value="">Seleccione...</option>
+                </select>
+              </div>
+              <div class="purchase-field">
+                <label for="batch-input">Número de Lote *</label>
+                <input
+                  type="text"
+                  id="batch-input"
+                  name="batchNumber"
+                  autocomplete="off"
+                  placeholder="Ej: L-998877"
+                  required
+                />
+              </div>
+              <div class="purchase-field">
+                <label for="qty-input">Cantidad *</label>
+                <input
+                  type="number"
+                  id="qty-input"
+                  name="quantity"
+                  placeholder="0"
+                  min="1"
+                  step="1"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="purchase-form__row purchase-form__row--3">
+              <div class="purchase-field">
+                <label for="price-input">Costo Unitario *</label>
+                <input
+                  type="number"
+                  id="price-input"
+                  name="unitPrice"
+                  placeholder="0.00"
+                  step="0.01"
+                  min="0.01"
+                  required
+                />
+              </div>
+              <div class="purchase-field">
+                <label for="mfg-date-input">F. Fabricación</label>
+                <input
+                  type="date"
+                  id="mfg-date-input"
+                  name="manufacturingDate"
+                />
+              </div>
+              <div class="purchase-field">
+                <label for="exp-date-input">F. Vencimiento *</label>
+                <input
+                  type="date"
+                  id="exp-date-input"
+                  name="expirationDate"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="purchase-modal__actions">
+              <button
+                type="button"
+                class="purchase-btn-cancel"
+                id="btnCancelpurchase"
+                data-close-modal
+              >
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                class="purchase-btn-save"
+                id="btnSavepurchase"
+              >
+                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                Agregar a Factura
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/js/purchases.js" defer></script>
+  <script src="../js/sidebar.js" defer></script>
+  <script src="../js/topbar.js" defer></script>
+  <script src="../js/footer.js" defer></script>
+</html>

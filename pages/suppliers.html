@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proveedores</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="/css/components/catalog-ui.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/layout/suppliers.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
+        <div class="sidebar-placeholder skeleton-loader"></div>
+      </aside>
+
+      <!-- Topbar -->
+      <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
+      </div>
+
+      <!-- Contenido principal -->
+      <main class="main-content" id="main-content">
+        <div class="suppliers-page">
+          <!-- Botón de retroceso -->
+          <div>
+            <button
+              type="button"
+              class="back-btn"
+              id="btnBack"
+              onclick="history.back()"
+            >
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              <span class="back-link">Volver a Catálogos</span>
+            </button>
+          </div>
+
+          <!-- Cabecera de página -->
+          <header class="page-header">
+            <div class="page-header__title">
+              <h1>Catálogo de Proveedores</h1>
+              <p>Consulta y administra los proveedores de la farmacia.</p>
+            </div>
+          </header>
+
+          <!-- Toolbar: búsqueda + acción principal -->
+          <div class="suppliers-search-row" role="search">
+            <input
+              type="search"
+              class="search-input"
+              id="suppliersearch"
+              placeholder="Buscar proveedor..."
+              aria-label="Buscar proveedor"
+              autocomplete="off"
+            />
+            <button type="button" class="btn-create" id="btnAddSupp">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              Agregar Nuevo
+            </button>
+          </div>
+
+          <!-- Tabla de Proveedores -->
+          <div
+            class="suppliers-table-card"
+            role="region"
+            aria-label="Listado de proveedores"
+          >
+            <table class="suppliers-table" aria-label="Tabla de proveedores">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre Proveedor</th>
+                  <th scope="col">RNC</th>
+                  <th scope="col">Mail</th>
+                  <th scope="col">Teléfono</th>
+                  <th scope="col">Dirección</th>
+                  <th scope="col">Activo</th>
+                  <th scope="col" class="col-actions">Acciones</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+
+      <div id="footer-target" class="footer" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+
+      <div
+        id="supplier-Modal"
+        class="supplier-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="supplierModalTitle"
+        aria-hidden="true"
+      >
+        <div
+          class="supplier-modal__backdrop"
+          data-close-modal
+          tabindex="-1"
+        ></div>
+        <div class="supplier-modal__panel">
+          <button
+            type="button"
+            class="supplier-modal__close"
+            data-close-modal
+            aria-label="Cerrar modal"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+          <h3
+            id="supplierModalTitle"
+            class="supplier-modal__title"
+            style="
+              text-align: center;
+              font-size: var(--font-size-lg);
+              color: var(--color-info-hover);
+              margin-bottom: var(--space-2);
+              font-weight: var(--font-weight-semibold);
+            "
+          >
+            Registrar Nuevo proveedor
+          </h3>
+          <p class="product-modal__intro">
+            Complete todos los campos para registrar o actualizar un proveedor.
+          </p>
+
+          <form id="supplierForm" class="supplier-modal__form" novalidate>
+            <div class="supplier-form__row supplier-form__row--3">
+              <div class="supplier-field">
+                <label for="fieldName">Nombre</label>
+                <input
+                  type="text"
+                  id="fieldName"
+                  name="nombre"
+                  autocomplete="off"
+                  placeholder="Ej: BioFarma"
+                />
+              </div>
+              <div class="supplier-field">
+                <label for="fieldRCN">RNC</label>
+                <input
+                  type="text"
+                  id="fieldrcn"
+                  name="rcn"
+                  autocomplete="off"
+                  placeholder="Ej: 90993039300"
+                />
+              </div>
+              <div class="supplier-field">
+                <label for="fieldMail">Correo</label>
+                <input
+                  type="text"
+                  id="fieldMail"
+                  name="Mail"
+                  autocomplete="off"
+                  placeholder="Ej: BioFarma@gmail.com"
+                />
+              </div>
+            </div>
+
+            <div class="supplier-form__row supplier-form__row--2">
+              <div class="supplier-field">
+                <label for="fieldPhone">Teléfono</label>
+                <input
+                  type="text"
+                  id="fieldPhone"
+                  name="Phone"
+                  autocomplete="off"
+                  placeholder="Ej: 7878-3393"
+                />
+              </div>
+              <div class="supplier-field">
+                <label for="fieldAddress">Dirección</label>
+                <input
+                  type="text"
+                  id="fieldAddress"
+                  name="Address"
+                  autocomplete="off"
+                  placeholder="Ej: Carretera a Masaya Km 12, Managua"
+                />
+              </div>
+            </div>
+
+            <!-- Acciones del modal -->
+            <div class="supplier-modal__actions">
+              <button
+                type="button"
+                class="supplier-btn-cancel"
+                id="btnCancelsupplier"
+                data-close-modal
+              >
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                class="supplier-btn-save"
+                id="btnSavesupplier"
+              >
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                Guardar proveedor
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="module" src="/js/suppliers.js" defer></script>
+  <script src="../js/sidebar.js" defer></script>
+  <script src="../js/topbar.js" defer></script>
+  <script src="../js/footer.js" defer></script>
+</html>

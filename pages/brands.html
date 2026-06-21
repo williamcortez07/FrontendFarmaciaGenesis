@@ -1,151 +1,209 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestión de Marcas | Admin Panel</title>
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
+    <meta
+      name="description"
+      content="Consulta, registra y gestiona las marcas farmacéuticas disponibles en Farmacia Génesis."
     />
+    <title>Gestión de Marcas — Farmacia Génesis</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/base/design-tokens.css" />
+    <link rel="stylesheet" href="../css/components/catalog-ui.css" />
+
+    <!-- Layout y Componentes -->
+    <link rel="stylesheet" href="../css/layout/brands.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+
+    <!-- Iconografía -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-
-    <link rel="stylesheet" href="/css/layout/brands.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/Icons/marcas.ico" />
   </head>
   <body>
-    <main class="container">
-      <header class="page-header">
-        <div class="header-content">
-          <h1>Gestión de Marcas</h1>
-          <p>Administra y organiza los proveedores y marcas del sistema.</p>
-        </div>
-        <button id="btnOpenModal" class="btn btn-primary">
-          <i class="fas fa-plus"></i> Nueva Marca
-        </button>
-      </header>
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
+        <div class="sidebar-placeholder skeleton-loader"></div>
+      </aside>
 
-      <!-- Filtros y Búsqueda (Opcional pero profesional) -->
-      <section class="table-tools">
-        <div class="search-box">
-          <i class="fas fa-search"></i>
-          <input type="text" placeholder="Buscar marca..." />
-        </div>
-      </section>
-
-      <!-- Tabla de Datos -->
-      <div class="table-container">
-        <table class="styled-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Descripción</th>
-              <th>Estado</th>
-              <th class="text-center">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Ejemplo de fila cargada -->
-            <tr>
-              <td>#101</td>
-              <td><strong>Apple</strong></td>
-              <td>Dispositivos electrónicos y software.</td>
-              <td><span class="badge status-active">Activo</span></td>
-              <td class="text-center">
-                <button class="btn-icon edit" title="Editar">
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn-icon delete" title="Eliminar">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Topbar -->
+      <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
       </div>
 
-      <!-- Paginación -->
-      <nav class="pagination-container">
-        <div class="pagination-info">Mostrando 1 a 10 de 50 marcas</div>
-        <ul class="pagination">
-          <li>
-            <button class="page-link" disabled>
-              <i class="fas fa-chevron-left"></i>
-            </button>
-          </li>
-          <li><button class="page-link active">1</button></li>
-          <li><button class="page-link">2</button></li>
-          <li><button class="page-link">3</button></li>
-          <li>
-            <button class="page-link">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </main>
-
-    <!-- Modal para Registro -->
-    <div id="brandModal" class="modal-overlay">
-      <div class="modal-content">
-        <header class="modal-header">
-          <h2>Registrar Nueva Marca</h2>
-          <button id="btnCloseModal" class="close-modal">&times;</button>
-        </header>
-        <form id="brandForm" class="modal-body">
-          <div class="form-group">
-            <label for="brandName">Nombre de la Marca</label>
-            <input
-              type="text"
-              id="brandName"
-              name="brandName"
-              placeholder="Ej: Nike"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="brandDesc">Descripción</label>
-            <textarea
-              id="brandDesc"
-              name="brandDesc"
-              rows="3"
-              placeholder="Breve descripción de la marca..."
-            ></textarea>
-          </div>
-          <div class="modal-footer">
+      <!-- Contenido principal -->
+      <main class="main-content" id="main-content">
+        <div class="brands-page">
+          <!-- Botón de retroceso -->
+          <div>
             <button
               type="button"
-              class="btn btn-secondary"
-              onclick="closeModal()"
+              class="btn-back"
+              onclick="history.back()"
+              id="btnBack"
             >
-              Cancelar
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              Volver a Catálogos
             </button>
-            <button type="submit" class="btn btn-primary">Guardar Marca</button>
+          </div>
+
+          <!-- Cabecera de página -->
+          <header class="page-header">
+            <div class="page-header__title">
+              <h1>Gestión de Marcas</h1>
+              <p>Consulta, registra y administra las marcas farmacéuticas.</p>
+            </div>
+            <div class="page-header__actions">
+              <button id="btnOpenModal" class="btn btn-primary" type="button">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+                Nueva Marca
+              </button>
+            </div>
+          </header>
+
+          <!-- Toolbar: búsqueda -->
+          <div class="toolbar" role="search">
+            <div class="toolbar__search">
+              <i
+                class="fa-solid fa-magnifying-glass toolbar__search-icon"
+                aria-hidden="true"
+              ></i>
+              <input
+                type="search"
+                id="brandSearch"
+                placeholder="Buscar marca..."
+                aria-label="Buscar marca"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <!-- Tabla de marcas -->
+          <div
+            class="table-wrapper"
+            role="region"
+            aria-label="Listado de marcas"
+          >
+            <div class="table-scroll" id="tbl-container-brands">
+              <table
+                class="data-table brands-table"
+                aria-label="Tabla de marcas"
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col" class="col-actions">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+
+            <!-- Paginación -->
+            <nav class="pagination-bar" aria-label="Paginación de Categorías">
+              <p class="pagination-bar__info" id="paginationInfo"></p>
+
+              <ul class="pagination" role="list" id="paginationContainer">
+                <!-- Aquí JavaScript generará los botones -->
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <div id="footer-target" class="footer" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+    </div>
+    <!-- /.app-layout -->
+
+    <!-- Modal: Registrar / Editar Marca -->
+    <div
+      id="brandModal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="brandModalTitle"
+    >
+      <div class="modal">
+        <header class="modal__header">
+          <h2 class="modal__title" id="brandModalTitle">
+            Registrar Nueva Marca
+          </h2>
+          <button
+            id="btnCloseModal"
+            class="modal__close"
+            aria-label="Cerrar modal"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+
+        <form id="brandForm" class="modal__body" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="brandName"
+                >Nombre de la Marca</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                id="brandName"
+                name="brandName"
+                placeholder="Ej: Bayer"
+                required
+                autocomplete="off"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="brandDesc">Descripción</label>
+              <textarea
+                class="form-control"
+                id="brandDesc"
+                name="brandDesc"
+                rows="3"
+                placeholder="Breve descripción de la marca..."
+              ></textarea>
+            </div>
           </div>
         </form>
+
+        <footer class="modal__footer">
+          <button id="btnCancelModal" type="button" class="btn btn-secondary">
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            form="brandForm"
+            class="btn btn-success"
+            id="btn-submit-brand"
+          >
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            Guardar Marca
+          </button>
+        </footer>
       </div>
     </div>
 
-    <script>
-      // Lógica básica para el Modal
-      const modal = document.getElementById("brandModal");
-      const btnOpen = document.getElementById("btnOpenModal");
-      const btnClose = document.getElementById("btnCloseModal");
-
-      btnOpen.onclick = () => modal.classList.add("active");
-      btnClose.onclick = () => modal.classList.remove("active");
-
-      // Cerrar modal si se hace click fuera del contenido
-      window.onclick = (event) => {
-        if (event.target == modal) {
-          modal.classList.remove("active");
-        }
-      };
-    </script>
+    <script type="module" src="/js/brands.js"></script>
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/topbar.js" defer></script>
+    <script src="../js/footer.js" defer></script>
   </body>
 </html>

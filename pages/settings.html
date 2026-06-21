@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Ajustes de Farmacia Génesis: configuración general, notificaciones y seguridad del sistema."
+    />
+    <title>Ajustes — Farmacia Génesis</title>
+
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/base/design-tokens.css" />
+    <link rel="stylesheet" href="../css/components/catalog-ui.css" />
+    <link rel="stylesheet" href="../css/layout/settings.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación"
+      >
+        <div class="sidebar-placeholder skeleton-loader"></div>
+      </aside>
+
+      <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
+      </div>
+
+      <main class="main-content" id="main-content" aria-label="Ajustes del sistema">
+        <div class="settings-page">
+          <header class="page-header">
+            <div class="page-header__title">
+              <h1>Ajustes</h1>
+              <p>Configuración del sistema</p>
+            </div>
+          </header>
+
+          <div class="settings-grid">
+            <section class="settings-card settings-card--wide card" aria-labelledby="general-info-title">
+              <div class="settings-card__header">
+                <div>
+                  <h2 id="general-info-title">Información General</h2>
+                </div>
+              </div>
+              <div class="settings-card__body">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label" for="farmaciaName">Nombre de la Farmacia</label>
+                    <input
+                      type="text"
+                      id="farmaciaName"
+                      class="form-control"
+                      value="FARMACIA GÉNESIS"
+                      placeholder="Nombre de la farmacia"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="farmaciaEmail">Email</label>
+                    <input
+                      type="email"
+                      id="farmaciaEmail"
+                      class="form-control"
+                      value="admin@farmacia.com"
+                      placeholder="Correo electrónico"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="farmaciaPhone">Teléfono</label>
+                    <input
+                      type="tel"
+                      id="farmaciaPhone"
+                      class="form-control"
+                      value="+503 7777-1234"
+                      placeholder="Teléfono de contacto"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="farmaciaAddress">Dirección</label>
+                    <input
+                      type="text"
+                      id="farmaciaAddress"
+                      class="form-control"
+                      value="Calle Principal 123, Carazo"
+                      placeholder="Dirección de la farmacia"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="settings-actions-grid">
+              <section class="settings-card card" aria-labelledby="notifications-title">
+                <div class="settings-card__header">
+                  <div>
+                    <h2 id="notifications-title">Notificaciones</h2>
+                  </div>
+                </div>
+                <div class="settings-card__body">
+                  <div class="settings-toggle">
+                    <label class="form-label" for="enableNotifications">Habilitar notificaciones</label>
+                    <input type="checkbox" id="enableNotifications" checked />
+                  </div>
+                  <p class="card-note">Recibir alertas del sistema en el panel de administración.</p>
+
+                  <div class="settings-toggle">
+                    <label class="form-label" for="emailAlerts">Alertas por correo</label>
+                    <input type="checkbox" id="emailAlerts" checked />
+                  </div>
+                  <p class="card-note">Enviar notificaciones al email configurado.</p>
+
+                  <div class="settings-toggle">
+                    <label class="form-label" for="inventoryAlerts">Alertas de inventario</label>
+                    <input type="checkbox" id="inventoryAlerts" checked />
+                  </div>
+                  <p class="card-note">Notificar cuando el stock es bajo.</p>
+
+                  <div class="form-group">
+                    <label class="form-label" for="lowStockThreshold">Umbral de stock bajo</label>
+                    <input
+                      type="number"
+                      id="lowStockThreshold"
+                      class="form-control"
+                      value="50"
+                      min="1"
+                      placeholder="Valor mínimo de stock"
+                    />
+                  </div>
+                </div>
+              </section>
+
+              <section class="settings-card card" aria-labelledby="security-title">
+                <div class="settings-card__header">
+                  <div>
+                    <h2 id="security-title">Seguridad</h2>
+                  </div>
+                </div>
+                <div class="settings-card__body">
+                  <div class="form-group">
+                    <button type="button" class="btn btn-primary" aria-label="Cambiar contraseña">
+                      <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                      Cambiar Contraseña
+                    </button>
+                  </div>
+                  <div class="form-group">
+                    
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div class="settings-actions-row">
+              <button type="button" class="btn btn-secondary">Cancelar</button>
+              <button type="button" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/topbar.js" defer></script>
+  </body>
+</html>

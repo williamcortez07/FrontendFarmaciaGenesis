@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Consulta, registra y gestiona las Concentraciones farmacéuticas disponibles en Farmacia Génesis."
+    />
+    <title>Gestión de Concentraciones — Farmacia Génesis</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="../css/base/design-tokens.css" />
+    <link rel="stylesheet" href="../css/components/catalog-ui.css" />
+
+    <!-- Layout y Componentes -->
+    <link rel="stylesheet" href="../css/layout/concentrations.css" />
+    <link rel="stylesheet" href="../css/components/sidebar.css" />
+    <link rel="stylesheet" href="../css/components/topbar.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+
+    <!-- Iconografía -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
+        <div class="sidebar-placeholder skeleton-loader"></div>
+      </aside>
+
+      <!-- Topbar -->
+      <div id="header-target" class="main-header" aria-label="Barra superior">
+        <div class="header-placeholder skeleton-loader"></div>
+      </div>
+
+      <!-- Contenido principal -->
+      <main class="main-content" id="main-content">
+        <div class="concentrations-page">
+          <!-- Botón de retroceso -->
+          <div>
+            <button
+              type="button"
+              class="btn-back"
+              onclick="history.back()"
+              id="btnBack"
+            >
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              Volver a Catálogos
+            </button>
+          </div>
+
+          <!-- Cabecera de página -->
+          <header class="page-header">
+            <div class="page-header__title">
+              <h1>Gestión de Concentraciones</h1>
+              <p>
+                Consulta, registra y administra las Concentraciones
+                farmacéuticas.
+              </p>
+            </div>
+            <div class="page-header__actions">
+              <button id="btnOpenModal" class="btn btn-primary" type="button">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+                Nueva Concentracion
+              </button>
+            </div>
+          </header>
+
+          <!-- Toolbar: búsqueda -->
+          <div class="toolbar" role="search">
+            <div class="toolbar__search">
+              <i
+                class="fa-solid fa-magnifying-glass toolbar__search-icon"
+                aria-hidden="true"
+              ></i>
+              <input
+                type="search"
+                id="concentrationsearch"
+                placeholder="Buscar Concentracion..."
+                aria-label="Buscar Concentracion"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <!-- Tabla de Concentraciones -->
+          <div
+            class="table-wrapper"
+            role="region"
+            aria-label="Listado de Concentraciones"
+          >
+            <div class="table-scroll">
+              <table
+                class="data-table concentrations-table"
+                aria-label="Tabla de Concentraciones"
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Volumen</th>
+                    <th scope="col" class="col-desc">Porcentage</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col" class="col-actions">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>#101</td>
+                    <td><span class="cell-main">0 ml</span></td>
+                    <td class="col-desc">0.00</td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar 0 ml"
+                        aria-label="Editar Concentracion 0 ml"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#102</td>
+                    <td><span class="cell-main">120 ml</span></td>
+                    <td class="col-desc">5.00</td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar 120 ml"
+                        aria-label="Editar Concentracion 120 ml"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#103</td>
+                    <td>
+                      <span class="cell-main">30 g</span>
+                    </td>
+                    <td class="col-desc">1.00</td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar 30 g"
+                        aria-label="Editar Concentracion 30 g"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#104</td>
+                    <td><span class="cell-main">100 ml</span></td>
+                    <td class="col-desc">0.50</td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar 100 ml"
+                        aria-label="Editar Concentracion 100 ml"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#105</td>
+                    <td><span class="cell-main">500 ml</span></td>
+                    <td class="col-desc">0.90</td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar 500 ml"
+                        aria-label="Editar Concentracion 500 ml"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#106</td>
+                    <td><span class="cell-main">60 g</span></td>
+                    <td class="col-desc">2.00</td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar 60 g"
+                        aria-label="Editar Concentracion 60 g"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#107</td>
+                    <td><span class="cell-main">20 ml</span></td>
+                    <td class="col-desc">0.15</td>
+                    <td><span class="badge status-active">Activo</span></td>
+                    <td class="col-actions">
+                      <button
+                        class="btn-icon btn-icon--edit"
+                        title="Editar 20 ml"
+                        aria-label="Editar Concentracion 20 ml"
+                      >
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Paginación -->
+            <nav
+              class="pagination-bar"
+              aria-label="Paginación de Concentraciones"
+            >
+              <p class="pagination-bar__info">
+                Mostrando 1 a 7 de 50 Concentraciones
+              </p>
+              <ul class="pagination" role="list">
+                <li>
+                  <button
+                    class="page-link"
+                    disabled
+                    aria-label="Página anterior"
+                  >
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="page-link is-active"
+                    aria-current="page"
+                    aria-label="Página 1"
+                  >
+                    1
+                  </button>
+                </li>
+                <li>
+                  <button class="page-link" aria-label="Página 2">2</button>
+                </li>
+                <li>
+                  <button class="page-link" aria-label="Página 3">3</button>
+                </li>
+                <li>
+                  <button class="page-link" aria-label="Página siguiente">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <div id="footer-target" class="footer" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+    </div>
+    <!-- /.app-layout -->
+
+    <!-- Modal: Registrar / Editar Concentracion -->
+    <div
+      id="concentrationModal"
+      class="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="concentrationModalTitle"
+    >
+      <div class="modal">
+        <header class="modal__header">
+          <h2 class="modal__title" id="concentrationModalTitle">
+            Registrar Nueva Concentracion
+          </h2>
+          <button
+            id="btnCloseModal"
+            class="modal__close"
+            aria-label="Cerrar modal"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+
+        <form id="concentrationForm" class="modal__body" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="concentrationName"
+                >Volumen de la Concentracion</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                id="concentrationName"
+                name="concentrationName"
+                placeholder="Ej: 100 mg"
+                required
+                autocomplete="off"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="concentrationDesc"
+                >Porcentage</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                id="concentrationName"
+                name="concentrationName"
+                placeholder="Ej: 4.00"
+                required
+                autocomplete="off"
+              />
+            </div>
+          </div>
+        </form>
+
+        <footer class="modal__footer">
+          <button id="btnCancelModal" type="button" class="btn btn-secondary">
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            form="concentrationForm"
+            class="btn btn-success"
+          >
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            Guardar Concentracion
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <script src="/js/concentration.js"></script>
+    <script src="../js/sidebar.js" defer></script>
+    <script src="../js/topbar.js" defer></script>
+    <script src="../js/footer.js" defer></script>
+  </body>
+</html>

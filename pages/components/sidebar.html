@@ -1,38 +1,64 @@
-<nav class="sidebar" id="main-sidebar">
-  <div class="sidebar-header">
-    <div class="logo-container">
-      <i class="fa-solid fa-plus logo-icon"></i>
-    </div>
-    <div class="logo-text">
+<div class="sidebar-wrapper">
+  <div class="sidebar-brand">
+    <div class="logo-circle"><i class="fa-solid fa-plus"></i></div>
+    <div class="brand-text">
       <span class="brand-name">FARMACIA</span>
       <span class="brand-subname">GÉNESIS</span>
     </div>
   </div>
-
-  <ul class="nav-links">
-    <li class="nav-item" onclick="loadComponent('inicio')">
-      <i class="fa-solid fa-house"></i>
-      <span class="link-name">Inicio</span>
-    </li>
-    <li class="nav-item" onclick="loadComponent('ventas')">
-      <i class="fa-solid fa-cart-shopping"></i>
-      <span class="link-name">Ventas</span>
-    </li>
-    <li class="nav-item" onclick="loadComponent('inventario')">
-      <i class="fa-solid fa-table-cells-large"></i>
-      <span class="link-name">Inventario</span>
-    </li>
-    <li class="nav-item" onclick="loadComponent('reportes')">
-      <i class="fa-solid fa-chart-column"></i>
-      <span class="link-name">Reportes</span>
-    </li>
-    <li class="nav-item" onclick="loadComponent('catalogos')">
-      <i class="fa-solid fa-cubes"></i>
-      <span class="link-name">Catálogos</span>
-    </li>
-    <li class="nav-item" onclick="loadComponent('ajustes')">
-      <i class="fa-solid fa-gear"></i>
-      <span class="link-name">Ajustes</span>
-    </li>
-  </ul>
-</nav>
+  <nav class="sidebar-nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="/pages/home.html" class="nav-link active" data-view="home"
+          ><i class="fa-solid fa-house"></i
+          ><span class="link-text">Inicio</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/pages/sales.html" class="nav-link" data-view="ventas"
+          ><i class="fa-solid fa-cart-shopping"></i
+          ><span class="link-text">Ventas</span></a
+        >
+      </li>
+       </li>
+      <li class="nav-item">
+        <a href="/pages/purchases.html" class="nav-link" data-view="compras"
+          ><i class="fa-solid fa-bag-shopping"></i><span class="link-text">compras</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/pages/inventory.html" class="nav-link" data-view="inventario"
+          ><i class="fa-solid fa-box"></i
+          ><span class="link-text">Inventario</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/pages/reports.html" class="nav-link" data-view="reportes"
+          ><i class="fa-solid fa-file-lines"></i
+          ><span class="link-text">Reportes</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/pages/catalogs.html" class="nav-link" data-view="usuarios"
+          ><i class="fa-solid fa-list"></i
+          ><span class="link-text">Catálogos</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="/pages/settings.html" class="nav-link" data-view="inventario"
+          ><i class="fa-solid fa-gear"></i
+          ><span class="link-text">Ajustes</span></a
+        >
+      </li>
+    </ul>
+  </nav>
+  <div class="sidebar-user">
+    <div class="user-close">
+      <li class="nav-item">
+        <a href="/index.html" class="nav-link" data-view="login"
+          ><i class="fa-solid fa-arrow-right-from-bracket"></i><span class="link-text">Cerrar sesión</span></a
+        >
+      </li>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reportes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/base/globals.css" />
+  <link rel="stylesheet" href="../css/components/sidebar.css" />
+  <link rel="stylesheet" href="../css/components/topbar.css" />
+  <link rel="stylesheet" href="../css/components/footer.css" />
+  <link id="page-style" rel="stylesheet" href="../css/layout/reports.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  
+</head>
+
+<body>
+  <div class="app-layout">
+    <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
+      <div class="sidebar-placeholder skeleton-loader"></div>
+    </aside>
+
+    <div id="header-target" class="main-header" aria-label="Barra superior">
+      <div class="header-placeholder skeleton-loader"></div>
+    </div>
+
+    <main>
+      <h1 class="text">Todos tus reportes</h1>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon"><i class="fa-solid fa-cash-register"></i></div>
+          <div class="kpi-info">
+            <h3>Ventas Totales</h3>
+            <p class="kpi-value">$1,200.00</p>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+          <div class="kpi-info">
+            <h3>Compras Realizadas</h3>
+            <p class="kpi-value">50 pedidos</p>
+          </div>
+        </div>
+
+        <div class="kpi-card highlight">
+          <div class="kpi-icon"><i class="fa-solid fa-crown"></i></div>
+          <div class="kpi-info">
+            <h3>Producto Más Vendido</h3>
+            <p class="kpi-value">Paracetamol</p>
+            <span class="kpi-sub">500mg (120 uds)</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+          <div class="kpi-info">
+            <h3>Alertas Inventario</h3>
+            <p class="kpi-value">20 Stock Bajo</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-section">
+        <h2><i class="fa-solid fa-chart-line"></i> Productos con mayor rendimiento</h2>
+        
+        <div class="table-responsive">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Puesto</th>
+                <th>Medicamento</th>
+                <th>Concentración</th>
+                <th>Unidades Vendidas</th>
+                <th>Total General</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="top-product-row">
+                <td><strong>1</strong></td>
+                <td><strong><i class="fa-solid fa-crown badge-crown"></i> Paracetamol</strong></td>
+                <td>500 mg</td>
+                <td>120 unidades</td>
+                <td><strong>$240.00</strong></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Omeprazol</td>
+                <td>20 mg</td>
+                <td>95 unidades</td>
+                <td>$190.00</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Alka-Seltzer</td>
+                <td>Estándar</td>
+                <td>80 unidades</td>
+                <td>$80.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+
+    <div id="footer-target" aria-label="Pie de página">
+      <div class="footer-placeholder skeleton-loader"></div>
+    </div>
+  </div>
+
+  <script src="../js/sidebar.js" defer></script>
+  <script src="../js/topbar.js" defer></script>
+  <script src="../js/footer.js" defer></script>
+</body>
+
+</html>
