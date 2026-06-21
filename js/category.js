@@ -1,4 +1,7 @@
-import { renderGlobalPagination, updatePaginationInfo } from './utils/pagination.js';
+import {
+  renderGlobalPagination,
+  updatePaginationInfo,
+} from "./utils/pagination.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1;
@@ -7,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnOpen = document.getElementById("btnOpenModal");
   const btnClose = document.getElementById("btnCloseModal");
   const btnCancel = document.getElementById("btnCancelModal");
+  const searchInput = document.getElementById("categoriesSearch");
 
   const closeModal = () => {
     if (modal) {
@@ -42,11 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
           headers: {
             accept: "Application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
-        throw new Error(`Error http: ${response.status} - ${response.statusText}`);
+        throw new Error(
+          `Error http: ${response.status} - ${response.statusText}`,
+        );
       }
 
       const result = await response.json();
@@ -56,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         result.meta.itemsPerPage,
         result.meta.totalItems,
         "paginationInfo",
-        "Categorías"
+        "Categorías",
       );
 
       renderGlobalPagination(
@@ -66,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         async (newPage) => {
           currentPage = newPage;
           await GetAllCategory(currentPage, pageSize);
-        }
+        },
       );
     } catch (error) {
       console.log("Ha ocurrido un error al obtener las categorias: ", error);
@@ -121,10 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 </button>
             </td>
         </tr>
-        `
+        `,
       )
       .join("");
-  
   }
 
   function formatId(id) {
@@ -138,15 +143,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return div.innerHTML;
   }
 
-  
-
- async function addCategory() {
+  async function addCategory() {
     const btnSubmit = document.getElementById("btn-Submit");
     if (btnSubmit) {
       btnSubmit.addEventListener("click", async (event) => {
         event.preventDefault();
         const categoryName = document.getElementById("categoryName").value;
-        const categoryDescription = document.getElementById("categoryDesc").value;
+        const categoryDescription =
+          document.getElementById("categoryDesc").value;
 
         if (!categoryName || !categoryDescription) {
           alert("Por favor complete los campos");
@@ -163,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 name: categoryName, // Cambiado para que coincida con tu backend
                 description: categoryDescription, // Cambiado para que coincida con tu backend
               }),
-            }
+            },
           );
 
           if (response.ok) {
@@ -172,7 +176,9 @@ document.addEventListener("DOMContentLoaded", () => {
             closeModal();
           } else {
             // Corregido el error matemático del alert usando template literals
-            alert(`Ocurrió un error: ${response.status} ${response.statusText}`);
+            alert(
+              `Ocurrió un error: ${response.status} ${response.statusText}`,
+            );
           }
         } catch (error) {
           console.log("Ocurrió un error", error);
@@ -189,7 +195,40 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       btnEdit.addEventListener("click");
-    } catch (error) { }
+    } catch (error) {}
+  }
+
+  async function searchCategories(
+    searchTerm,
+    page = currentPage,
+    size = pageSize,
+  ) {
+    try {
+      const response = await fetch(
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.categories}/paged?page=${page}&limit=${size}`,
+        {
+          headers: {
+            accept: "Application/json",
+          },
+          //headers: getHeaders(false),
+        },
+      );
+      const data = await response.json();
+      const categories = data.data || data;
+
+      const filteredCategory = categories.filter((category) => {
+        const name = category.categoryName || category.name || "";
+        const desc = category.description || "";
+        return (
+          name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          desc.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
+
+      renderCategoriesTable(filteredCategory);
+    } catch (error) {
+      console.error("Error al buscar categorias:", error);
+    }
   }
 
   function refresh() {
@@ -198,5 +237,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   GetAllCategory();
   addCategory();
+  searchCategories();
   editCategory();
 });

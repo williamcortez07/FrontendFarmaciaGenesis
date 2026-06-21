@@ -378,14 +378,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return div.innerHTML;
   }
 
-  function updatePaginationInfo(totalItems) {
-    const paginationInfo = document.querySelector(".pagination-bar__info");
-    if (paginationInfo) {
-      const end = Math.min(10, totalItems);
-      paginationInfo.textContent = `Mostrando 1 a ${end} de ${totalItems} marcas`;
-    }
-  }
-
   function showNotification(message, type = "info") {
     let notification = document.querySelector(".notification-toast");
     if (!notification) {
