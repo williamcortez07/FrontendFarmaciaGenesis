@@ -4,11 +4,10 @@ import {
 } from "./utils/pagination.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const currentpage = 1;
+  let currentPage = 1;
   const pageSize = 10;
-
   const API_CONFIG = {
-    baseURL: "https:/localhost:7204/api",
+    baseURL: "https://localhost:7204/api",
     endpoints: {
       suppliers: "/Suppliers",
     },
@@ -20,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalTitle = document.getElementById("supplierModalTitle");
   const supplierForm = document.getElementById("supplierForm");
   const btnOpen = document.getElementById("btnAddSupp");
-  const tableBody = document.querySelector("suppliers-table tbody ");
+  const tableBody = document.querySelector(".suppliers-table tbody ");
   const searchInput = document.getElementById("suppliersearch");
 
   function getHeaders(includeContentType = true) {
@@ -73,16 +72,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleStatusField = (show) => {
     let statusGroup = document.getElementById("statusFormGroup");
     const actionsSection =
-      supplierForm && supplierForm.querySelector("supplier-modal__actions");
+      supplierForm && supplierForm.querySelector(".supplier-modal__actions");
     if (show) {
       if (!statusGroup && actionsSection) {
-        statusGroup = document.getElementById("div");
+        statusGroup = document.createElement("div");
         statusGroup.id = "statusFormGroup";
         statusGroup.className = "supplier-form__row supplier-form__row--2";
         statusGroup.innerHTML = `
           <div class="supplier-field">
             <label for="supplierStatus">Estado del proveedor</label>
-            <select id="suppliertStatus" name="isActive">
+            <select id="supplierStatus" name="isActive">
               <option value="true">Activo</option>
               <option value="false">Inactivo</option>
             </select>
@@ -126,7 +125,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (searchInput) {
-    searchInput.addEventListener("input", (e) => searchInputs(e.target.value));
+    searchInput.addEventListener("input", (e) =>
+      searchSuppliers(e.target.value),
+    );
   }
 
   // carga de catalogos auxiliaress
@@ -139,12 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
     errorMsg,
   ) {
     try {
-      const response = await fetch(
-        `${API_CONFIG.baseURL}${endpoint.suppliers}`,
-        {
-          headers: getHeaders(false),
-        },
-      );
+      const response = await fetch(`${API_CONFIG.baseURL}${endpoint}`, {
+        headers: getHeaders(false),
+      });
       if (!response.ok) throw new Error();
       const result = await response.json();
       const select = document.getElementById(elementId);
@@ -163,20 +161,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  async function getSupplier(page = currentpage, size = pageSize) {
+  async function getSupplier(page = currentPage, size = pageSize) {
     try {
       showLoadingState();
       const response = await fetch(
-        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.suppliers}/paged?page = ${page}&limit=${size}`,
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.suppliers}/paged?page=${page}&limit=${size}`,
         {
           method: "GET",
           headers: getHeaders(false),
         },
       );
-      if (!response.ok)
-        throw new Error(
-          `Error HTTP: ${response.status}- ${response.statusText}`,
-        );
+      if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
       const result = await response.json();
       renderSupplierTable(result.data);
       updatePaginationInfo(
@@ -201,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  async function preparedEditModal(id) {
+  async function prepareEditModal(id) {
     try {
       showToast("Cargando datos del proveedor...", "info", 1500);
       currentSupplierId = id;
@@ -239,8 +234,8 @@ document.addEventListener("DOMContentLoaded", () => {
     supplierForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       const supplierName = document.getElementById("fieldName").value.trim();
-      const supplierRnc = document.getElementById("fieldrcn").value.trim();
-      const supplierMail = document.getElementById("fieldMail").value.trim();
+      const rnc = document.getElementById("fieldrcn").value.trim();
+      const mail = document.getElementById("fieldMail").value.trim();
       const supplierPhone = document.getElementById("fieldPhone").value.trim();
       const supplierAddress = document
         .getElementById("fieldAddress")
@@ -249,21 +244,21 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!supplierName) {
         showToast(
           "El nombre del proveedor es obligatorio y no puede estar vacío",
-          "warnig",
+          "warning",
         );
         return;
       }
       if (!rnc) {
         showToast(
           "El Registro nacional de contribuyente del proveedor es obligatorio y no puede estar vacío",
-          "warnig",
+          "warning",
         );
         return;
       }
-      if (!supplierMail && !supplierPhone) {
+      if (!mail && !supplierPhone) {
         showToast(
           "El correo o el telefono del proveedor es obligatorio y no puede estar vacío",
-          "warnig",
+          "warning",
         );
         return;
       }
@@ -271,22 +266,22 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!supplierAddress) {
         showToast(
           "La direción del proveedor es obligatorio y no puede estar vacío",
-          "warnig",
+          "warning",
         );
         return;
       }
 
       const payload = {
         supplierName,
-        supplierRnc,
-        supplierMail,
+        rnc,
+        mail,
         supplierPhone,
         supplierAddress,
       };
 
       let url = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.suppliers}`;
       let method = "POST";
-      const btnSave = document.getElementById("");
+      const btnSave = document.getElementById("btnSavesupplier");
       if (currentSupplierId) {
         method = "PUT";
         url = `${url}/${currentSupplierId}`;
@@ -315,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "success",
           );
           closeModal();
-          await getSupplier(currentSupplierId ? currentpage : 1, pageSize);
+          await getSupplier(currentSupplierId ? currentPage : 1, pageSize);
         } else {
           if (response.status === 401 || response.status === 403) {
             showToast(
@@ -341,13 +336,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function renderSupplierTable(supplers) {
+  function renderSupplierTable(supplier) {
     if (!tableBody) return;
 
-    if (!supplers || supplers.length === 0) {
+    if (!supplier || supplier.length === 0) {
       tableBody.innerHTML = `
         <tr>
-          <td colspan="10" class="empty-state">
+          <td colspan="8" class="empty-state">
             <i class="fas fa-box-open" style="font-size: 48px; color: #6c757d;"></i>
             <p>No hay proveedores registrados en el sistema</p>
             <button id="btnOpenModalEmpty" class="btn btn-primary btn-sm">
@@ -359,15 +354,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    tableBody.innerHTML = supplers
-      .map((suppler) => {
-        const id = suppler.supplierId;
-        const active = suppler.isActive;
+    tableBody.innerHTML = supplier
+      .map((supplier) => {
+        const id = supplier.supplierId;
+        const active = supplier.isActive;
 
-        return;
-        `
-  <tr data-supplier-id="${supplier.supplierId}">
-            <td>${formatId(supplier.supplierId)}</td>
+        return `
+  <tr data-supplier-id="${id}">
+            <td>${formatId(id)}</td>
             <td><span class="cell-main">${escapeHtml(supplier.supplierName)}</span></td>
             <td><span class="cell-main">${escapeHtml(supplier.rnc)}</span></td>
             <td><span class="cell-main">${escapeHtml(supplier.mail)}</span></td>
@@ -381,7 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <td class="col-actions">
                 <button
                     class="btn-icon btn-icon--edit"
-                    data-id="${supplier.supplierId}"
+                    data-id="${id}"
                     title="Editar ${escapeHtml(supplier.supplierName)}"
                     aria-label="Editar proveedor ${escapeHtml(supplier.supplierName)}"
                 >
@@ -398,7 +392,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (tableBody) {
       tableBody.innerHTML = `
         <tr>
-          <td colspan="10" class="loading-state">
+          <td colspan="8" class="loading-state">
             <div class="skeleton-loader" style="height: 45px; margin-bottom: 10px;"></div>
             <p>Cargando catálogo de proveedores...</p>
           </td>
@@ -410,14 +404,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (tableBody) {
       tableBody.innerHTML = `
         <tr>
-          <td colspan="10" class="error-state">
+          <td colspan="8" class="error-state">
             <i class="fas fa-exclamation-triangle" style="color: #dc3545; font-size: 24px;"></i>
             <p>Error de conexión con el servidor: ${escapeHtml(errorMessage)}</p>
-            <button id="btnRetrysuppliers" class="btn btn-primary btn-sm"><i class="fas fa-sync-alt"></i> Reintentar</button>
+            <button id="btnRetrySuppliers" class="btn btn-primary btn-sm"><i class="fas fa-sync-alt"></i> Reintentar</button>
           </td>
         </tr>`;
 
-      const btnRetry = document.getElementById("btnRetrysuppliers");
+      const btnRetry = document.getElementById("btnRetrySuppliers");
       if (btnRetry)
         btnRetry.addEventListener("click", () =>
           getSupplier(currentPage, pageSize),
@@ -427,6 +421,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function formatId(id) {
     return `#${String(id).padStart(3, "0")}`;
   }
+
+  //--------------------------------------------------------------------
 
   async function searchSuppliers(
     searchTerm,
@@ -461,7 +457,134 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error al buscar proveedores:", error);
     }
   }
+  /* ==========================================================================
+   CACHÉ LOCAL + BÚSQUEDA POR LETRA
 
+   primero se traen todos los proveedores existentes, y se almacenan en cache,
+   talvez van a decir, eso no es eficiente que la web se va a pegar que no se que
+   que no se cuando, pero ya que se ha hecho un análisis de negocio y la farmacia no
+   tiene muchos proveedores, no es que se amazon que tiene 100 mil proveedores,
+  que hay q pensar en la escalabilidad, sí, se puedo hacer desde la api, pero es mucho
+  trabajo y asi se mira tuani.
+   ========================================================================== */
+
+  let allSuppliersCache = [];
+  let isCacheLoaded = false;
+  let currentSearchTerm = "";
+
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  async function loadAllSuppliersToCache() {
+    if (isCacheLoaded) return;
+
+    try {
+      showLoadingState();
+
+      const response = await fetch(
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.suppliers}`,
+        { headers: getHeaders(false) },
+      );
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const result = await response.json();
+
+      allSuppliersCache = result.data || result || [];
+      isCacheLoaded = true;
+    } catch (error) {
+      console.error("Error cargando caché de proveedores:", error);
+      showToast("Error al cargar datos para búsqueda", "error");
+    }
+  }
+
+  function searchSuppliersLocal(searchTerm) {
+    const term = searchTerm.toLowerCase().trim();
+    currentSearchTerm = term;
+
+    if (!term) {
+      currentPage = 1;
+      getSupplier(1, pageSize);
+      return;
+    }
+
+    if (!isCacheLoaded) {
+      loadAllSuppliersToCache().then(() => {
+        searchSuppliersLocal(searchTerm);
+      });
+      return;
+    }
+
+    const filtered = allSuppliersCache.filter((supplier) => {
+      const name = (supplier.supplierName || "").toLowerCase();
+      const rnc = (supplier.rnc || "").toLowerCase();
+      const mail = (supplier.mail || "").toLowerCase();
+      const phone = (supplier.supplierPhone || "").toLowerCase();
+      const address = (supplier.supplierAddress || "").toLowerCase();
+
+      return (
+        name.includes(term) ||
+        rnc.includes(term) ||
+        mail.includes(term) ||
+        phone.includes(term) ||
+        address.includes(term)
+      );
+    });
+
+    const totalItems = filtered.length;
+    const totalPages = Math.ceil(totalItems / pageSize) || 1;
+    currentPage = 1;
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const paginatedData = filtered.slice(startIndex, startIndex + pageSize);
+
+    renderSupplierTable(paginatedData);
+    updatePaginationInfo(
+      currentPage,
+      pageSize,
+      totalItems,
+      "paginationInfo",
+      "proveedores",
+    );
+
+    renderGlobalPagination(
+      totalPages,
+      currentPage,
+      "paginationContainer",
+      (newPage) => {
+        currentPage = newPage;
+        const start = (currentPage - 1) * pageSize;
+        const pageData = filtered.slice(start, start + pageSize);
+        renderSupplierTable(pageData);
+        updatePaginationInfo(
+          currentPage,
+          pageSize,
+          totalItems,
+          "paginationInfo",
+          "proveedores",
+        );
+      },
+    );
+  }
+
+  const debouncedSearch = debounce((e) => {
+    searchSuppliersLocal(e.target.value);
+  }, 300);
+
+  if (searchInput) {
+    searchInput.removeEventListener("input", searchSuppliers); // Limpia el anterior si existe
+    searchInput.addEventListener("input", debouncedSearch);
+  }
+
+  //____________________________________________________________
   function escapeHtml(text) {
     if (!text) return "";
     const div = document.createElement("div");
