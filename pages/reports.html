@@ -1,11 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reportes</title>
+    <meta
+      name="description"
+      content="Dashboard analítico de Farmacia Génesis: visualiza ventas, productos líderes, ingresos y crecimiento mensual."
+    />
+    <title>Reportes — Farmacia Génesis</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/base/globals.css" />
@@ -17,33 +21,233 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body>
     <div class="app-layout">
-      <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
+      <!-- ── Sidebar ───────────────────────────────────────────────── -->
+      <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación principal">
         <div class="sidebar-placeholder skeleton-loader"></div>
       </aside>
 
+      <!-- ── Topbar ────────────────────────────────────────────────── -->
       <div id="header-target" class="main-header" aria-label="Barra superior">
         <div class="header-placeholder skeleton-loader"></div>
       </div>
 
-      <main>
-        <h1>Aqui van a ir los reportes</h1>
-        <p>
-          KPI Evolución de ventas por periodo , top productos por ingreso , top
-          productos mas vendidos , ventas por trimestre, y crecimiento mensual
-        </p>
+      <!-- ── Main Content ──────────────────────────────────────────── -->
+      <main id="reports-main" class="reports-page">
+
+        <!-- Page Header -->
+        <header class="rpt-page-header">
+          <div class="rpt-page-header__text">
+            <h1 class="rpt-page-header__title">
+              <i class="fa-solid fa-chart-pie rpt-page-header__icon" aria-hidden="true"></i>
+              Dashboard Analítico
+            </h1>
+            <p class="rpt-page-header__subtitle">
+              Visualiza el comportamiento de ventas y productos en tiempo real.
+            </p>
+          </div>
+          <div class="rpt-page-header__actions">
+            <button
+              id="btn-refresh-dashboard"
+              class="rpt-btn rpt-btn--secondary"
+              type="button"
+              title="Recargar dashboard"
+              aria-label="Recargar dashboard"
+            >
+              <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+              Actualizar
+            </button>
+          </div>
+        </header>
+
+        <!-- ── Global Error Banner (hidden by default) ───────────────── -->
+        <div id="rpt-error-banner" class="rpt-error-banner" role="alert" aria-live="polite" hidden>
+          <i class="fa-solid fa-circle-xmark rpt-error-banner__icon" aria-hidden="true"></i>
+          <div class="rpt-error-banner__body">
+            <p class="rpt-error-banner__title">No fue posible cargar el dashboard</p>
+            <p id="rpt-error-message" class="rpt-error-banner__message">Error de conexión. Por favor intente de nuevo.</p>
+          </div>
+          <button id="btn-retry-dashboard" class="rpt-btn rpt-btn--danger" type="button">
+            <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+            Reintentar
+          </button>
+        </div>
+
+        <!-- ── KPI Grid ───────────────────────────────────────────────── -->
+        <section class="rpt-kpi-grid" aria-label="Indicadores clave de rendimiento">
+
+          <article class="rpt-kpi-card rpt-kpi-card--sales" id="kpi-total-sales">
+            <div class="rpt-kpi-card__icon-wrap">
+              <i class="fa-solid fa-sack-dollar" aria-hidden="true"></i>
+            </div>
+            <div class="rpt-kpi-card__body">
+              <span class="rpt-kpi-card__label">Total Ventas</span>
+              <p class="rpt-kpi-card__value" id="totalSales">
+                <span class="rpt-skeleton rpt-skeleton--inline"></span>
+              </p>
+            </div>
+          </article>
+
+          <article class="rpt-kpi-card rpt-kpi-card--product" id="kpi-top-product">
+            <div class="rpt-kpi-card__icon-wrap">
+              <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+            </div>
+            <div class="rpt-kpi-card__body">
+              <span class="rpt-kpi-card__label">Producto Líder</span>
+              <p class="rpt-kpi-card__value" id="topProduct">
+                <span class="rpt-skeleton rpt-skeleton--inline"></span>
+              </p>
+            </div>
+          </article>
+
+          <article class="rpt-kpi-card rpt-kpi-card--growth" id="kpi-growth">
+            <div class="rpt-kpi-card__icon-wrap">
+              <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+            </div>
+            <div class="rpt-kpi-card__body">
+              <span class="rpt-kpi-card__label">Crecimiento</span>
+              <p class="rpt-kpi-card__value" id="growth">
+                <span class="rpt-skeleton rpt-skeleton--inline"></span>
+              </p>
+            </div>
+          </article>
+
+          <article class="rpt-kpi-card rpt-kpi-card--quarter" id="kpi-quarter">
+            <div class="rpt-kpi-card__icon-wrap">
+              <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+            </div>
+            <div class="rpt-kpi-card__body">
+              <span class="rpt-kpi-card__label">Ventas del Trimestre</span>
+              <p class="rpt-kpi-card__value" id="quarterTotal">
+                <span class="rpt-skeleton rpt-skeleton--inline"></span>
+              </p>
+            </div>
+          </article>
+
+        </section>
+
+        <!-- ── Charts Grid ────────────────────────────────────────────── -->
+        <section class="rpt-charts-grid" aria-label="Gráficos de análisis">
+
+          <!-- Sales by Period -->
+          <div class="rpt-chart-card rpt-chart-card--wide" id="card-sales-period">
+            <div class="rpt-chart-card__header">
+              <div class="rpt-chart-card__header-left">
+                <div class="rpt-chart-card__badge rpt-chart-card__badge--blue">
+                  <i class="fa-solid fa-chart-area" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h2 class="rpt-chart-card__title">Ventas por Período</h2>
+                  <p class="rpt-chart-card__subtitle">Evolución mensual de ingresos</p>
+                </div>
+              </div>
+            </div>
+            <div class="rpt-chart-card__body">
+              <div id="skeleton-sales" class="rpt-chart-skeleton rpt-skeleton"></div>
+              <div id="empty-sales" class="rpt-empty-state" hidden>
+                <i class="fa-solid fa-chart-area rpt-empty-state__icon" aria-hidden="true"></i>
+                <p class="rpt-empty-state__text">Sin datos de ventas por período.</p>
+              </div>
+              <div class="rpt-chart-wrapper" id="wrapper-sales" hidden>
+                <canvas id="salesChart" aria-label="Gráfico de ventas por período"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Products Sold -->
+          <div class="rpt-chart-card" id="card-top-products">
+            <div class="rpt-chart-card__header">
+              <div class="rpt-chart-card__header-left">
+                <div class="rpt-chart-card__badge rpt-chart-card__badge--green">
+                  <i class="fa-solid fa-ranking-star" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h2 class="rpt-chart-card__title">Productos Más Vendidos</h2>
+                  <p class="rpt-chart-card__subtitle">Top 5 por unidades vendidas</p>
+                </div>
+              </div>
+            </div>
+            <div class="rpt-chart-card__body">
+              <div id="skeleton-products" class="rpt-chart-skeleton rpt-skeleton"></div>
+              <div id="empty-products" class="rpt-empty-state" hidden>
+                <i class="fa-solid fa-box rpt-empty-state__icon" aria-hidden="true"></i>
+                <p class="rpt-empty-state__text">Sin datos de productos vendidos.</p>
+              </div>
+              <div class="rpt-chart-wrapper" id="wrapper-products" hidden>
+                <canvas id="topProductsChart" aria-label="Gráfico de productos más vendidos"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Revenue by Product -->
+          <div class="rpt-chart-card" id="card-revenue">
+            <div class="rpt-chart-card__header">
+              <div class="rpt-chart-card__header-left">
+                <div class="rpt-chart-card__badge rpt-chart-card__badge--purple">
+                  <i class="fa-solid fa-circle-dollar-to-slot" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h2 class="rpt-chart-card__title">Ingresos por Producto</h2>
+                  <p class="rpt-chart-card__subtitle">Top 5 por ingresos generados</p>
+                </div>
+              </div>
+            </div>
+            <div class="rpt-chart-card__body">
+              <div id="skeleton-revenue" class="rpt-chart-skeleton rpt-skeleton"></div>
+              <div id="empty-revenue" class="rpt-empty-state" hidden>
+                <i class="fa-solid fa-coins rpt-empty-state__icon" aria-hidden="true"></i>
+                <p class="rpt-empty-state__text">Sin datos de ingresos por producto.</p>
+              </div>
+              <div class="rpt-chart-wrapper" id="wrapper-revenue" hidden>
+                <canvas id="revenueChart" aria-label="Gráfico de ingresos por producto"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monthly Growth -->
+          <div class="rpt-chart-card rpt-chart-card--wide" id="card-growth">
+            <div class="rpt-chart-card__header">
+              <div class="rpt-chart-card__header-left">
+                <div class="rpt-chart-card__badge rpt-chart-card__badge--orange">
+                  <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h2 class="rpt-chart-card__title">Crecimiento Mensual</h2>
+                  <p class="rpt-chart-card__subtitle">Variación porcentual mes a mes</p>
+                </div>
+              </div>
+            </div>
+            <div class="rpt-chart-card__body">
+              <div id="skeleton-growth" class="rpt-chart-skeleton rpt-skeleton"></div>
+              <div id="empty-growth" class="rpt-empty-state" hidden>
+                <i class="fa-solid fa-chart-line rpt-empty-state__icon" aria-hidden="true"></i>
+                <p class="rpt-empty-state__text">Sin datos de crecimiento mensual.</p>
+              </div>
+              <div class="rpt-chart-wrapper" id="wrapper-growth" hidden>
+                <canvas id="growthChart" aria-label="Gráfico de crecimiento mensual"></canvas>
+              </div>
+            </div>
+          </div>
+
+        </section>
       </main>
 
+      <!-- ── Footer ────────────────────────────────────────────────── -->
       <div id="footer-target" aria-label="Pie de página">
         <div class="footer-placeholder skeleton-loader"></div>
       </div>
     </div>
 
+    <!-- Toast container (injected by JS) -->
+    <div id="toast-container" class="toast-container" role="region" aria-live="polite" aria-label="Notificaciones"></div>
+
     <script src="../js/sidebar.js" defer></script>
     <script src="../js/topbar.js" defer></script>
     <script src="../js/footer.js" defer></script>
+    <script src="../js/reports.js" defer></script>
   </body>
 </html>
