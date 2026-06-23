@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let productosGlobales = [];
 
   // URL base de la API
-  const API_URL = "https://localhost:7204/api/Inventory/dashboard";
+  const API_URL = "https://localhost:7204/api/Inventory/inventary";
 
   // 2. Función para cargar TODO el dashboard al iniciar
   const cargarInventario = async () => {
