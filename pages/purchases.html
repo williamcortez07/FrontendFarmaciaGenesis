@@ -13,6 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+
     <link rel="stylesheet" href="../css/base/globals.css" />
     <link rel="stylesheet" href="/css/components/catalog-ui.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
@@ -23,6 +24,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="icon" type="image/x-icon" href="../assets/Icons/compras.ico" />
   </head>
   <body>
     <div class="app-layout">
@@ -46,17 +48,11 @@
         </header>
 
         <section class="purchase-header-section card card__body">
-          <h3 class="purchase-section-title">
-            Datos Generales de la Compra
-          </h3>
+          <h3 class="purchase-section-title">Datos Generales de la Compra</h3>
           <div class="purchase-form__row purchase-form__row--2">
             <div class="purchase-field">
               <label for="supplier-select">Proveedor *</label>
-              <select
-                id="supplier-select"
-                class="form-control"
-                required
-              >
+              <select id="supplier-select" class="form-control" required>
                 <option value="">Seleccione un proveedor...</option>
               </select>
             </div>
@@ -77,11 +73,7 @@
         <section class="purchase-table-section card card__body">
           <div class="purchase-detail-toolbar">
             <h3 class="purchase-section-title">Detalle de la Factura</h3>
-            <button
-              type="button"
-              class="purchase-btn-save"
-              id="btn-add-detail"
-            >
+            <button type="button" class="purchase-btn-save" id="btn-add-detail">
               <i class="fa-solid fa-plus" aria-hidden="true"></i> Agregar
               Producto
             </button>
@@ -102,10 +94,7 @@
               </thead>
               <tbody id="purchase-table-body">
                 <tr>
-                  <td
-                    colspan="7"
-                    class="purchase-table__empty-state"
-                  >
+                  <td colspan="7" class="purchase-table__empty-state">
                     <i class="fa-solid fa-box-open" aria-hidden="true"></i>
                     No hay productos agregados a la factura todavía.
                   </td>
@@ -175,11 +164,7 @@
             <div class="purchase-form__row purchase-form__row--3">
               <div class="purchase-field">
                 <label for="product-select">Producto *</label>
-                <select
-                  id="product-select"
-                  name="productId"
-                  required
-                >
+                <select id="product-select" name="productId" required>
                   <option value="">Seleccione...</option>
                 </select>
               </div>
