@@ -294,6 +294,112 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  let allBrandsCache = [];
+  let isCacheLoaded = false;
+  let currentSearchTerm = "";
+
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  async function loadAllBrandsToCache() {
+    if (isCacheLoaded) return;
+
+    try {
+      showLoadingState();
+
+      const response = await fetch(
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.brands}`,
+        { headers: getHeaders(false) },
+      );
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const result = await response.json();
+
+      allBrandsCache = result.data || result || [];
+      isCacheLoaded = true;
+    } catch (error) {
+      console.error("Error cargando caché de marcas:", error);
+      showToast("Error al cargar datos para búsqueda", "error");
+    }
+  }
+
+  function searchBrandsLocal(searchTerm) {
+    const term = searchTerm.toLowerCase().trim();
+    currentSearchTerm = term;
+
+    if (!term) {
+      currentPage = 1;
+      getAllBrands(1, pageSize);
+      return;
+    }
+
+    if (!isCacheLoaded) {
+      loadAllBrandsToCache().then(() => {
+        searchBrandsLocal(searchTerm);
+      });
+      return;
+    }
+
+    const filtered = allBrandsCache.filter((brand) => {
+      const name = (brand.brandName || "").toLowerCase();
+      const desc = (brand.brandDescription || "").toLowerCase();
+      return name.includes(term) || desc.includes(term);
+    });
+
+    const totalItems = filtered.length;
+    const totalPages = Math.ceil(totalItems / pageSize) || 1;
+    currentPage = 1;
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const paginatedData = filtered.slice(startIndex, startIndex + pageSize);
+
+    renderBrandsTable(paginatedData);
+    updatePaginationInfo(
+      currentPage,
+      pageSize,
+      totalItems,
+      "paginationInfo",
+      "productos",
+    );
+
+    renderGlobalPagination(
+      totalPages,
+      currentPage,
+      "paginationContainer",
+      (newPage) => {
+        currentPage = newPage;
+        const start = (currentPage - 1) * pageSize;
+        const pageData = filtered.slice(start, start + pageSize);
+        renderBrandsTable(pageData);
+        updatePaginationInfo(
+          currentPage,
+          pageSize,
+          totalItems,
+          "paginationInfo",
+          "marcas",
+        );
+      },
+    );
+  }
+
+  const debouncedSearch = debounce((e) => {
+    searchBrandsLocal(e.target.value);
+  }, 300);
+
+  if (searchInput) {
+    searchInput.removeEventListener("input", searchBrands); // Limpia el anterior si existe
+    searchInput.addEventListener("input", debouncedSearch);
+  }
+
   function renderBrandsTable(brands) {
     if (!tableBody) return;
 

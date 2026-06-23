@@ -511,6 +511,118 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  let allProductsCache = [];
+  let isCacheLoaded = false;
+  let currentSearchTerm = "";
+
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  async function loadAllProductsToCache() {
+    if (isCacheLoaded) return;
+
+    try {
+      showLoadingState();
+
+      const response = await fetch(
+        `${API_CONFIG.baseURL}${API_CONFIG.endpoints.products}`,
+        { headers: getHeaders(false) },
+      );
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const result = await response.json();
+
+      allProductsCache = result.data || result || [];
+      isCacheLoaded = true;
+    } catch (error) {
+      console.error("Error cargando caché de productos:", error);
+      showToast("Error al cargar datos para búsqueda", "error");
+    }
+  }
+
+  function searchProductsLocal(searchTerm) {
+    const term = searchTerm.toLowerCase().trim();
+    currentSearchTerm = term;
+
+    if (!term) {
+      currentPage = 1;
+      getProducts(1, pageSize);
+      return;
+    }
+
+    if (!isCacheLoaded) {
+      loadAllProductsToCache().then(() => {
+        searchProductsLocal(searchTerm);
+      });
+      return;
+    }
+
+    const filtered = allProductsCache.filter((product) => {
+      const Tradename = (product.tradeName || "").toLowerCase();
+      const genericname = (product.genericName || "").toLowerCase();
+      const category = (product.categoryName || "").toLowerCase();
+
+      return (
+        Tradename.includes(term) ||
+        genericname.includes(term) ||
+        category.includes(term)
+      );
+    });
+
+    const totalItems = filtered.length;
+    const totalPages = Math.ceil(totalItems / pageSize) || 1;
+    currentPage = 1;
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const paginatedData = filtered.slice(startIndex, startIndex + pageSize);
+
+    renderProductsTable(paginatedData);
+    updatePaginationInfo(
+      currentPage,
+      pageSize,
+      totalItems,
+      "paginationInfo",
+      "productos",
+    );
+
+    renderGlobalPagination(
+      totalPages,
+      currentPage,
+      "paginationContainer",
+      (newPage) => {
+        currentPage = newPage;
+        const start = (currentPage - 1) * pageSize;
+        const pageData = filtered.slice(start, start + pageSize);
+        renderProductsTable(pageData);
+        updatePaginationInfo(
+          currentPage,
+          pageSize,
+          totalItems,
+          "paginationInfo",
+          "productos",
+        );
+      },
+    );
+  }
+
+  const debouncedSearch = debounce((e) => {
+    searchProductsLocal(e.target.value);
+  }, 300);
+
+  if (searchInput) {
+    searchInput.removeEventListener("input", searchProducts); // Limpia el anterior si existe
+    searchInput.addEventListener("input", debouncedSearch);
+  }
+
   function escapeHtml(text) {
     if (!text) return "";
     const div = document.createElement("div");

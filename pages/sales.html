@@ -1,27 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ventas</title>
-   <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+    <meta
+      name="description"
+      content="Gestión de transacciones, listado histórico y registro de ventas — Farmacia Génesis"
+    />
+    <title>Ventas — Farmacia Génesis</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-<link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/Icons/ventas.ico" />
+    <link rel="stylesheet" href="../css/base/globals.css" />
+    <link rel="stylesheet" href="/css/components/catalog-ui.css" />
     <link rel="stylesheet" href="../css/components/sidebar.css" />
     <link rel="stylesheet" href="../css/components/topbar.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
-    <link rel="stylesheet" href="../css/layout/sales.css"/>
+    <link rel="stylesheet" href="../css/layout/sales.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-
   </head>
   <body>
-<div class="app-layout">
-      <aside id="sidebar-target" class="main-sidebar" aria-label="Navegación">
+    <div class="app-layout">
+      <aside
+        id="sidebar-target"
+        class="main-sidebar"
+        aria-label="Navegación principal"
+      >
         <div class="sidebar-placeholder skeleton-loader"></div>
       </aside>
 
@@ -29,332 +39,376 @@
         <div class="header-placeholder skeleton-loader"></div>
       </div>
 
-      <main class="main-content" aria-label="Panel de ventas">
-        <section class="page-top">
-          <div>
-            <h1 class="page-title"> Gestion de Ventas</h1>
-            <p class="page-description">
-              Controla las transacciones y visualiza el detalle de cada venta.
+      <main class="main-content sale-page-content" aria-label="Panel de ventas">
+        <header class="sale-page-header">
+          <div class="sale-page-header__text">
+            <h1 class="sale-page-header__title">Gestión de Ventas</h1>
+            <p class="sale-page-header__desc">
+              Registra nuevas transacciones de salida de inventario y consulta
+              el historial detallado de facturas.
             </p>
           </div>
-          <button class="btn btn-primary btn-new-sale" type="button">
-            <i class="fa-solid fa-cart-plus"></i>
+          <button
+            type="button"
+            class="sale-btn sale-btn--primary"
+            id="btn-new-sale"
+          >
+            <i class="fa-solid fa-cart-plus" aria-hidden="true"></i>
             Nueva Venta
           </button>
-        </section>
+        </header>
 
-        <section class="sales-grid">
-          <article class="sales-card">
-            <div class="card-header">
-              <div>
-                <h2 class="card-title">Ventas</h2>
-                <p class="card-subtitle">Últimas transacciones</p>
-              </div>
-            </div>
-
-            <div class="table-wrapper">
-              <table class="sales-table">
-                <thead>
-                  <tr>
-                    <th>Usuario</th>
-                    <th>Fecha</th>
-                    <th>Total</th>
-                    <th class="text-center">Acción</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>William Cortez</td>
-                    <td>20 abril</td>
-                    <td>C$ 10</td>
-                    <td class="action-cell">
-                      <button class="btn-icon" type="button" data-sale-id="sale-1" aria-label="Ver detalles de venta">
-                        <i class="fa-solid fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>William Cortez</td>
-                    <td>20 abril</td>
-                    <td>C$ 140</td>
-                    <td class="action-cell">
-                      <button class="btn-icon" type="button" data-sale-id="sale-2" aria-label="Ver detalles de venta">
-                        <i class="fa-solid fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>William Cortez</td>
-                    <td>20 abril</td>
-                    <td>C$ 10</td>
-                    <td class="action-cell">
-                      <button class="btn-icon" type="button" data-sale-id="sale-3" aria-label="Ver detalles de venta">
-                        <i class="fa-solid fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>William Cortez</td>
-                    <td>21 abril</td>
-                    <td>C$ 40</td>
-                    <td class="action-cell">
-                      <button class="btn-icon" type="button" data-sale-id="sale-4" aria-label="Ver detalles de venta">
-                        <i class="fa-solid fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Roberto Mendieta</td>
-                    <td>21 abril</td>
-                    <td>C$ 50</td>
-                    <td class="action-cell">
-                      <button class="btn-icon" type="button" data-sale-id="sale-5" aria-label="Ver detalles de venta">
-                        <i class="fa-solid fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Roberto Mendieta</td>
-                    <td>21 abril</td>
-                    <td>C$ 52</td>
-                    <td class="action-cell">
-                      <button class="btn-icon" type="button" data-sale-id="sale-6" aria-label="Ver detalles de venta">
-                        <i class="fa-solid fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Roberto Mendieta</td>
-                    <td>21 abril</td>
-                    <td>C$ 53</td>
-                    <td class="action-cell">
-                      <button class="btn-icon" type="button" data-sale-id="sale-7" aria-label="Ver detalles de venta">
-                        <i class="fa-solid fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Roberto Mendieta</td>
-                    <td>21 abril</td>
-                    <td>C$ 55</td>
-                    <td class="action-cell">
-                      <button class="btn-icon" type="button" data-sale-id="sale-8" aria-label="Ver detalles de venta">
-                        <i class="fa-solid fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </article>
-
-          <article class="details-card">
-            <div class="card-header">
-              <div>
-                <h2 class="card-title">Detalles venta</h2>
-                <p class="card-subtitle" id="details-subtitle">Selecciona una venta para ver su detalle en córdobas</p>
-              </div>
-            </div>
-
-            <div class="table-wrapper">
-              <table class="details-table">
-                <thead>
-                  <tr>
-                    <th>Producto</th>
-                    <th>P.Unitario</th>
-                    <th>Cantidad</th>
-                    <th>SubTotal</th>
-                    <th>M.Pago</th>
-                    <th>Fecha</th>
-                  </tr>
-                </thead>
-                <tbody id="details-table-body">
-                  <tr>
-                    <td colspan="6" class="text-center">Seleccione una venta desde la lista para ver los detalles.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </article>
-        </section>
-      </main>
-
-      <div class="modal modal-hidden" id="sales-modal" aria-hidden="true" role="dialog" aria-modal="true">
-        <div class="modal-backdrop" data-close-modal></div>
-        <div class="modal-card">
-          <div class="modal-header">
-            <div>
-              <h2 class="modal-title">Nueva venta</h2>
-              <p class="modal-subtitle">Ingresa cliente, usuario y productos para facturar.</p>
-            </div>
-            <button class="modal-close-btn" type="button" data-close-modal aria-label="Cerrar modal">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-
-          <div class="modal-body">
-            <section class="sale-form-panel">
-              <div class="field-grid">
-                <div class="field-group">
-                  <label for="sale-client-name">Nombre del Cliente</label>
-                  <input id="sale-client-name" class="form-control" type="text" value="Cliente común" />
+        <section class="sale-history-section" aria-label="Historial de ventas">
+          <div class="sale-grid-layout">
+            <article class="sale-card" id="sales-list-card">
+              <div class="sale-card__header">
+                <div>
+                  <h2 class="sale-card__title">
+                    <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+                    Historial de Ventas
+                  </h2>
+                  <p class="sale-card__subtitle">
+                    Últimas transacciones registradas
+                  </p>
                 </div>
-                <div class="field-group">
-                  <label for="sale-user-name">Nombre del Usuario</label>
-                  <input id="sale-user-name" class="form-control" type="text" value="William Cortez" />
-                </div>
-                <div class="field-group">
-                  <label for="sale-date">Fecha</label>
-                  <input id="sale-date" class="form-control" type="date" value="2026-04-24" />
+                <div class="sale-card__search">
+                  <i
+                    class="fa-solid fa-magnifying-glass sale-card__search-icon"
+                    aria-hidden="true"
+                  ></i>
+                  <input
+                    type="text"
+                    id="sale-search-input"
+                    class="sale-card__search-input"
+                    placeholder="Buscar por cliente o factura..."
+                    autocomplete="off"
+                  />
                 </div>
               </div>
-
-              <div class="product-search-panel">
-                <h3 class="panel-title">Buscar productos</h3>
-                <div class="search-row">
-                  <div class="field-group field-full">
-                    <label for="sale-product-search">Escribe el nombre del producto</label>
-                    <input id="sale-product-search" class="form-control" type="text" value="2311321" />
-                  </div>
-                  <div class="field-group field-mini">
-                    <label for="sale-product-stock">Stock</label>
-                    <input id="sale-product-stock" class="form-control" type="number" value="20" />
-                  </div>
-                  <div class="field-group field-mini">
-                    <label for="sale-product-quantity">Cantidad</label>
-                    <input id="sale-product-quantity" class="form-control" type="number" value="1" />
-                  </div>
-                  <button class="btn btn-secondary btn-add-product" type="button">
-                    Agregar
-                  </button>
-                </div>
-              </div>
-
-              <div class="table-wrapper table-small-wrapper">
-                <table class="sales-table">
+              <div class="sale-table-wrapper">
+                <table class="sale-data-table" id="sales-history-table">
                   <thead>
                     <tr>
-                      <th>Nombre del producto</th>
-                      <th>Presentación</th>
-                      <th>Cantidad</th>
-                      <th>P.Unitario</th>
-                      <th>SubTotal</th>
-                      <th></th>
+                      <th>N°</th>
+                      <th>Usuario</th>
+                      <th>Cliente</th>
+                      <th>Fecha</th>
+                      <th>Total</th>
+                      <th>Estado</th>
+                      <th class="sale-col-actions">Acción</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="sales-table-body"></tbody>
+                </table>
+              </div>
+              <div
+                class="sale-error-state"
+                id="sales-error-state"
+                style="display: none"
+              >
+                <i
+                  class="fa-solid fa-circle-exclamation"
+                  aria-hidden="true"
+                ></i>
+                <p>No fue posible cargar las ventas.</p>
+                <button
+                  type="button"
+                  class="sale-btn sale-btn--outline"
+                  id="btn-retry-sales"
+                >
+                  <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+                  Reintentar
+                </button>
+              </div>
+            </article>
+
+            <article class="sale-card sale-detail-card" id="sale-detail-card">
+              <div class="sale-card__header">
+                <div>
+                  <h2 class="sale-card__title">
+                    <i class="fa-solid fa-file-invoice" aria-hidden="true"></i>
+                    Detalle de Venta
+                  </h2>
+                  <p class="sale-card__subtitle" id="detail-subtitle">
+                    Selecciona una venta para ver el detalle
+                  </p>
+                </div>
+              </div>
+              <div class="sale-table-wrapper">
+                <table class="sale-data-table sale-data-table--detail">
+                  <thead>
                     <tr>
-                      <td>Amoxicilina</td>
-                      <td>Caja</td>
-                      <td>2</td>
-                      <td>$ 30.00</td>
-                      <td>$ 60.00</td>
-                      <td class="action-cell">
-                        <button class="btn-icon btn-delete" type="button" aria-label="Eliminar producto">
-                          <i class="fa-solid fa-trash"></i>
-                        </button>
-                      </td>
+                      <th>Producto</th>
+                      <th>P. Unit.</th>
+                      <th>Cant.</th>
+                      <th>SubTotal</th>
                     </tr>
+                  </thead>
+                  <tbody id="detail-table-body">
                     <tr>
-                      <td>Ibuprofén</td>
-                      <td>Sobre</td>
-                      <td>1</td>
-                      <td>$ 20.00</td>
-                      <td>$ 20.00</td>
-                      <td class="action-cell">
-                        <button class="btn-icon btn-delete" type="button" aria-label="Eliminar producto">
-                          <i class="fa-solid fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Omeprazol</td>
-                      <td>Caja</td>
-                      <td>1</td>
-                      <td>$ 40.00</td>
-                      <td>$ 40.00</td>
-                      <td class="action-cell">
-                        <button class="btn-icon btn-delete" type="button" aria-label="Eliminar producto">
-                          <i class="fa-solid fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Acetaminofén</td>
-                      <td>Sobre</td>
-                      <td>1</td>
-                      <td>$ 10.00</td>
-                      <td>$ 10.00</td>
-                      <td class="action-cell">
-                        <button class="btn-icon btn-delete" type="button" aria-label="Eliminar producto">
-                          <i class="fa-solid fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Zepol</td>
-                      <td>Frasco</td>
-                      <td>1</td>
-                      <td>$ 100.00</td>
-                      <td>$ 100.00</td>
-                      <td class="action-cell">
-                        <button class="btn-icon btn-delete" type="button" aria-label="Eliminar producto">
-                          <i class="fa-solid fa-trash"></i>
-                        </button>
+                      <td colspan="4" class="sale-table__empty-state">
+                        <i
+                          class="fa-solid fa-file-invoice"
+                          aria-hidden="true"
+                        ></i>
+                        Seleccione una venta desde la lista.
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
+              <div
+                class="sale-detail-summary"
+                id="detail-summary"
+                style="display: none"
+              >
+                <div class="sale-detail-summary__row">
+                  <span>Subtotal:</span>
+                  <strong id="detail-subtotal">C$ 0.00</strong>
+                </div>
+                <div class="sale-detail-summary__row">
+                  <span>Descuento:</span>
+                  <strong id="detail-discount">C$ 0.00</strong>
+                </div>
+                <div
+                  class="sale-detail-summary__row sale-detail-summary__row--total"
+                >
+                  <span>Total:</span>
+                  <strong id="detail-total">C$ 0.00</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <div id="footer-target" class="footer" aria-label="Pie de página">
+        <div class="footer-placeholder skeleton-loader"></div>
+      </div>
+
+      <div
+        id="sale-modal"
+        class="sale-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="saleModalTitle"
+        aria-hidden="true"
+      >
+        <div class="sale-modal__backdrop" data-close-modal tabindex="-1"></div>
+        <div class="sale-modal__panel">
+          <div class="sale-modal__header">
+            <div>
+              <h2 id="saleModalTitle" class="sale-modal__title">
+                <i class="fa-solid fa-cart-plus" aria-hidden="true"></i>
+                Registrar Nueva Venta
+              </h2>
+              <p class="sale-modal__subtitle">
+                Ingresa los datos del cliente, gestiona los productos del
+                carrito y confirma la transacción.
+              </p>
+            </div>
+            <button
+              type="button"
+              class="sale-modal__close"
+              data-close-modal
+              aria-label="Cerrar modal"
+            >
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div class="sale-modal__body">
+            <section class="sale-form-panel">
+              <div class="sale-form__section">
+                <h3 class="sale-form__section-title">
+                  <i class="fa-solid fa-user" aria-hidden="true"></i>
+                  Datos del Cliente
+                </h3>
+                <div class="sale-form__row sale-form__row--2">
+                  <div class="sale-field">
+                    <label for="sale-client-name">Nombre del Cliente *</label>
+                    <input
+                      type="text"
+                      id="sale-client-name"
+                      class="sale-form-control"
+                      placeholder="Ej. Cliente común"
+                      value="Cliente común"
+                      required
+                      autocomplete="off"
+                    />
+                  </div>
+                  <div class="sale-field">
+                    <label for="sale-payment-method">Método de Pago *</label>
+                    <select
+                      id="sale-payment-method"
+                      class="sale-form-control"
+                      required
+                    >
+                      <option value="">Seleccione...</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sale-form__section">
+                <h3 class="sale-form__section-title">
+                  <i class="fa-solid fa-pills" aria-hidden="true"></i>
+                  Selección de Productos (Inventario Real)
+                </h3>
+                <div class="sale-form__row sale-form__row--product">
+                  <div class="sale-field sale-field--grow">
+                    <label for="sale-product-select">Producto</label>
+                    <select id="sale-product-select" class="sale-form-control">
+                      <option value="">Seleccione un producto...</option>
+                    </select>
+                  </div>
+                  <div class="sale-field sale-field--mini">
+                    <label for="sale-product-price">P. Venta</label>
+                    <input
+                      type="text"
+                      id="sale-product-price"
+                      class="sale-form-control"
+                      readonly
+                      placeholder="—"
+                    />
+                  </div>
+                  <div class="sale-field sale-field--mini">
+                    <label for="sale-product-stock">Stock</label>
+                    <input
+                      type="text"
+                      id="sale-product-stock"
+                      class="sale-form-control"
+                      readonly
+                      placeholder="—"
+                    />
+                  </div>
+                  <div class="sale-field sale-field--mini">
+                    <label for="sale-product-qty">Cantidad</label>
+                    <input
+                      type="number"
+                      id="sale-product-qty"
+                      class="sale-form-control"
+                      min="1"
+                      value="1"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    class="sale-btn sale-btn--success sale-btn--add-product"
+                    id="btn-add-to-cart"
+                  >
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                    Agregar
+                  </button>
+                </div>
+              </div>
+
+              <div class="sale-cart-wrapper">
+                <div class="sale-cart-header">
+                  <h3 class="sale-form__section-title">
+                    <i
+                      class="fa-solid fa-basket-shopping"
+                      aria-hidden="true"
+                    ></i>
+                    Detalle del Carrito Actual
+                    <span class="sale-cart-count" id="cart-count">0</span>
+                  </h3>
+                </div>
+                <div class="sale-table-wrapper">
+                  <table class="sale-data-table sale-data-table--cart">
+                    <thead>
+                      <tr>
+                        <th>Producto</th>
+                        <th>P. Unit.</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th style="width: 50px"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="cart-table-body">
+                      <tr>
+                        <td colspan="5" class="sale-table__empty-state">
+                          <i
+                            class="fa-solid fa-basket-shopping"
+                            aria-hidden="true"
+                          ></i>
+                          El carrito está vacío. Agrega productos para comenzar.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </section>
 
             <aside class="sale-summary-panel">
-              <div class="summary-card">
-                <h3>Resumen de Venta</h3>
-                <div class="summary-field">
-                  <label for="sale-discount">Descuento (%)</label>
-                  <input id="sale-discount" class="form-control" type="number" value="8" />
-                </div>
-                <button class="btn btn-secondary btn-apply-discount" type="button">
-                  Aplicar
-                </button>
+              <div class="sale-summary-card">
+                <h3 class="sale-summary-card__title">
+                  <i class="fa-solid fa-calculator" aria-hidden="true"></i>
+                  Resumen de Liquidación
+                </h3>
 
-                <div class="summary-field">
-                  <label for="sale-payment-method">Método de pago</label>
-                  <select id="sale-payment-method" class="form-control">
-                    <option>Depósito</option>
-                    <option>Efectivo</option>
-                    <option>Tarjeta</option>
-                  </select>
-                </div>
-
-                <div class="invoice-row">
-                  <span>SubTotal:</span>
-                  <strong>$ 230.00</strong>
-                </div>
-                <div class="invoice-row">
-                  <span>Descuento:</span>
-                  <strong>$ 18.40</strong>
-                </div>
-                <div class="invoice-row invoice-total">
-                  <span>Total:</span>
-                  <strong>$ 211.60</strong>
+                <div class="sale-summary-field">
+                  <label for="sale-discount-input">Descuento (%)</label>
+                  <div class="sale-summary-field__row">
+                    <input
+                      type="number"
+                      id="sale-discount-input"
+                      class="sale-form-control"
+                      min="0"
+                      max="100"
+                      value="0"
+                      step="1"
+                    />
+                    <button
+                      type="button"
+                      class="sale-btn sale-btn--outline sale-btn--sm"
+                      id="btn-apply-discount"
+                    >
+                      Aplicar
+                    </button>
+                  </div>
                 </div>
 
-                <button class="btn btn-success btn-complete-sale" type="button">
-                  Completar venta
-                </button>
-                <button class="btn btn-danger btn-cancel-sale" type="button" data-close-modal>
-                  Cancelar venta
-                </button>
+                <div class="sale-summary-divider"></div>
+
+                <div class="sale-summary-row">
+                  <span>Subtotal:</span>
+                  <strong id="cart-subtotal">C$ 0.00</strong>
+                </div>
+                <div class="sale-summary-row">
+                  <span>Descuento Aplicado:</span>
+                  <strong id="cart-discount-amount" class="sale-text--danger"
+                    >- C$ 0.00</strong
+                  >
+                </div>
+                <div class="sale-summary-row sale-summary-row--total">
+                  <span>Total Neto a Pagar:</span>
+                  <strong id="cart-total">C$ 0.00</strong>
+                </div>
+
+                <div class="sale-summary-actions">
+                  <button
+                    type="button"
+                    class="sale-btn sale-btn--success sale-btn--lg sale-btn--full"
+                    id="btn-complete-sale"
+                  >
+                    <i class="fa-solid fa-check" aria-hidden="true"></i>
+                    Completar Venta
+                  </button>
+                  <button
+                    type="button"
+                    class="sale-btn sale-btn--danger sale-btn--full"
+                    data-close-modal
+                  >
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    Cancelar Transacción
+                  </button>
+                </div>
               </div>
             </aside>
           </div>
         </div>
-      </div>
-
-      <div id="footer-target" aria-label="Pie de página">
-        <div class="footer-placeholder skeleton-loader"></div>
       </div>
     </div>
 
