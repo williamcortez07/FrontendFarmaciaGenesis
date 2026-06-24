@@ -22,8 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let lotesGlobales = [];
   let productosGlobales = [];
 
+  // --- VARIABLES AGREGADAS AQUÍ ---
+  let currentPage = 1;
+  let limit = 10; // Puedes cambiar este número según cuántos items quieras por página
+  let currentEstado = "";
+  let currentSearch = "";
+  // --------------------------------
+
   // URL base de la API
-  const API_URL = "https://localhost:7204/api/Inventory/inventary";
+  const API_URL = "https://localhost:7204/api/Inventory/dashboard";
 
   // 1. Construir URL con parámetros
   const buildUrl = () => {
@@ -129,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-
   btnFilter.addEventListener("click", () => {
     currentSearch = inputSearch.value.toLowerCase().trim();
 
@@ -142,7 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     cargarInventario();
   });
-  
 
   // Evento para abrir modal
   tablaPrincipal.addEventListener("click", (e) => {
@@ -157,7 +162,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const abrirModalLotes = (id, nombre) => {
     nombreProductoSpan.textContent = nombre;
     modal.style.display = "flex";
-
 
     const lotesDelProducto = lotesGlobales.filter(
       (lote) => lote.productId === id,
