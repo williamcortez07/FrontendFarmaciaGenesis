@@ -1,3 +1,8 @@
+import {
+  renderGlobalPagination,
+  updatePaginationInfo,
+} from "./utils/pagination.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("modalLotes");
   const btnClose = document.querySelector(".close-modal");
@@ -17,27 +22,66 @@ document.addEventListener("DOMContentLoaded", () => {
   let lotesGlobales = [];
   let productosGlobales = [];
 
-  // URL base de la API
+  // Variables de Paginación y Filtros
+  let currentPage = 1;
+  const limit = 10;
+  let currentEstado = "";
+  let currentSearch = "";
+
   const API_URL = "https://localhost:7204/api/Inventory/dashboard";
 
-  // 2. Función para cargar TODO el dashboard al iniciar
+  // 1. Construir URL con parámetros
+  const buildUrl = () => {
+    let url = `${API_URL}?page=${currentPage}&limit=${limit}`;
+
+    if (currentEstado) {
+      url += `&estado=${encodeURIComponent(currentEstado)}`;
+    }
+    // Si tu C# soporta la búsqueda por nombre, descomenta esta línea:
+    // if (currentSearch) url += `&searchTerm=${encodeURIComponent(currentSearch)}`;
+
+    return url;
+  };
+
+  // 2. Función principal para cargar el inventario
   const cargarInventario = async () => {
     try {
       tablaPrincipal.innerHTML =
         '<tr><td colspan="7" style="text-align:center;">Cargando inventario...</td></tr>';
 
-      const response = await fetch(API_URL);
+      const response = await fetch(buildUrl());
       if (!response.ok) throw new Error("Error al conectar con la API");
 
       const apiResponse = await response.json();
-      const dashboardData = apiResponse.data;
 
-      productosGlobales = dashboardData.items;
-      lotesGlobales = dashboardData.batches;
+      // Accedemos a la data y la metadata según tu estructura en C#
+      const dashboardData = apiResponse.data;
+      const meta = apiResponse.meta;
+
+      productosGlobales = dashboardData.items || [];
+      lotesGlobales = dashboardData.batches || [];
 
       actualizarEstadisticas(dashboardData.summary);
-
       renderizarTablaPrincipal(productosGlobales);
+
+      updatePaginationInfo(
+        meta.currentPage,
+        meta.itemsPerPage,
+        meta.totalItems,
+        "paginationInfo",
+        "productos"
+      );
+
+      renderGlobalPagination(
+        meta.totalPages,
+        meta.currentPage,
+        "paginationContainer",
+        (newPage) => {
+          currentPage = newPage;
+          cargarInventario();
+        }
+      );
+
     } catch (error) {
       console.error("Error al cargar el inventario:", error);
       tablaPrincipal.innerHTML =
@@ -46,11 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const actualizarEstadisticas = (summary) => {
+    if (!summary) return;
     statTotalProducts.textContent = summary.totalProductos;
     statLowStock.textContent = summary.stockBajo;
     statOutStock.textContent = summary.agotados;
 
-    // Formatear el valor del inventario con comas y 2 decimales
     const valorFormateado = summary.valorInventario.toLocaleString("es-NI", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
@@ -70,66 +114,55 @@ document.addEventListener("DOMContentLoaded", () => {
     items.forEach((item) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
-                <td>${item.productId}</td>
-                <td>${item.producto}</td>
-                <td>${item.categoria}</td>
-                <td>${item.existencia}</td>
-                <td>C$ ${item.precio.toFixed(2)}</td>
-                <td>
-                    <span class="badge ${obtenerClaseEstadoHTML(item.estado)}">
-                        ${item.estado}
-                    </span>
-                </td>
-                <td>
-                    <button class="action-btn btn-ver-lotes" data-id="${item.productId}" data-nombre="${item.producto}" title="Ver Lotes">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                </td>
-            `;
+        <td>${item.productId}</td>
+        <td>${item.producto}</td>
+        <td>${item.categoria}</td>
+        <td>${item.existencia}</td>
+        <td>C$ ${item.precio.toFixed(2)}</td>
+        <td>
+            <span class="badge ${obtenerClaseEstadoHTML(item.estado)}">
+                ${item.estado}
+            </span>
+        </td>
+        <td>
+            <button class="action-btn btn-ver-lotes" data-id="${item.productId}" data-nombre="${item.producto}" title="Ver Lotes">
+                <i class="fas fa-eye"></i>
+            </button>
+        </td>
+      `;
       tablaPrincipal.appendChild(tr);
     });
   };
 
-  // 5. Lógica de Filtros en Memoria
+
   btnFilter.addEventListener("click", () => {
-    const searchTerm = inputSearch.value.toLowerCase().trim();
-    const statusTerm = selectStatus.options[selectStatus.selectedIndex].text;
-    let filtrados = productosGlobales;
+    currentSearch = inputSearch.value.toLowerCase().trim();
 
-    // Filtrar por Nombre
-    if (searchTerm !== "") {
-      filtrados = filtrados.filter((p) =>
-        p.producto.toLowerCase().includes(searchTerm),
-      );
-    }
+    currentEstado = "";
+    if (selectStatus.value === "normal") currentEstado = "Normal";
+    if (selectStatus.value === "low") currentEstado = "Critico";
+    if (selectStatus.value === "out") currentEstado = "Agotado";
 
-    // Filtrar por Estado (Mapeando el valor del select de tu HTML al texto de la BD)
-    if (selectStatus.value !== "") {
-      let estadoBuscado = "";
-      if (selectStatus.value === "normal") estadoBuscado = "Normal";
-      if (selectStatus.value === "low") estadoBuscado = "Critico";
-      if (selectStatus.value === "out") estadoBuscado = "Agotado";
+    currentPage = 1;
 
-      filtrados = filtrados.filter((p) => p.estado === estadoBuscado);
-    }
-
-    renderizarTablaPrincipal(filtrados);
+    cargarInventario();
   });
+  
 
+  // Evento para abrir modal
   tablaPrincipal.addEventListener("click", (e) => {
     const btnVerLotes = e.target.closest(".btn-ver-lotes");
     if (btnVerLotes) {
       const productoId = parseInt(btnVerLotes.getAttribute("data-id"));
       const productoNombre = btnVerLotes.getAttribute("data-nombre");
-
       abrirModalLotes(productoId, productoNombre);
     }
   });
 
-  // 7. Abrir modal y filtrar lotes
   const abrirModalLotes = (id, nombre) => {
     nombreProductoSpan.textContent = nombre;
-    modal.style.display = "flex"; // Usando flex para mantener centrado si tu CSS lo usa
+    modal.style.display = "flex";
+
 
     const lotesDelProducto = lotesGlobales.filter(
       (lote) => lote.productId === id,
@@ -137,7 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderizarLotes(lotesDelProducto);
   };
 
-  // 8. Renderizar filas del modal
   const renderizarLotes = (listaLotes) => {
     tbodyLotes.innerHTML = "";
 
@@ -154,29 +186,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
-                <td><strong>${lote.numeroLote}</strong></td>
-                <td>${fechaVencimiento}</td>
-                <td>${lote.cantidadDisponible} uds.</td>
-                <td><span style="font-weight: 500;" class="${obtenerColorTextoLote(lote.estadoLote)}">${lote.estadoLote}</span></td>
-            `;
+        <td><strong>${lote.numeroLote}</strong></td>
+        <td>${fechaVencimiento}</td>
+        <td>${lote.cantidadDisponible} uds.</td>
+        <td><span style="font-weight: 500;" class="${obtenerColorTextoLote(lote.estadoLote)}">${lote.estadoLote}</span></td>
+      `;
       tbodyLotes.appendChild(tr);
     });
   };
 
-  // --- Utilidades para Mapear Clases CSS de tu HTML ---
   const obtenerClaseEstadoHTML = (estado) => {
     if (estado === "Normal") return "success";
     if (estado === "Critico") return "warning";
-    return "danger"; // Agotado
+    return "danger";
   };
 
   const obtenerColorTextoLote = (estado) => {
-    if (estado === "Vigente") return "text-success"; // Asegúrate de tener estas clases en utilities.css o aplicarle style directo
+    if (estado === "Vigente") return "text-success";
     if (estado === "Por vencer") return "text-warning";
-    return "text-danger"; // Vencido o Agotado
+    return "text-danger";
   };
 
-  // --- Eventos para cerrar el modal ---
+  const exportarExcel = () => {
+    if (!productosGlobales || productosGlobales.length === 0) {
+      alert("No hay datos para exportar.");
+      return;
+    }
+
+    const datos = productosGlobales.map((item) => ({
+      ID: item.productId,
+      Producto: item.producto,
+      Categoría: item.categoria,
+      Existencia: item.existencia,
+      Precio: item.precio.toFixed(2),
+      Estado: item.estado,
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(datos);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Inventario");
+    XLSX.writeFile(wb, "inventario.xlsx");
+  };
+
+  const btnExportExcel = document.getElementById("btnExportExcel");
+  if (btnExportExcel) btnExportExcel.addEventListener("click", exportarExcel);
+
   btnClose.addEventListener("click", () => {
     modal.style.display = "none";
   });
@@ -187,6 +241,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Iniciar carga
+  // Iniciar carga en la página 1 al cargar el DOM
   cargarInventario();
 });
