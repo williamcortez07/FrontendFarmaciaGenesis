@@ -19,10 +19,21 @@
   </div>
 
   <div class="user-actions">
-    <button class="icon-btn" title="Notificaciones">
-      <i class="fa-regular fa-bell"></i>
-      <span class="notification-badge"></span>
-    </button>
+    <div class="notification-wrapper">
+      <button class="icon-btn" id="btnNotificaciones" title="Notificaciones">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notification-badge" id="alertsCount">0</span> 
+      </button>
+
+      <div class="alerts-dropdown" id="alertsDropdown">
+        <div class="alerts-header" style="padding: 15px; border-bottom: 1px solid #eee; background: #f8f9fa; border-radius: 8px 8px 0 0;">
+          <h3 style="margin: 0; font-size: 0.95rem; font-weight: 600; color: #333;">Alertas de Inventario</h3>
+        </div>
+        
+        <div class="alerts-list" id="homeAlertasList" style="max-height: 350px; overflow-y: auto;">
+          </div>
+      </div>
+    </div>
     <div class="topbar-divider"></div>
     <div class="topbar-user-mini">
       <span class="user-name-mini"></span>

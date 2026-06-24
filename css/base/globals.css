@@ -145,7 +145,7 @@ button {
     "sidebar header"
     "sidebar main"
     "sidebar footer";
-  grid-template-columns: minmax(0, var(--sidebar-width)) 1fr;
+  grid-template-columns: var(--sidebar-width) 1fr;
   grid-template-rows: var(--header-height) 1fr auto;
   min-height: 100vh;
   transition: grid-template-columns var(--trans-base);
