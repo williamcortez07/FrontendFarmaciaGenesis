@@ -22,13 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let lotesGlobales = [];
   let productosGlobales = [];
 
-  // Variables de Paginación y Filtros
-  let currentPage = 1;
-  const limit = 10;
-  let currentEstado = "";
-  let currentSearch = "";
-
-  const API_URL = "https://localhost:7204/api/Inventory/dashboard";
+  // URL base de la API
+  const API_URL = "https://localhost:7204/api/Inventory/inventary";
 
   // 1. Construir URL con parámetros
   const buildUrl = () => {
